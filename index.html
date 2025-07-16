@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #0f0f0f;
+      background: #0e0e0e;
       color: white;
       text-align: center;
       padding: 20px;
@@ -17,11 +17,11 @@
       color: #00ffcc;
     }
 
-    input {
+    input, select {
       padding: 12px;
       width: 80%;
       max-width: 400px;
-      margin-top: 20px;
+      margin-top: 15px;
       border-radius: 6px;
       border: none;
       font-size: 16px;
@@ -96,6 +96,20 @@
 
   <input type="text" id="prompt" placeholder="Enter image prompt..." />
   <br>
+
+  <select id="style">
+    <option value="anime">Anime</option>
+    <option value="realistic">Realistic</option>
+    <option value="cartoon">Cartoon</option>
+    <option value="cyberpunk">Cyberpunk</option>
+    <option value="oil">Oil Painting</option>
+    <option value="pixel">Pixel Art</option>
+    <option value="sketch">Sketch</option>
+    <option value="3d">3D Render</option>
+    <option value="fantasy">Fantasy</option>
+  </select>
+  <br>
+
   <button onclick="generate()">Generate Image</button>
 
   <div>
@@ -107,6 +121,7 @@
   <script>
     function generate() {
       const prompt = document.getElementById("prompt").value.trim();
+      const style = document.getElementById("style").value;
       const image = document.getElementById("outputImage");
 
       if (!prompt) {
@@ -114,7 +129,7 @@
         return;
       }
 
-      const url = `https://text2img.hideme.eu.org/image?style=all&text=${encodeURIComponent(prompt)}`;
+      const url = `https://text2img.hideme.eu.org/image?prompt=${encodeURIComponent(prompt)}&model=flux&style=${style}`;
       image.src = url;
     }
   </script>
