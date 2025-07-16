@@ -1,199 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Advanced AI Image Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: #0e0e0e;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    header {
-      padding: 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2em;
-      color: #00ffcc;
-    }
-
-    header p {
-      margin-top: 10px;
-      color: #aaa;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 600px;
-      text-align: center;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px;
-      margin: 12px 0;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    button {
-      background-color: #00ffcc;
-      color: black;
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #00ddaa;
-    }
-
-    #outputImage {
-      margin-top: 25px;
-      max-width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #00ffcc;
-    }
-
-    .info-box {
-      background: #1a1a1a;
-      border-left: 4px solid #00ffcc;
-      padding: 15px;
-      margin-top: 20px;
-      text-align: left;
-      border-radius: 8px;
-      font-size: 14px;
-      color: #ddd;
-    }
-
-    .whatsapp-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25D366;
-      color: white;
-      padding: 12px 16px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 15px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    .whatsapp-button:hover {
-      background: #1ebe5d;
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 13px;
-      color: #555;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <div class="background">
+        <div class="bubbles">
+            <span style="--i:11;"></span><span style="--i:12;"></span><span style="--i:24;"></span>
+            <span style="--i:10;"></span><span style="--i:14;"></span><span style="--i:23;"></span>
+            <span style="--i:18;"></span><span style="--i:16;"></span><span style="--i:19;"></span>
+            <span style="--i:20;"></span><span style="--i:22;"></span><span style="--i:25;"></span>
+            <span style="--i:18;"></span><span style="--i:21;"></span><span style="--i:15;"></span>
+            <span style="--i:13;"></span><span style="--i:26;"></span><span style="--i:17;"></span>
+            <span style="--i:13;"></span><span style="--i:28;"></span>
+        </div>
+    </div>
 
-  <header>
-    <h1>🧠 Advanced AI Image Generator</h1>
-    <p>Turn text into art with stunning styles & pro models</p>
-  </header>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">MINE PORTFOLIO</a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
 
-  <div class="container">
-    <input type="text" id="prompt" placeholder="Describe your image idea..." />
+        <section id="home">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>HI, I'M <span>AWAIS XD</span></h1>
+                    <p>I'm a passionate web developer with expertise in front-end technologies. I create beautiful, functional websites that deliver exceptional user experiences.</p>
+                    <a href="#projects" class="btn">View My Work</a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://github.com/Awais-star-a11y/TESTING-REPO/raw/refs/heads/main/IMG-20250322-WA0033.jpg" alt="Profile Image">
+                </div>
+            </div>
+        </section>
 
-    <select id="model">
-      <option value="flux">Model: Flux ⚡ (fast)</option>
-      <option value="sdxl">Model: SDXL 🔍 (high quality)</option>
-    </select>
+        <section id="projects">
+            <h2 class="section-title">MY <span>PROJECT</span></h2>
+            <div class="projects">
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://github.com/Awais-star-a11y/TESTING-REPO/raw/refs/heads/main/20250424_230233.jpg" alt="PROJECT 1">
+                    </div>
+                    <div class="project-info">
+                        <h3>GET SESSION ID FROM HERE</h3>
+                        <a href="https://awais-md-pair.onrender.com" class="btn" target="_blank">GET SESSION</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://github.com/Awais-star-a11y/TESTING-REPO/raw/refs/heads/main/IMG-20250409-WA0093.jpg" alt="PROJECT 2">
+                    </div>
+                    <div class="project-info">
+                        <h3>AWAIS-MD-V3</h3>
+                        <p>WORLD BEST BOT CREATED BY AWAISXD.</p>
+                        <a href="https://github.com/Awais-star-a11y/AWAIS-MD-V3" class="btn" target="_blank">VIEW PROJECT</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <select id="style">
-      <option value="anime">Anime</option>
-      <option value="realistic">Realistic</option>
-      <option value="cartoon">Cartoon</option>
-      <option value="cyberpunk">Cyberpunk</option>
-      <option value="oil">Oil Painting</option>
-      <option value="pixel_art">Pixel Art</option>
-      <option value="manga">Manga</option>
-      <option value="watercolor">Watercolor</option>
-      <option value="sticker">Sticker</option>
-      <option value="fantasy">Fantasy</option>
-      <option value="sketch">Sketch</option>
-      <option value="3d">3D Render</option>
-      <option value="pointillism">Pointillism</option>
-      <option value="vector">Vector Art</option>
-      <option value="photo">Photoreal</option>
-      <option value="dream">Dream</option>
-    </select>
+        <section id="skills">
+            <h2 class="section-title">My <span>Skills</span></h2>
+            <div class="skills">
+                <div class="skill"><i class="fab fa-html5"></i><span>HTML5</span></div>
+                <div class="skill"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+                <div class="skill"><i class="fab fa-js"></i><span>JavaScript</span></div>
+                <div class="skill"><i class="fab fa-react"></i><span>React</span></div>
+                <div class="skill"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+                <div class="skill"><i class="fab fa-git-alt"></i><span>Git</span></div>
+                <div class="skill"><i class="fab fa-sass"></i><span>SASS</span></div>
+                <div class="skill"><i class="fas fa-database"></i><span>MongoDB</span></div>
+            </div>
+        </section>
 
-    <button onclick="generate()">🎨 Generate Image</button>
+        <section id="testimonials">
+            <h2 class="section-title">What <span>People Say</span></h2>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <p>"AwaisXD is a phenomenal developer. His bots are powerful and the UI is next-level!"</p>
+                    <h4>- Tech Guru</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"Fast delivery, clean code, and very cooperative. Highly recommended for any web dev task."</p>
+                    <h4>- Project Client</h4>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The portfolio itself speaks volumes of his skills. Modern, smooth, and interactive!"</p>
+                    <h4>- UI Designer</h4>
+                </div>
+            </div>
+        </section>
 
-    <div>
-      <img id="outputImage" src="" alt="" />
-    </div>
-
-    <div class="info-box">
-      <strong>🔗 API:</strong><br>
-      <code>https://text2img.hideme.eu.org/image?prompt=YOUR_PROMPT&model=flux&style=STYLE_NAME</code><br><br>
-
-      <strong>Models:</strong> <span style="color:#0f0">flux</span>, <span style="color:#0f0">sdxl</span><br>
-      <strong>24+ Styles:</strong> anime, pixel_art, cartoon, oil, sketch, etc.<br>
-      <strong>✅ No API key • ✅ Fast • ✅ Free</strong><br><br>
-
-      <a style="color:#00ffcc;" href="https://text2img.hideme.eu.org/image?style=all" target="_blank">🌐 View All Styles</a>
-    </div>
-
-    <footer>
-      Made with ❤️ by Wasi AI | Powered by hideme API
-    </footer>
-  </div>
-
-  <a class="whatsapp-button" href="https://wa.me/923175768178" target="_blank">WhatsApp</a>
-
-  <script>
-    async function generate() {
-      const prompt = document.getElementById("prompt").value.trim();
-      const model = document.getElementById("model").value;
-      const style = document.getElementById("style").value;
-      const image = document.getElementById("outputImage");
-
-      if (!prompt) {
-        alert("Please enter a prompt.");
-        return;
-      }
-
-      image.src = ""; // clear before loading
-
-      try {
-        const res = await fetch(`https://text2img.hideme.eu.org/image?prompt=${encodeURIComponent(prompt)}&model=${model}&style=${style}`);
-        const data = await res.json();
-
-        if (data && data.url) {
-          image.src = data.url;
-        } else {
-          image.alt = "Failed to generate image.";
-        }
-      } catch (err) {
-        console.error(err);
-        image.alt = "API Error";
-      }
-    }
-  </script>
-
+        <footer id="contact">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; 2023 AWAISXD PORTFOLIO.</p>
+        </footer>
+    </div>
 </body>
 </html>
