@@ -89,7 +89,6 @@
 
   <h1>WASI AI Image Generator</h1>
 
-  <!-- Replace the image link below -->
   <div class="corner-pic">
     <img src="YOUR_IMAGE_LINK_HERE" alt="Wasi AI">
   </div>
@@ -119,7 +118,7 @@
   <a class="whatsapp-button" href="https://wa.me/923175768178" target="_blank">WhatsApp</a>
 
   <script>
-    function generate() {
+    async function generate() {
       const prompt = document.getElementById("prompt").value.trim();
       const style = document.getElementById("style").value;
       const image = document.getElementById("outputImage");
@@ -129,8 +128,21 @@
         return;
       }
 
-      const url = `https://text2img.hideme.eu.org/image?prompt=${encodeURIComponent(prompt)}&model=flux&style=${style}`;
-      image.src = url;
+      image.src = ""; // clear previous
+
+      try {
+        const res = await fetch(`https://text2img.hideme.eu.org/image?prompt=${encodeURIComponent(prompt)}&model=flux&style=${style}`);
+        const data = await res.json();
+
+        if (data && data.url) {
+          image.src = data.url;
+        } else {
+          image.alt = "Failed to generate image.";
+        }
+      } catch (err) {
+        console.error(err);
+        image.alt = "Error connecting to API.";
+      }
     }
   </script>
 
