@@ -23,10 +23,16 @@
     }
 
     .container {
-      padding: 60px 20px 30px;
+      padding: 60px 20px 80px; /* fixed padding bottom */
       max-width: 800px;
       margin: auto;
       text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding-bottom: 120px;
+      }
     }
 
     h1 {
@@ -95,6 +101,7 @@
       display: flex;
       justify-content: center;
       gap: 25px;
+      flex-wrap: wrap;
     }
 
     .socials a {
@@ -148,7 +155,7 @@
       100% { transform: translateY(0) rotate(360deg); }
     }
 
-    /* Dark/Light toggle */
+    /* Toggle mode button */
     .toggle-btn {
       position: fixed;
       top: 20px;
@@ -163,6 +170,7 @@
       z-index: 99;
     }
 
+    /* Light Mode */
     .light-mode {
       background: #f1f1f1;
       color: #111;
@@ -185,6 +193,7 @@
       box-shadow: none;
     }
   </style>
+
   <script>
     function toggleMode() {
       document.body.classList.toggle('light-mode');
@@ -192,6 +201,7 @@
   </script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
   <button class="toggle-btn" onclick="toggleMode()">🌓 Toggle Mode</button>
@@ -207,7 +217,7 @@
     <h1>AWAISXWASI PORTFOLIO</h1>
 
     <div class="profile-img">
-      <img src="https://i.postimg.cc/MKFfyx1f/20250717-104749.jpg" alt="Profile">
+      <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Profile">
     </div>
 
     <div class="section-title">EXPERIENCE</div>
