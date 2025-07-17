@@ -1,67 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Color Fix Test</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AWAIS XD</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-    }
-
-    img {
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 5px solid #00c3ff;
-      box-shadow: 0 0 20px #00c3ff;
-      object-fit: cover;
-      margin-bottom: 20px;
+      min-height: 100vh;
+      text-align: center;
     }
 
     h1 {
-      font-size: 32px;
+      margin-top: 20px;
+      font-size: 36px;
       color: #00c3ff;
+    }
+
+    .profile-container {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-image {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 6px solid #00c3ff;
+      box-shadow: 0 0 20px #00c3ff;
+      object-fit: cover;
     }
 
     p {
       max-width: 500px;
-      text-align: center;
+      padding: 0 20px;
+      margin: 20px auto;
+      font-size: 18px;
       opacity: 0.9;
-      margin-bottom: 20px;
     }
 
-    a {
+    a.button {
       display: inline-block;
-      padding: 10px 25px;
-      background: #00c3ff;
+      padding: 12px 30px;
+      background-color: #00c3ff;
       color: #000;
+      border-radius: 30px;
       text-decoration: none;
-      border-radius: 25px;
+      font-weight: bold;
       transition: 0.3s;
     }
 
-    a:hover {
-      background: #ff2d75;
-      color: white;
+    a.button:hover {
+      background-color: #ff2d75;
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
-  <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Profile">
-  <h1>Hi, I'm AWAIS XD</h1>
-  <p>I’m a web developer creating amazing UI experiences with style and precision.</p>
-  <a href="#">Visit Panel</a>
+  <h1>AWAIS XD</h1>
+
+  <div class="profile-container">
+    <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Profile Picture" class="profile-image">
+  </div>
+
+  <p>I’m a creative web developer and UI designer. I make modern designs with smooth effects and responsive layouts.</p>
+
+  <a href="#" class="button">Visit Panel</a>
 
 </body>
 </html>
