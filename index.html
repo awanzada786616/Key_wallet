@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AWAISXWASI PORTFOLIO</title>
 
-  <!-- ✅ Font Awesome Icons (New Working Link) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-MP/0F/NbpJ8z+6VzT0FXVCEQoPWWuEYw3R9LBM5Vm4H5+aPov1z7h2CwXwjmDeQNzxd0bzj8L1uY90U37S15vw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- ✅ Fonts and Styles -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
@@ -122,11 +118,17 @@
       font-size: 22px;
       text-decoration: none;
       box-shadow: 0 0 10px #00ccff;
+      overflow: hidden;
+    }
+
+    .socials a img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
     }
 
     .socials a:hover {
       background: #ffcc00;
-      color: black;
     }
 
     /* Moving balls */
@@ -160,7 +162,6 @@
       100% { transform: translateY(0) rotate(360deg); }
     }
 
-    /* Toggle mode button */
     .toggle-btn {
       position: fixed;
       top: 20px;
@@ -175,7 +176,6 @@
       z-index: 99;
     }
 
-    /* Light Mode */
     .light-mode {
       background: #f1f1f1;
       color: #111;
@@ -240,10 +240,18 @@
     </div>
 
     <div class="socials">
-      <a href="https://wa.me/923000000000" target="_blank"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://wa.me/923000000000" target="_blank">
+        <img src="https://i.postimg.cc/4dpBL7Cn/images-1-19.jpg" alt="WhatsApp">
+      </a>
+      <a href="https://facebook.com" target="_blank">
+        <img src="https://i.postimg.cc/8PZw0gYd/Facebook-icon-black-svg.png" alt="Facebook">
+      </a>
+      <a href="https://instagram.com" target="_blank">
+        <img src="https://i.postimg.cc/3wvBN4x9/images-1-20.jpg" alt="Instagram">
+      </a>
+      <a href="https://youtube.com" target="_blank">
+        <img src="https://i.postimg.cc/c4kMcMKX/images-25.png" alt="YouTube">
+      </a>
     </div>
   </div>
 </body>
