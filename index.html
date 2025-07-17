@@ -7,21 +7,58 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     :root {
       --bg-color: #0d0d0d;
       --text-color: #fff;
       --highlight: #00bfff;
-      --shadow: rgba(0, 191, 255, 0.5);
+      --shadow: rgba(0, 191, 255, 0.4);
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg-color);
+      background-color: var(--bg-color);
       color: var(--text-color);
       font-family: 'Orbitron', sans-serif;
       text-align: center;
       padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    /* MOVING BLUE BALLS */
+    .balls {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .balls span {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: var(--highlight);
+      border-radius: 50%;
+      opacity: 0.2;
+      animation: float 20s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0.2;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0.6;
+      }
     }
 
     h1 {
@@ -116,6 +153,31 @@
   <script src="https://kit.fontawesome.com/1f457dcffd.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+  <!-- Floating Blue Balls -->
+  <div class="balls">
+    <!-- 20 Blue Balls -->
+    <span style="left: 10%; animation-delay: 0s;"></span>
+    <span style="left: 20%; animation-delay: 3s;"></span>
+    <span style="left: 30%; animation-delay: 1s;"></span>
+    <span style="left: 40%; animation-delay: 5s;"></span>
+    <span style="left: 50%; animation-delay: 2s;"></span>
+    <span style="left: 60%; animation-delay: 4s;"></span>
+    <span style="left: 70%; animation-delay: 6s;"></span>
+    <span style="left: 80%; animation-delay: 1.5s;"></span>
+    <span style="left: 90%; animation-delay: 2.5s;"></span>
+    <span style="left: 25%; animation-delay: 3.5s;"></span>
+    <span style="left: 15%; animation-delay: 6.5s;"></span>
+    <span style="left: 35%; animation-delay: 7s;"></span>
+    <span style="left: 45%; animation-delay: 1.2s;"></span>
+    <span style="left: 55%; animation-delay: 3.2s;"></span>
+    <span style="left: 65%; animation-delay: 4.4s;"></span>
+    <span style="left: 75%; animation-delay: 5.6s;"></span>
+    <span style="left: 85%; animation-delay: 2.3s;"></span>
+    <span style="left: 95%; animation-delay: 4.7s;"></span>
+    <span style="left: 5%; animation-delay: 0.7s;"></span>
+    <span style="left: 12%; animation-delay: 1.1s;"></span>
+  </div>
 
   <!-- Top Heading -->
   <h1>AWAISXWASI PORTFOLIO</h1>
