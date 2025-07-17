@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AWAIS XD</title>
+  <title>Awais Portfolio</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
     * {
       margin: 0;
       padding: 0;
@@ -12,87 +14,209 @@
     }
 
     body {
-      background-color: #0e0e0e;
+      font-family: 'Orbitron', sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .light-mode {
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+      color: #111;
+    }
+
+    .dark-mode {
+      background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
       color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
+    }
+
+    .glass-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 420px;
       text-align: center;
+      margin: 60px auto 20px;
     }
 
-    .profile-wrapper {
-      width: 220px;
-      height: 220px;
+    .profile-img {
+      width: 150px;
+      height: 150px;
       border-radius: 50%;
-      border: 5px solid #00aaff;
-      box-shadow: 0 0 25px rgba(0, 170, 255, 0.6);
       overflow: hidden;
-      margin-bottom: 25px;
+      border: 4px solid #00ccff;
+      box-shadow: 0 0 20px #00ccff;
+      margin: 0 auto 20px;
     }
 
-    .profile-wrapper img {
+    .profile-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
     }
 
     h1 {
       font-size: 28px;
       margin-bottom: 10px;
-      color: #00aaff;
-      text-shadow: 0 0 5px #00aaff;
+      color: #00ccff;
+      text-shadow: 0 0 6px #00ccff;
     }
 
     p {
-      font-size: 16px;
-      color: #cccccc;
-      max-width: 400px;
-      margin-bottom: 25px;
+      font-size: 15px;
+      color: inherit;
       line-height: 1.5;
+      margin-bottom: 25px;
     }
 
-    .button {
+    .btn {
       display: inline-block;
       padding: 12px 28px;
+      background: #00ccff;
+      color: #000;
       border-radius: 30px;
-      background: #00aaff;
-      color: black;
       font-weight: bold;
       text-decoration: none;
-      transition: 0.3s ease;
+      transition: 0.3s ease-in-out;
+      margin-bottom: 20px;
     }
 
-    .button:hover {
-      background: #ffaa00;
-      color: black;
+    .btn:hover {
+      background: #ffcc00;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #222;
+      border-radius: 50%;
+      color: #00ccff;
+      text-decoration: none;
+      font-size: 18px;
+      border: 1px solid #00ccff;
+      transition: 0.3s;
+    }
+
+    .social-links a:hover {
+      background: #00ccff;
+      color: #000;
+      transform: scale(1.1);
     }
 
     footer {
       margin-top: 40px;
-      font-size: 13px;
-      color: #666;
+      font-size: 12px;
+      color: inherit;
+      text-align: center;
+    }
+
+    /* Toggle Switch */
+    .toggle-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 30px;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: #00ccff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
     }
   </style>
+  <script src="https://kit.fontawesome.com/1f457dcffd.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="dark-mode">
 
-  <div class="profile-wrapper">
-    <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Awais">
+  <!-- Toggle Dark/Light -->
+  <div class="toggle-container">
+    <label class="toggle-switch">
+      <input type="checkbox" id="modeToggle">
+      <span class="slider"></span>
+    </label>
   </div>
 
-  <h1>AWAIS XD</h1>
-  <p>I'm a creative designer & developer. I make powerful web experiences with style, speed & shine. Scroll down or click below to see my dashboard or tools.</p>
+  <div class="glass-box">
+    <div class="profile-img">
+      <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Awais">
+    </div>
+    <h1>AWAIS X</h1>
+    <p>I build powerful modern websites and tools. I'm not a beginner — I build experiences that work, shine, and scale. Let's go!</p>
+    <a href="#" class="btn">🔥 Enter Dashboard</a>
 
-  <a class="button" href="#">🚀 Go to Dashboard</a>
+    <div class="social-links">
+      <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://wa.me/923001234567" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
 
   <footer>
-    <p>&copy; 2025 Wasi Tools. All rights reserved.</p>
+    <p>© 2025 Awais Tools. Crafted with 💙 from Pakistan</p>
   </footer>
+
+  <script>
+    const toggle = document.getElementById('modeToggle');
+    const body = document.body;
+
+    toggle.addEventListener('change', () => {
+      body.classList.toggle('dark-mode');
+      body.classList.toggle('light-mode');
+    });
+  </script>
 
 </body>
 </html>
