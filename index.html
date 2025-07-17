@@ -7,6 +7,24 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+      --card-color: rgba(255, 255, 255, 0.05);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --highlight: #00ccff;
+      --shadow-color: rgba(0, 0, 0, 0.5);
+    }
+
+    body.light {
+      --bg-color: #f3f3f3;
+      --text-color: #111;
+      --card-color: #ffffffee;
+      --border-color: #dddddd;
+      --highlight: #0077ff;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -15,29 +33,27 @@
 
     body {
       font-family: 'Orbitron', sans-serif;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .light-mode {
-      background: linear-gradient(145deg, #ffffff, #f0f0f0);
-      color: #111;
-    }
-
-    .dark-mode {
-      background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
-      color: #ffffff;
+      background: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 30px 20px;
+      transition: all 0.3s ease-in-out;
     }
 
     .glass-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 8px 32px var(--shadow-color);
       backdrop-filter: blur(10px);
       border-radius: 20px;
       padding: 40px 30px;
       max-width: 420px;
       text-align: center;
-      margin: 60px auto 20px;
+      transition: all 0.3s ease-in-out;
     }
 
     .profile-img {
@@ -45,8 +61,8 @@
       height: 150px;
       border-radius: 50%;
       overflow: hidden;
-      border: 4px solid #00ccff;
-      box-shadow: 0 0 20px #00ccff;
+      border: 4px solid var(--highlight);
+      box-shadow: 0 0 20px var(--highlight);
       margin: 0 auto 20px;
     }
 
@@ -59,8 +75,8 @@
     h1 {
       font-size: 28px;
       margin-bottom: 10px;
-      color: #00ccff;
-      text-shadow: 0 0 6px #00ccff;
+      color: var(--highlight);
+      text-shadow: 0 0 6px var(--highlight);
     }
 
     p {
@@ -73,7 +89,7 @@
     .btn {
       display: inline-block;
       padding: 12px 28px;
-      background: #00ccff;
+      background: var(--highlight);
       color: #000;
       border-radius: 30px;
       font-weight: bold;
@@ -92,100 +108,59 @@
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .social-links a {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #222;
+      background: var(--bg-color);
+      border: 2px solid var(--highlight);
       border-radius: 50%;
-      color: #00ccff;
-      text-decoration: none;
+      color: var(--highlight);
       font-size: 18px;
-      border: 1px solid #00ccff;
       transition: 0.3s;
     }
 
     .social-links a:hover {
-      background: #00ccff;
+      background: var(--highlight);
       color: #000;
       transform: scale(1.1);
     }
 
     footer {
-      margin-top: 40px;
+      margin-top: 30px;
       font-size: 12px;
-      color: inherit;
+      color: var(--text-color);
       text-align: center;
     }
 
-    /* Toggle Switch */
-    .toggle-container {
-      position: absolute;
+    .toggle-mode {
+      position: fixed;
       top: 20px;
       right: 20px;
-    }
-
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 26px;
-    }
-
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
+      background: var(--highlight);
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
       cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      border-radius: 30px;
-      transition: 0.4s;
+      box-shadow: 0 0 10px var(--highlight);
+      z-index: 100;
     }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      border-radius: 50%;
-      transition: 0.4s;
-    }
-
-    input:checked + .slider {
-      background-color: #00ccff;
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(24px);
-    }
   </style>
+  <!-- FontAwesome for Icons -->
   <script src="https://kit.fontawesome.com/1f457dcffd.js" crossorigin="anonymous"></script>
 </head>
-<body class="dark-mode">
+<body>
 
-  <!-- Toggle Dark/Light -->
-  <div class="toggle-container">
-    <label class="toggle-switch">
-      <input type="checkbox" id="modeToggle">
-      <span class="slider"></span>
-    </label>
-  </div>
+  <!-- Mode Toggle Button -->
+  <div class="toggle-mode" onclick="toggleMode()">Toggle Theme</div>
 
   <div class="glass-box">
     <div class="profile-img">
@@ -195,6 +170,7 @@
     <p>I build powerful modern websites and tools. I'm not a beginner — I build experiences that work, shine, and scale. Let's go!</p>
     <a href="#" class="btn">🔥 Enter Dashboard</a>
 
+    <!-- Social Media Buttons -->
     <div class="social-links">
       <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
       <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -209,13 +185,9 @@
   </footer>
 
   <script>
-    const toggle = document.getElementById('modeToggle');
-    const body = document.body;
-
-    toggle.addEventListener('change', () => {
-      body.classList.toggle('dark-mode');
-      body.classList.toggle('light-mode');
-    });
+    function toggleMode() {
+      document.body.classList.toggle("light");
+    }
   </script>
 
 </body>
