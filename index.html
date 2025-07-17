@@ -3,75 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <title>AWAIS XD | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
-    body {color: white; background: linear-gradient(135deg, #1a1a2e, #16213e); min-height: 100vh;}
-    .container {max-width: 1200px; margin: 0 auto; padding: 40px 20px; backdrop-filter: blur(5px);}
-    header {display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 60px;}
-    .logo {font-size: 28px; font-weight: 700; color: white; text-decoration: none;}
-    nav ul {display: flex; list-style: none;}
-    nav ul li {margin-left: 30px;}
-    nav ul li a {color: white; text-decoration: none; font-weight: 500; transition: 0.3s;}
-    nav ul li a:hover {color: #4fc3dc;}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #00c3ff;
+      text-decoration: none;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 30px;
+    }
+
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #00c3ff;
+    }
 
     .hero {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-bottom: 100px;
-    }
-
-    .hero-image {
-      margin-bottom: 30px;
+      padding: 60px 20px;
     }
 
     .hero-image img {
-      width: 220px;
-      height: 220px;
+      width: 200px;
+      height: 200px;
       border-radius: 50%;
-      border: 5px solid #4fc3dc;
-      box-shadow: 0 0 30px #4fc3dc;
+      border: 5px solid #00c3ff;
+      box-shadow: 0 0 20px #00c3ff;
       object-fit: cover;
+      margin-bottom: 30px;
     }
 
-    .hero-text h1 {font-size: 48px; margin-bottom: 20px;}
-    .hero-text h1 span {color: #4fc3dc;}
+    .hero-text h1 {
+      font-size: 42px;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      color: #00c3ff;
+    }
+
     .hero-text p {
       font-size: 18px;
-      margin-bottom: 30px;
-      line-height: 1.6;
-      max-width: 600px;
-      opacity: 0.9;
-      margin-left: auto;
-      margin-right: auto;
+      max-width: 700px;
+      margin: 0 auto 30px auto;
+      opacity: 0.85;
     }
 
     .btn {
       display: inline-block;
-      padding: 12px 30px;
-      background: #4fc3dc;
-      color: #16213e;
+      padding: 12px 28px;
+      background: #00c3ff;
+      color: #0f2027;
+      font-weight: 600;
       border-radius: 30px;
       text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
       margin: 5px;
+      transition: 0.3s;
     }
 
     .btn:hover {
       background: #ff2d75;
       color: white;
-      transform: translateY(-3px);
+      transform: scale(1.05);
     }
 
     footer {
       text-align: center;
-      padding: 30px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 0 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 50px;
     }
 
     .social-links {
@@ -84,24 +130,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.1);
+      width: 45px;
+      height: 45px;
+      background: rgba(255,255,255,0.1);
+      color: white;
       border-radius: 50%;
       margin: 0 10px;
-      color: white;
-      text-decoration: none;
+      font-size: 18px;
       transition: 0.3s;
     }
 
     .social-links a:hover {
-      background: #4fc3dc;
-      transform: translateY(-5px);
+      background: #00c3ff;
+      color: #0f2027;
+      transform: scale(1.1);
     }
 
     @media (max-width: 768px) {
-      nav ul {display: none;}
-      .hero-text h1 {font-size: 36px;}
+      nav ul { display: none; }
+      .hero-text h1 { font-size: 32px; }
+      .hero-image img { width: 160px; height: 160px; }
     }
   </style>
 </head>
@@ -109,7 +157,7 @@
 
   <div class="container">
     <header>
-      <a href="#" class="logo">MINE PORTFOLIO</a>
+      <a href="#" class="logo">AWAIS XD</a>
       <nav>
         <ul>
           <li><a href="#home">Home</a></li>
@@ -126,8 +174,8 @@
           <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Profile Image">
         </div>
         <div class="hero-text">
-          <h1>HI, I'M <span>AWAIS XD</span></h1>
-          <p>I'm a passionate web developer with expertise in front-end technologies. I create beautiful, functional websites that deliver exceptional user experiences.</p>
+          <h1>Hi, I'm <span>AWAIS XD</span></h1>
+          <p>I’m a passionate web developer with expertise in front-end technologies. I create beautiful, functional websites that deliver exceptional user experiences.</p>
           <a href="https://wasismmpannel.online" class="btn">Our SMM Panel</a>
           <a href="https://lrgy.vercel.app" class="btn">View My Work</a>
         </div>
@@ -141,7 +189,7 @@
         <a href="#"><i class="fab fa-twitter"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
       </div>
-      <p>&copy; 2025 AWAISXWASI PORTFOLIO.</p>
+      <p>&copy; 2025 AWAISXWASI PORTFOLIO. All rights reserved.</p>
     </footer>
   </div>
 
