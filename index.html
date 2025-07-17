@@ -1,197 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AWAIS XD | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Fix Test</title>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
+      font-family: Arial, sans-serif;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: 700;
-      color: #00c3ff;
-      text-decoration: none;
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-
-    nav ul li {
-      margin-left: 30px;
-    }
-
-    nav ul li a {
-      color: #ffffff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav ul li a:hover {
-      color: #00c3ff;
-    }
-
-    .hero {
+      color: white;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      padding: 60px 20px;
+      justify-content: center;
+      height: 100vh;
     }
 
-    .hero-image img {
-      width: 200px;
-      height: 200px;
+    img {
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       border: 5px solid #00c3ff;
       box-shadow: 0 0 20px #00c3ff;
       object-fit: cover;
-      margin-bottom: 30px;
-    }
-
-    .hero-text h1 {
-      font-size: 42px;
       margin-bottom: 20px;
     }
 
-    .hero-text h1 span {
+    h1 {
+      font-size: 32px;
       color: #00c3ff;
     }
 
-    .hero-text p {
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 30px auto;
-      opacity: 0.85;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 28px;
-      background: #00c3ff;
-      color: #0f2027;
-      font-weight: 600;
-      border-radius: 30px;
-      text-decoration: none;
-      margin: 5px;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      background: #ff2d75;
-      color: white;
-      transform: scale(1.05);
-    }
-
-    footer {
+    p {
+      max-width: 500px;
       text-align: center;
-      padding: 40px 0 20px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 50px;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
+      opacity: 0.9;
       margin-bottom: 20px;
     }
 
-    .social-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 45px;
-      height: 45px;
-      background: rgba(255,255,255,0.1);
-      color: white;
-      border-radius: 50%;
-      margin: 0 10px;
-      font-size: 18px;
+    a {
+      display: inline-block;
+      padding: 10px 25px;
+      background: #00c3ff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 25px;
       transition: 0.3s;
     }
 
-    .social-links a:hover {
-      background: #00c3ff;
-      color: #0f2027;
-      transform: scale(1.1);
-    }
-
-    @media (max-width: 768px) {
-      nav ul { display: none; }
-      .hero-text h1 { font-size: 32px; }
-      .hero-image img { width: 160px; height: 160px; }
+    a:hover {
+      background: #ff2d75;
+      color: white;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <a href="#" class="logo">AWAIS XD</a>
-      <nav>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="https://wasismmpannel.online">Projects</a></li>
-          <li><a href="#">Skills</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
-
-    <section id="home">
-      <div class="hero">
-        <div class="hero-image">
-          <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Profile Image">
-        </div>
-        <div class="hero-text">
-          <h1>Hi, I'm <span>AWAIS XD</span></h1>
-          <p>I’m a passionate web developer with expertise in front-end technologies. I create beautiful, functional websites that deliver exceptional user experiences.</p>
-          <a href="https://wasismmpannel.online" class="btn">Our SMM Panel</a>
-          <a href="https://lrgy.vercel.app" class="btn">View My Work</a>
-        </div>
-      </div>
-    </section>
-
-    <footer id="contact">
-      <div class="social-links">
-        <a href="https://github.com/awanzada786616"><i class="fab fa-github"></i></a>
-        <a href="https://wa.me/+923175768178"><i class="fab fa-whatsapp"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-      </div>
-      <p>&copy; 2025 AWAISXWASI PORTFOLIO. All rights reserved.</p>
-    </footer>
-  </div>
+  <img src="https://i.postimg.cc/SNXwx7dF/20250603-160916.jpg" alt="Profile">
+  <h1>Hi, I'm AWAIS XD</h1>
+  <p>I’m a web developer creating amazing UI experiences with style and precision.</p>
+  <a href="#">Visit Panel</a>
 
 </body>
 </html>
