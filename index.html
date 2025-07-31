@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wasi TV</title>
   <style>
     * {
@@ -13,7 +13,7 @@
 
     body, html {
       height: 100%;
-      background: linear-gradient(to right, #1e3c72, #2a5298);
+      background: radial-gradient(circle at center, #0f2027, #203a43, #2c5364);
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       align-items: center;
@@ -21,50 +21,47 @@
       overflow: hidden;
     }
 
-    .splash-container {
+    .splash-box {
+      border: 4px solid;
+      border-image: linear-gradient(45deg, #ff00cc, #3333ff) 1;
+      padding: 50px 60px;
+      border-radius: 25px;
       text-align: center;
-      color: white;
-      animation: fadeIn 2s ease-in-out;
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.2);
+      animation: glow 3s ease-in-out infinite;
     }
 
-    .logo {
-      font-size: 50px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(255,255,255,0.4);
-      animation: zoomIn 1.5s ease-in-out;
+    .logo-text {
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 1.2s ease-out;
     }
 
     .subtitle {
       margin-top: 15px;
       font-size: 18px;
-      letter-spacing: 1px;
-      color: #ddd;
-      animation: slideIn 2s ease-in-out;
+      color: #ccc;
+      animation: fadeInUp 1.6s ease-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes zoomIn {
-      0% {
-        transform: scale(0.5);
-        opacity: 0;
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.2), 0 0 60px rgba(0, 255, 255, 0.2);
       }
-      100% {
-        transform: scale(1);
-        opacity: 1;
+      50% {
+        box-shadow: 0 0 50px rgba(255, 0, 255, 0.4), 0 0 100px rgba(0, 255, 255, 0.3);
       }
     }
 
-    @keyframes slideIn {
-      0% {
+    @keyframes fadeInUp {
+      from {
         transform: translateY(20px);
         opacity: 0;
       }
-      100% {
+      to {
         transform: translateY(0);
         opacity: 1;
       }
@@ -72,9 +69,9 @@
   </style>
 </head>
 <body>
-  <div class="splash-container">
-    <div class="logo">Wasi TV</div>
-    <div class="subtitle">Loading your entertainment...</div>
+  <div class="splash-box">
+    <div class="logo-text">Wasi TV</div>
+    <div class="subtitle">Please wait, loading...</div>
   </div>
 </body>
 </html>
