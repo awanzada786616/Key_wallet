@@ -1,272 +1,324 @@
-<!doctype html>
-<html lang="ur">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SIM Details - Shadow Innovations (Frontend)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Ali Awan — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Professional portfolio — Ali Awan" />
   <style>
     :root{
-      --red:#ff3b30;
-      --red-dark:#cc3026;
-      --bg:#f6f7fb;
+      --bg:#0b0f12;
+      --card:#0f1720;
+      --muted:#9aa3ad;
+      --accent:#c0c6ff;
+      --glass: rgba(255,255,255,0.04);
+      --radius:16px;
+      color-scheme: dark;
+    }
+    .light{
+      --bg:#f6f8fb;
       --card:#ffffff;
-      --muted:#6b7280;
-      --glass: rgba(255,255,255,0.8);
+      --muted:#536070;
+      --accent:#4f46e5;
+      --glass: rgba(15,23,42,0.04);
+      color-scheme: light;
     }
-    *{box-sizing:border-box}
-    body{
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      margin:0; background:linear-gradient(180deg,#f8fafc, #f2f4f8);
-      min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
-    }
-    .app{
-      width:100%; max-width:900px; background:var(--card); border-radius:12px; box-shadow:0 10px 30px rgba(15,23,42,0.08);
-      overflow:hidden;
-    }
-    header{
-      background:var(--red); color:#fff; padding:18px 22px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    header h1{margin:0; font-size:18px; font-weight:600}
-    header p{margin:0; font-size:13px; opacity:0.9}
-    .body{padding:20px 22px}
-    .form-row{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
-    .input{
-      flex:1; min-width:200px;
-    }
-    input[type="text"]{
-      width:100%; padding:12px 14px; border-radius:8px; border:1px solid #e6e9ef; font-size:14px;
-      outline:none; background:var(--glass);
-    }
-    .actions{display:flex; gap:10px; align-items:center; margin-top:12px}
-    button.primary{
-      background:var(--red); color:#fff; padding:10px 16px; border-radius:8px; border:none; cursor:pointer; font-weight:600;
-    }
-    button.ghost{
-      background:transparent; color:var(--red); border:1px solid #ffd6d4; padding:9px 14px; border-radius:8px; cursor:pointer;
-    }
-    .hint{color:var(--muted); font-size:13px; margin-top:8px}
-    .error{color:#b91c1c; font-size:13px; margin-top:8px}
-    .results{margin-top:18px}
-    table{width:100%; border-collapse:collapse; margin-top:10px; font-size:14px}
-    th,td{padding:10px 8px; border-bottom:1px solid #f1f3f6; text-align:left}
-    th{background:#fff; color:#111; font-weight:600; font-size:13px}
-    .center{text-align:center}
-    .small{font-size:13px; color:var(--muted)}
-    .loading{display:inline-block; margin-left:8px; width:14px; height:14px; border-radius:50%; border:2px solid rgba(255,255,255,0.4); border-top-color:#fff; animation:spin 1s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* Responsive */
-    @media (max-width:640px){
-      .form-row{flex-direction:column}
-      header{flex-direction:column; gap:8px; align-items:flex-start}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(79,70,229,0.07), transparent),
+                  linear-gradient(180deg,var(--bg),#05060a);
+      color: #e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition: background .35s ease, color .25s ease;
+      padding:32px;
     }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    header{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:28px;
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo{
+      width:56px;
+      height:56px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),#7dd3fc20);
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      color:rgba(0,0,0,0.85);
+      box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+    }
+
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:14px}
+
+    .top-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .btn{
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.04);
+      padding:8px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      font-weight:600;
+      color:inherit;
+      transition:transform .15s ease, background .15s;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent),#7dd3fc30);
+      color: #071032;
+      box-shadow: 0 8px 30px rgba(79,70,229,0.18);
+    }
+
+    /* main area */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:22px;
+      align-items:start;
+    }
+    @media (max-width:980px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--radius);
+      padding:20px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .intro{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+    .avatar{
+      width:110px;height:110px;border-radius:14px;background:linear-gradient(135deg,#fff1, #fff0);flex-shrink:0;
+      display:grid;place-items:center;font-size:32px;font-weight:800;color:var(--accent);
+      border:1px solid rgba(255,255,255,0.04);
+    }
+
+    .socials{display:flex;gap:8px;margin-top:12px}
+    .socials a{display:inline-grid;padding:10px;border-radius:10px;background:var(--glass);place-items:center;text-decoration:none}
+
+    .about{color:var(--muted);line-height:1.6;margin-top:8px;font-size:15px}
+
+    /* projects */
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    @media (max-width:720px){ .projects{grid-template-columns:1fr} }
+
+    .project{
+      border-radius:12px;padding:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border:1px solid rgba(255,255,255,0.03);
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .project .title{font-weight:700}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{font-size:12px;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted)}
+
+    /* right column */
+    .meta-block{display:flex;flex-direction:column;gap:12px}
+    .skillbar{display:flex;flex-direction:column;gap:8px}
+    .skill{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+    .bar{height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden}
+    .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#7dd3fc70);width:40%}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* contact small */
+    form.contact{display:flex;flex-direction:column;gap:10px}
+    form.contact input, form.contact textarea{
+      background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:10px;color:inherit;
+    }
+    form.contact textarea{min-height:96px;resize:vertical}
+    .muted-note{font-size:12px;color:var(--muted)}
+
+    /* subtle animations */
+    .fade-up{opacity:0;transform:translateY(8px);animation:fadeUp .6s forwards}
+    @keyframes fadeUp{to{opacity:1;transform:none}}
   </style>
-  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-  <div class="app" role="application" aria-label="SIM details checker">
+  <div class="container">
     <header>
-      <div>
-        <h1>SIM Details</h1>
-        <p class="small">Mobile number ya CNIC daal kar registered SIMs check karein</p>
+      <div class="brand">
+        <div class="logo">AW</div>
+        <div>
+          <h1>Ali Awan</h1>
+          <p class="lead">Full-Stack Web Developer — Modern UI · Fast · Secure</p>
+        </div>
       </div>
-      <div class="small">Developed by Shadow Innovations</div>
+
+      <div class="top-actions">
+        <button id="themeToggle" class="btn" title="Toggle theme">🌙</button>
+        <a class="btn primary" href="#contact">Hire Me</a>
+      </div>
     </header>
 
-    <div class="body">
-      <form id="simForm" autocomplete="off">
-        <!-- agar backend se CSRF token chahiye ho to yahan dal dein -->
-        <input type="hidden" id="csrf_token" value="">
+    <main class="grid">
+      <section class="card">
+        <div class="intro">
+          <div class="avatar">AW</div>
+          <div>
+            <h2 style="margin:0">Hello — I'm Ali</h2>
+            <p class="about">I design and build modern, performant websites and web apps. I specialise in responsive UI, Firebase integrations, and clean developer-friendly code.</p>
 
-        <div class="form-row">
-          <div class="input">
-            <input id="mobile" name="mobile" type="text" placeholder="Mobile Number (e.g., 03338570120)" />
-          </div>
-          <div class="input">
-            <input id="cnic" name="cnic" type="text" placeholder="CNIC (e.g., 410036000817340) — bina dashes" />
+            <div class="socials" aria-hidden>
+              <a href="#" title="Facebook" target="_blank" rel="noreferrer">
+                <!-- FB SVG -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M22 12.07C22 6.48 17.52 2 12 2S2 6.48 2 12.07c0 5.02 3.66 9.18 8.44 9.93v-7.03H8.08v-2.9h2.36V9.4c0-2.33 1.38-3.62 3.5-3.62.99 0 2.02.18 2.02.18v2.2h-1.12c-1.1 0-1.44.68-1.44 1.37v1.65h2.46l-.39 2.9h-2.07V22C18.34 21.25 22 17.09 22 12.07z" fill="currentColor"/></svg>
+              </a>
+              <a href="#" title="Instagram" target="_blank" rel="noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.2A4.8 4.8 0 1 0 16.8 13 4.8 4.8 0 0 0 12 8.2zm6.4-3.9a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z" fill="currentColor"/></svg>
+              </a>
+              <a href="#" title="WhatsApp" target="_blank" rel="noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12.04 2C6.48 2 2 6.48 2 12.04c0 1.98.52 3.83 1.42 5.43L2 22l4.7-1.36A9.92 9.92 0 0 0 12.04 22C17.6 22 22 17.52 22 12.04S17.6 2 12.04 2zm3.3 14.4c-.2.6-1.15 1.16-1.9 1.3-.5.1-1.04.18-1.6.18a6.6 6.6 0 0 1-3.55-1.06 6.9 6.9 0 0 1-2.4-3.06c-.25-.63-.05-1.2.56-1.6.24-.17.55-.27.96-.48.3-.16.55-.24.8.24.35.6.9 1.02 1.85 1.63.9.57 1.67.77 2.5.2.25-.14.5-.2.78-.07.28.12 1.07.4 1.25.47.18.06.3.09.35.14.06.06.06.2.04.33z" fill="currentColor"/></svg>
+              </a>
+              <a href="#" title="YouTube" target="_blank" rel="noreferrer">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21.8 8s-.2-1.4-.8-2c-.7-.8-1.5-.8-1.9-.9C16.6 4.7 12 4.7 12 4.7h-.1s-4.6 0-7 .4c-.4.1-1.2.1-1.9.9C2.4 6.6 2.2 8 2.2 8S2 9.7 2 11.5v1c0 1.8.2 3.5.2 3.5s.2 1.4.8 2c.7.8 1.6.8 2 1 1.5.3 6.5.3 6.5.3s4.6 0 7-.4c.4-.1 1.2-.1 1.9-.9.6-.6.8-2 .8-2s.2-1.7.2-3.5v-1C22 9.7 21.8 8 21.8 8zM10 14.2V9.8l4.5 2.2L10 14.2z" fill="currentColor"/></svg>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div class="actions">
-          <button id="searchBtn" class="primary" type="submit">Search <span id="spinner" style="display:none" class="loading"></span></button>
-          <button id="clearBtn" class="ghost" type="button">Clear</button>
-          <button id="downloadBtn" class="ghost" type="button">Download Result PNG</button>
+        <div class="fade-up">
+          <h3 style="margin:8px 0 12px">Highlighted Projects</h3>
+
+          <div class="projects">
+            <article class="project">
+              <div class="title">Wasi TV — Streaming Dashboard</div>
+              <div class="muted-note">Vercel • HTML/CSS • HLS player</div>
+              <div class="tags"><span class="tag">Video Streaming</span><span class="tag">Responsive</span></div>
+            </article>
+
+            <article class="project">
+              <div class="title">OTP Auth System</div>
+              <div class="muted-note">Firebase • Auth • Realtime</div>
+              <div class="tags"><span class="tag">Firebase</span><span class="tag">Security</span></div>
+            </article>
+
+            <article class="project">
+              <div class="title">E-Commerce UI</div>
+              <div class="muted-note">HTML • JS • Payment Mock</div>
+              <div class="tags"><span class="tag">Shop UI</span><span class="tag">Performance</span></div>
+            </article>
+
+            <article class="project">
+              <div class="title">Admin Dashboard</div>
+              <div class="muted-note">Admin Controls • Analytics</div>
+              <div class="tags"><span class="tag">Admin</span><span class="tag">Charts</span></div>
+            </article>
+          </div>
+
+          <section style="margin-top:18px">
+            <h3 style="margin-bottom:6px">About this template</h3>
+            <p class="muted-note">This single-file template is easy to edit: swap texts, links and screenshots. If you want I can split it into separate HTML/CSS/JS files or convert to a React component for deployment on Vercel.</p>
+          </section>
+        </div>
+      </section>
+
+      <aside class="meta-block">
+        <div class="card">
+          <h4 style="margin:0 0 10px">Skills</h4>
+          <div class="skillbar">
+            <div class="skill"><span>HTML & CSS</span><strong>95%</strong></div>
+            <div class="bar" aria-hidden><i style="width:95%"></i></div>
+
+            <div class="skill"><span>JavaScript</span><strong>90%</strong></div>
+            <div class="bar" aria-hidden><i style="width:90%"></i></div>
+
+            <div class="skill"><span>Firebase</span><strong>85%</strong></div>
+            <div class="bar" aria-hidden><i style="width:85%"></i></div>
+
+            <div class="skill"><span>UI / Design</span><strong>88%</strong></div>
+            <div class="bar" aria-hidden><i style="width:88%"></i></div>
+          </div>
         </div>
 
-        <div id="msg" class="hint">Aap mobile number ya CNIC me se koi aik daalein — dono nahin.</div>
-        <div id="error" class="error" style="display:none"></div>
-      </form>
+        <div class="card">
+          <h4 style="margin:0 0 10px">Contact</h4>
+          <form id="contact" class="contact" onsubmit="event.preventDefault(); alert('Message sent (demo)')">
+            <input placeholder="Your name" required />
+            <input placeholder="Email or WhatsApp" required />
+            <textarea placeholder="Short message"></textarea>
+            <button class="btn primary" type="submit">Send Message</button>
+            <div class="muted-note" style="margin-top:8px">Or email: <strong>youremail@example.com</strong></div>
+          </form>
+        </div>
 
-      <div id="results" class="results" aria-live="polite"></div>
-    </div>
+        <div class="card">
+          <h4 style="margin:0 0 10px">Quick Links</h4>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <a class="btn" href="#projects">Projects</a>
+            <a class="btn" href="#contact">Hire Me</a>
+            <a class="btn" href="#">Download CV</a>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Ali Awan • All rights reserved.
+    </footer>
   </div>
 
   <script>
-    // ---- Configuration: replace with your real API endpoint ----
-    const API_URL = '/api/sim-details'; // <-- change this to your real endpoint
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Expected response format (example):
-    // {
-    //   "success": true,
-    //   "data": [
-    //     { "operator":"Jazz", "msisdn":"0333xxxxxxx", "sim_type":"Prepaid", "registered_on":"2023-09-01", "imei":"..." },
-    //     ...
-    //   ]
-    // }
+    // theme toggle with simple persistence
+    const root = document.documentElement;
+    const body = document.body;
+    const themeToggle = document.getElementById('themeToggle');
+    const stored = localStorage.getItem('site-theme');
+    if (stored === 'light') body.classList.add('light');
 
-    const form = document.getElementById('simForm');
-    const mobileEl = document.getElementById('mobile');
-    const cnicEl = document.getElementById('cnic');
-    const msgEl = document.getElementById('msg');
-    const errorEl = document.getElementById('error');
-    const resultsEl = document.getElementById('results');
-    const searchBtn = document.getElementById('searchBtn');
-    const spinner = document.getElementById('spinner');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const clearBtn = document.getElementById('clearBtn');
-
-    function showError(text){
-      errorEl.style.display='block';
-      errorEl.textContent = text;
+    function updateIcon() {
+      themeToggle.textContent = body.classList.contains('light') ? '🌞' : '🌙';
     }
-    function clearError(){
-      errorEl.style.display='none';
-      errorEl.textContent = '';
-    }
+    updateIcon();
 
-    function validateInputs(mobile, cnic){
-      if(!mobile && !cnic){
-        showError('Mobile number ya CNIC me se koi aik zaroori hai.');
-        return false;
-      }
-      if(mobile && !/^(03\d{9}|9\d{9}|\+?92\d{10}|0\d{10})$/.test(mobile.replace(/\s+/g,''))){
-        // permissive regex (adjust to your format)
-        showError('Mobile number ka format ghalat hai. Example: 03338570120');
-        return false;
-      }
-      if(cnic && !/^\d{13}$/.test(cnic.replace(/-/g,''))){
-        showError('CNIC 13 digits hona chahiye (bina dashes). Example: 410036000817340');
-        return false;
-      }
-      clearError();
-      return true;
-    }
-
-    function renderTable(data){
-      if(!Array.isArray(data) || data.length===0){
-        resultsEl.innerHTML = '<div class="small">Koi record nahin mila.</div>';
-        return;
-      }
-      let html = '<div id="resultTableWrap"><table id="resultTable" role="table"><thead><tr><th>Operator</th><th>Number</th><th>SIM Type</th><th>Registered On</th><th>IMEI</th></tr></thead><tbody>';
-      data.forEach(r=>{
-        html += `<tr>
-          <td>${escapeHtml(r.operator||'—')}</td>
-          <td>${escapeHtml(r.msisdn||r.number||'—')}</td>
-          <td>${escapeHtml(r.sim_type||r.type||'—')}</td>
-          <td>${escapeHtml(r.registered_on||r.date||'—')}</td>
-          <td>${escapeHtml(r.imei||'—')}</td>
-        </tr>`;
-      });
-      html += '</tbody></table></div>';
-      resultsEl.innerHTML = html;
-    }
-
-    function escapeHtml(s){
-      return String(s).replace(/[&<>"']/g, function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m];});
-    }
-
-    async function doSearch(e){
-      if(e) e.preventDefault();
-      const mobile = mobileEl.value.trim();
-      const cnic = cnicEl.value.trim();
-
-      if(!validateInputs(mobile, cnic)) return;
-
-      // prepare payload
-      const payload = {};
-      if(mobile) payload.mobile = mobile;
-      if(cnic) payload.cnic = cnic;
-
-      // include csrf if present
-      const csrf_token = document.getElementById('csrf_token')?.value;
-      const headers = { 'Content-Type':'application/json' };
-      if(csrf_token) headers['X-CSRF-Token'] = csrf_token;
-
-      // UI: start loading
-      spinner.style.display='inline-block';
-      searchBtn.disabled = true;
-      clearError();
-      msgEl.textContent = 'Searching...';
-
-      try {
-        const resp = await fetch(API_URL, {
-          method:'POST',
-          headers,
-          body: JSON.stringify(payload)
-        });
-
-        if(!resp.ok){
-          const text = await resp.text();
-          throw new Error(`Server returned ${resp.status}: ${text}`);
-        }
-
-        const json = await resp.json();
-        if(json.success === false){
-          // API-level error
-          showError(json.message || 'Server returned an error.');
-          resultsEl.innerHTML = '';
-        } else {
-          // render data (assume json.data array)
-          renderTable(json.data || []);
-          msgEl.textContent = `Results: ${Array.isArray(json.data)? json.data.length : '—'}`;
-        }
-
-      } catch(err){
-        console.error(err);
-        showError('Request failed — check console and API endpoint. ' + (err.message||''));
-        resultsEl.innerHTML = '';
-      } finally{
-        spinner.style.display='none';
-        searchBtn.disabled = false;
-      }
-    }
-
-    // Download table as PNG
-    downloadBtn.addEventListener('click', async () => {
-      const tableWrap = document.getElementById('resultTableWrap');
-      if(!tableWrap){
-        alert('Koi result table maujood nahin hai.');
-        return;
-      }
-      try {
-        const canvas = await html2canvas(tableWrap, {scale:2, backgroundColor:'#fff'});
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL('image/png');
-        link.download = `sim-details-${Date.now()}.png`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } catch(err){
-        console.error(err);
-        alert('PNG generate karne me error. Console dekhein.');
-      }
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light');
+      localStorage.setItem('site-theme', body.classList.contains('light') ? 'light' : 'dark');
+      updateIcon();
     });
 
-    clearBtn.addEventListener('click', () => {
-      mobileEl.value = '';
-      cnicEl.value = '';
-      resultsEl.innerHTML = '';
-      clearError();
-      msgEl.textContent = 'Mobile number ya CNIC daal kar registered SIMs check karein';
+    // small accessibility: focus outlines
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Tab') document.body.style.outline = 'none';
     });
-
-    form.addEventListener('submit', doSearch);
-
-    // Optional: allow Enter in inputs to submit
-    mobileEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
-    cnicEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSearch(); }});
   </script>
 </body>
-</html>
+              </html>
+              
