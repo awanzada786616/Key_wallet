@@ -39,36 +39,41 @@
 <body>
   <header class="text-center py-10">
     <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">✨ Wasi AI Image Generator ✨</h1>
-    <p class="text-lg text-gray-300 mt-3">Generate AI Images & Explore Fun Tools</p>
+    <p class="text-lg text-gray-300 mt-3">Generate AI Images & Explore 18 Fun Tools</p>
   </header>
 
   <div class="container mx-auto px-5">
     <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- Example Tool Card -->
+
+      <!-- AI Image Generator (with working API) -->
       <div class="tool-card glass rounded-2xl p-6 text-center">
-        <h3 class="text-xl font-semibold text-white mb-3">Face Swap</h3>
-        <p class="text-sm text-gray-300 mb-4">Swap faces in photos for hilarious results.</p>
-        <button onclick="window.location.href='faceswap.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">
-          Try Face Swap
+        <h3 class="text-xl font-semibold text-white mb-3">AI Image Generator</h3>
+        <p class="text-sm text-gray-300 mb-4">Type a prompt & get AI generated images.</p>
+        <input id="promptInput" type="text" placeholder="Type your prompt..." class="w-full p-2 rounded mb-3 text-black">
+        <button onclick="generateImage()" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">
+          Generate
         </button>
+        <div id="imageResult" class="mt-4"></div>
       </div>
 
-      <div class="tool-card glass rounded-2xl p-6 text-center">
-        <h3 class="text-xl font-semibold text-white mb-3">Face Enhancer</h3>
-        <p class="text-sm text-gray-300 mb-4">Enhance facial features with advanced AI.</p>
-        <button onclick="window.location.href='face-ehancer.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">
-          Try Face Enhancer
-        </button>
-      </div>
-
-      <div class="tool-card glass rounded-2xl p-6 text-center">
-        <h3 class="text-xl font-semibold text-white mb-3">Image Scaler</h3>
-        <p class="text-sm text-gray-300 mb-4">Scale images without losing quality.</p>
-        <button onclick="window.location.href='imgscaler.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">
-          Try Image Scaler
-        </button>
-      </div>
+      <!-- 17 Other Tools -->
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Face Swap</h3><p class="text-sm text-gray-300 mb-4">Swap faces in photos.</p><button onclick="window.location.href='faceswap.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Face Enhancer</h3><p class="text-sm text-gray-300 mb-4">Enhance facial features.</p><button onclick="window.location.href='face-ehancer.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Image Scaler</h3><p class="text-sm text-gray-300 mb-4">Scale images without losing quality.</p><button onclick="window.location.href='imgscaler.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Get Details By Pic</h3><p class="text-sm text-gray-300 mb-4">Extract info from images.</p><button onclick="window.location.href='imagedetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Location By Image</h3><p class="text-sm text-gray-300 mb-4">Identify locations from pics.</p><button onclick="window.location.href='imgtoloc.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Get Prompt Of Image</h3><p class="text-sm text-gray-300 mb-4">Generate text prompts from images.</p><button onclick="window.location.href='imagetoprompt.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Social Media Leaked Data</h3><p class="text-sm text-gray-300 mb-4">Check leaked data.</p><button onclick="window.location.href='leakdatabase.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Gmail Registration Details</h3><p class="text-sm text-gray-300 mb-4">Find Gmail reg info.</p><button onclick="window.location.href='leakeddetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Email Registration Date</h3><p class="text-sm text-gray-300 mb-4">Find email reg date.</p><button onclick="window.location.href='emailregdetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">IP Leaked Data</h3><p class="text-sm text-gray-300 mb-4">Get IP details.</p><button onclick="window.location.href='ipdetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Prank Tool</h3><p class="text-sm text-gray-300 mb-4">Make funny pranks.</p><button onclick="window.location.href='prank.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Prank Tool 2</h3><p class="text-sm text-gray-300 mb-4">More funny pranks.</p><button onclick="window.location.href='prank2.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Health Details</h3><p class="text-sm text-gray-300 mb-4">Get fun health insights.</p><button onclick="window.location.href='healthdetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Death Predictor</h3><p class="text-sm text-gray-300 mb-4">Predict your spooky death.</p><button onclick="window.location.href='deathpredictor.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Future Analyzer</h3><p class="text-sm text-gray-300 mb-4">Analyze your future job/business.</p><button onclick="window.location.href='futureanalyzer.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Personality Pet Predictor</h3><p class="text-sm text-gray-300 mb-4">Find your ideal pet.</p><button onclick="window.location.href='petpredictor.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
+      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Future Wife Predictor</h3><p class="text-sm text-gray-300 mb-4">See your future wife (for fun).</p><button onclick="window.location.href='futurewife.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
 
     </section>
   </div>
@@ -76,5 +81,28 @@
   <footer class="text-center py-6 mt-10 text-gray-400 text-sm">
     © 2025 Wasi AI Image Generator - Powered by Shadow Innovations
   </footer>
+
+  <script>
+    async function generateImage() {
+      const prompt = document.getElementById("promptInput").value;
+      if (!prompt) return alert("Please enter a prompt!");
+      document.getElementById("imageResult").innerHTML = "<p>Generating...</p>";
+
+      try {
+        const res = await fetch(`https://lexica.art/api/v1/search?q=${encodeURIComponent(prompt)}`);
+        const data = await res.json();
+        if (data.images && data.images.length > 0) {
+          document.getElementById("imageResult").innerHTML = `
+            <img src="${data.images[0].src}" alt="Generated Image" class="rounded-lg shadow-lg mt-3">
+          `;
+        } else {
+          document.getElementById("imageResult").innerHTML = "<p>No result found!</p>";
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById("imageResult").innerHTML = "<p>Error generating image.</p>";
+      }
+    }
+  </script>
 </body>
 </html>
