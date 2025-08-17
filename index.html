@@ -2,107 +2,258 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wasi AI Image Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ultra SMS Bomber - Wasi Force</title>
+  <meta name="description" content="Ultra SMS Bomber by Shadow Force: High-speed OTP sender for educational purposes only.">
+  <meta name="keywords" content="SMS Bomber, Shadow Force, OTP sender, messaging tool, educational tool">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Shadow Force">
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Ultra SMS Bomber - Shadow Force">
+  <meta property="og:description" content="Send OTPs with Ultra SMS Bomber by Shadow Force. Fast, secure, and for educational use only.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shadowforce.site">
+  <meta property="og:image" content="https://shadowscriptz.xyz/shadowsms.jpg">
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ultra SMS Bomber - Shadow Force">
+  <meta name="twitter:description" content="Send OTPs with Ultra SMS Bomber by Shadow Force. Fast, secure, and for educational use only.">
+  <meta name="twitter:image" content="https://shadowscriptz.xyz/shadowsms.jpg">
+
+  <link rel="icon" href="https://i.postimg.cc/rwThMQKL/Picsart-25-08-17-08-29-57-662.jpg" type="image/png">
+  <link rel="stylesheet" href="css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #0f172a, #1e293b, #0f766e);
-      background-size: 300% 300%;
-      animation: gradientBG 12s ease infinite;
-      color: #e5e7eb;
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top left, #1a002b, #0d0d2b, #1a002b);
+      color: #f5f5f7;
+      min-height: 100vh;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+
+    @keyframes neonGlow {
+      0% { box-shadow: 0 0 8px #a855f7, 0 0 15px #ec4899; }
+      50% { box-shadow: 0 0 20px #a855f7, 0 0 30px #ec4899; }
+      100% { box-shadow: 0 0 8px #a855f7, 0 0 15px #ec4899; }
     }
-    .glass {
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 35px;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      margin: 20px;
+      width: calc(100% - 40px);
+      max-width: 1200px;
+      box-shadow: 0 0 20px rgba(155, 59, 255, 0.3);
+      animation: slideIn 1s ease-out;
     }
-    .tool-card {
+
+    .header img {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      border: 3px solid #a855f7;
+      animation: neonGlow 2s infinite;
+      transition: transform 0.5s ease;
+    }
+    .header img:hover {
+      transform: scale(1.15) rotate(12deg);
+    }
+
+    .title {
+      font-size: clamp(28px, 5vw, 34px);
+      font-weight: 900;
+      background: linear-gradient(90deg, #a855f7, #ec4899, #22d3ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+    }
+
+    .menu-icon {
+      font-size: 32px;
+      color: #a855f7;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    .menu-icon:hover {
+      transform: rotate(90deg) scale(1.2);
+      color: #ec4899;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 22px;
+      padding: 40px;
+      margin: 20px;
+      max-width: 700px;
+      width: calc(100% - 40px);
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+      animation: slideIn 1.2s ease-out;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 40px);
+      background: linear-gradient(90deg, #a855f7, #ec4899, #22d3ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      max-width: 500px;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #f5f5f7;
+      font-size: 1.1rem;
+      transition: 0.3s ease;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #ec4899;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .button {
+      padding: 14px 40px;
+      font-size: clamp(16px, 3vw, 18px);
+      font-weight: 700;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(90deg, #a855f7, #ec4899, #22d3ee);
+      color: white;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+    }
+    .button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 30px rgba(236, 72, 153, 0.8);
+    }
+
+    .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .social-button {
+      padding: 12px 28px;
+      font-size: 1rem;
+      border-radius: 50px;
+      background: linear-gradient(90deg, #a855f7, #ec4899, #22d3ee);
+      color: #fff;
+      text-decoration: none;
       transition: all 0.3s ease;
     }
-    .tool-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 12px 25px rgba(34, 197, 94, 0.3);
+    .social-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.7);
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #22d3ee;
+      text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: rgba(224, 231, 255, 0.8);
+    }
+
+    @media (max-width: 768px) {
+      .header { padding: 15px 20px; margin: 15px; }
+      .header img { width: 55px; height: 55px; }
+      .title { font-size: 24px; }
+      .container { padding: 30px 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .header { padding: 10px 15px; margin: 10px; }
+      .header img { width: 45px; height: 45px; }
+      .title { font-size: 22px; }
+      .container { padding: 25px 15px; }
+      .social-buttons { flex-direction: column; gap: 10px; }
     }
   </style>
 </head>
 <body>
-  <header class="text-center py-10">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg">✨ Wasi AI Image Generator ✨</h1>
-    <p class="text-lg text-gray-300 mt-3">Generate AI Images & Explore 18 Fun Tools</p>
+  <header class="header">
+    <img src="https://i.postimg.cc/Wzf92vFW/Picsart-25-08-13-18-29-15-668.jpg" alt="Shadow Force Logo">
+    <div class="title">Wasi Force Logo</div>
+    <i class="fa-solid fa-bars menu-icon"></i>
   </header>
 
-  <div class="container mx-auto px-5">
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-      <!-- AI Image Generator (with working API) -->
-      <div class="tool-card glass rounded-2xl p-6 text-center">
-        <h3 class="text-xl font-semibold text-white mb-3">AI Image Generator</h3>
-        <p class="text-sm text-gray-300 mb-4">Type a prompt & get AI generated images.</p>
-        <input id="promptInput" type="text" placeholder="Type your prompt..." class="w-full p-2 rounded mb-3 text-black">
-        <button onclick="generateImage()" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">
-          Generate
-        </button>
-        <div id="imageResult" class="mt-4"></div>
-      </div>
-
-      <!-- 17 Other Tools -->
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Face Swap</h3><p class="text-sm text-gray-300 mb-4">Swap faces in photos.</p><button onclick="window.location.href='faceswap.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Face Enhancer</h3><p class="text-sm text-gray-300 mb-4">Enhance facial features.</p><button onclick="window.location.href='face-ehancer.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Image Scaler</h3><p class="text-sm text-gray-300 mb-4">Scale images without losing quality.</p><button onclick="window.location.href='imgscaler.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Get Details By Pic</h3><p class="text-sm text-gray-300 mb-4">Extract info from images.</p><button onclick="window.location.href='imagedetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Location By Image</h3><p class="text-sm text-gray-300 mb-4">Identify locations from pics.</p><button onclick="window.location.href='imgtoloc.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Get Prompt Of Image</h3><p class="text-sm text-gray-300 mb-4">Generate text prompts from images.</p><button onclick="window.location.href='imagetoprompt.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Social Media Leaked Data</h3><p class="text-sm text-gray-300 mb-4">Check leaked data.</p><button onclick="window.location.href='leakdatabase.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Gmail Registration Details</h3><p class="text-sm text-gray-300 mb-4">Find Gmail reg info.</p><button onclick="window.location.href='leakeddetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Email Registration Date</h3><p class="text-sm text-gray-300 mb-4">Find email reg date.</p><button onclick="window.location.href='emailregdetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">IP Leaked Data</h3><p class="text-sm text-gray-300 mb-4">Get IP details.</p><button onclick="window.location.href='ipdetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Prank Tool</h3><p class="text-sm text-gray-300 mb-4">Make funny pranks.</p><button onclick="window.location.href='prank.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Prank Tool 2</h3><p class="text-sm text-gray-300 mb-4">More funny pranks.</p><button onclick="window.location.href='prank2.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Health Details</h3><p class="text-sm text-gray-300 mb-4">Get fun health insights.</p><button onclick="window.location.href='healthdetails.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Death Predictor</h3><p class="text-sm text-gray-300 mb-4">Predict your spooky death.</p><button onclick="window.location.href='deathpredictor.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Future Analyzer</h3><p class="text-sm text-gray-300 mb-4">Analyze your future job/business.</p><button onclick="window.location.href='futureanalyzer.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Personality Pet Predictor</h3><p class="text-sm text-gray-300 mb-4">Find your ideal pet.</p><button onclick="window.location.href='petpredictor.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-      <div class="tool-card glass rounded-2xl p-6 text-center"><h3 class="text-xl font-semibold text-white mb-3">Future Wife Predictor</h3><p class="text-sm text-gray-300 mb-4">See your future wife (for fun).</p><button onclick="window.location.href='futurewife.php'" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded-lg w-full transition">Try Now</button></div>
-
-    </section>
+  <div class="container">
+    <h1>Ultra SMS Bomber</h1>
+    <form id="bomber-form" method="GET" action="">
+      <input type="text" id="phone" name="num" placeholder="Enter number (e.g., 92323....)" required>
+      <button type="submit" class="button"><i class="fa-solid fa-rocket"></i> Launch Bomber</button>
+    </form>
+    <p id="status" class="status"></p>
+    <div class="social-buttons">
+      <a href="https://chat.whatsapp.com/IbWWO9mim0rGCmVcA11CWI?mode=ac_t" target="_blank" class="social-button"><i class="fa-brands fa-whatsapp"></i> Join WhatsApp</a>
+      <a href="https://t.me/aloneboywasi" target="_blank" class="social-button"><i class="fa-brands fa-telegram"></i> Join Telegram</a>
+    </div>
+    <div class="footer">
+      &copy; 2025 All Rights Reserved Awais Force | For Educational Use Only
+    </div>
   </div>
 
-  <footer class="text-center py-6 mt-10 text-gray-400 text-sm">
-    © 2025 Wasi AI Image Generator - Powered by Shadow Innovations
-  </footer>
-
   <script>
-    async function generateImage() {
-      const prompt = document.getElementById("promptInput").value;
-      if (!prompt) return alert("Please enter a prompt!");
-      document.getElementById("imageResult").innerHTML = "<p>Generating...</p>";
+    document.getElementById('bomber-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const phone = document.getElementById('phone').value;
+      const status = document.getElementById('status');
+      status.innerText = 'Launching bomber...';
 
       try {
-        const res = await fetch(`https://lexica.art/api/v1/search?q=${encodeURIComponent(prompt)}`);
-        const data = await res.json();
-        if (data.images && data.images.length > 0) {
-          document.getElementById("imageResult").innerHTML = `
-            <img src="${data.images[0].src}" alt="Generated Image" class="rounded-lg shadow-lg mt-3">
-          `;
-        } else {
-          document.getElementById("imageResult").innerHTML = "<p>No result found!</p>";
+        const response = await fetch(`?num=${encodeURIComponent(phone)}`, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json' }
+        });
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
         }
-      } catch (err) {
-        console.error(err);
-        document.getElementById("imageResult").innerHTML = "<p>Error generating image.</p>";
+        const data = await response.json();
+        status.innerText = data.message;
+        status.style.color = data.status === 'success' ? '#22d3ee' : '#ef4444';
+      } catch (error) {
+        status.innerText = `Error: ${error.message}`;
+        status.style.color = '#ef4444';
+        console.error('Fetch error:', error);
       }
-    }
+    });
   </script>
 </body>
-</html>
+  </html>
