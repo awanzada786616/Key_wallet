@@ -1,1 +1,141 @@
-<script language=javascript>document.write(unescape('%3C%21DOCTYPE%20html%3E%0A%3Chtml%20lang%3D%22en%22%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22UTF-8%22/%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%2C%20initial-scale%3D1%22/%3E%0A%20%20%3Ctitle%3EWasi%20Song%20Tube%3C/title%3E%0A%20%20%3Cstyle%3E%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20padding%3A%200%3B%0A%20%20%20%20%20%20font-family%3A%20Arial%2C%20sans-serif%3B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28to%20right%2C%20%231e3c72%2C%20%232a5298%29%3B%0A%20%20%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20%20%20transition%3A%20background%200.3s%2C%20color%200.3s%3B%0A%20%20%20%20%7D%0A%20%20%20%20.light%20%7B%0A%20%20%20%20%20%20background%3A%20%23f4f4f4%3B%0A%20%20%20%20%20%20color%3A%20%23111%3B%0A%20%20%20%20%7D%0A%20%20%20%20header%20%7B%0A%20%20%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20font-size%3A%202.5rem%3B%0A%20%20%20%20%20%20background%3A%20linear-gradient%28to%20right%2C%20%23ff6a00%2C%20%23ee0979%29%3B%0A%20%20%20%20%20%20-webkit-background-clip%3A%20text%3B%0A%20%20%20%20%20%20-webkit-text-fill-color%3A%20transparent%3B%0A%20%20%20%20%7D%0A%20%20%20%20.welcome%20%7B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20font-size%3A%201.2rem%3B%0A%20%20%20%20%20%20margin-top%3A%20-10px%3B%0A%20%20%20%20%20%20margin-bottom%3A%2010px%3B%0A%20%20%20%20%20%20color%3A%20%23ffcc00%3B%0A%20%20%20%20%7D%0A%20%20%20%20.topbar%20%7B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20%20%20gap%3A%2010px%3B%0A%20%20%20%20%20%20padding%3A%2015px%3B%0A%20%20%20%20%20%20flex-wrap%3A%20wrap%3B%0A%20%20%20%20%7D%0A%20%20%20%20input%20%7B%0A%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%20%20width%3A%2060%25%3B%0A%20%20%20%20%20%20max-width%3A%20400px%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20border-radius%3A%208px%3B%0A%20%20%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20%7D%0A%20%20%20%20button%20%7B%0A%20%20%20%20%20%20padding%3A%2010px%2016px%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%20%20border-radius%3A%208px%3B%0A%20%20%20%20%20%20background%3A%20%23ff6a00%3B%0A%20%20%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20%7D%0A%20%20%20%20.loader%20%7B%0A%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20%20%20color%3A%20%23ff6a00%3B%0A%20%20%20%20%7D%0A%20%20%20%20.cards%20%7B%0A%20%20%20%20%20%20display%3A%20flex%3B%0A%20%20%20%20%20%20flex-wrap%3A%20wrap%3B%0A%20%20%20%20%20%20justify-content%3A%20center%3B%0A%20%20%20%20%20%20gap%3A%2020px%3B%0A%20%20%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%20%7B%0A%20%20%20%20%20%20width%3A%20320px%3B%0A%20%20%20%20%20%20border-radius%3A%2010px%3B%0A%20%20%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20%20%20background%3A%20rgba%28255%2C%20255%2C%20255%2C%200.1%29%3B%0A%20%20%20%20%20%20box-shadow%3A%200%204px%2010px%20rgba%280%2C%200%2C%200%2C%200.3%29%3B%0A%20%20%20%20%20%20transition%3A%20transform%200.2s%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%3Ahover%20%7B%0A%20%20%20%20%20%20transform%3A%20scale%281.05%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%20iframe%20%7B%0A%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20height%3A%20180px%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20.card%20h4%20%7B%0A%20%20%20%20%20%20padding%3A%2010px%3B%0A%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20font-size%3A%201rem%3B%0A%20%20%20%20%7D%0A%20%20%20%20footer%20%7B%0A%20%20%20%20%20%20padding%3A%2020px%3B%0A%20%20%20%20%20%20text-align%3A%20center%3B%0A%20%20%20%20%20%20font-size%3A%200.9rem%3B%0A%20%20%20%20%20%20color%3A%20%23ccc%3B%0A%20%20%20%20%7D%0A%20%20%20%20.whatsapp%20%7B%0A%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20bottom%3A%2020px%3B%0A%20%20%20%20%20%20left%3A%2020px%3B%0A%20%20%20%20%20%20right%3A%20auto%3B%0A%20%20%20%20%20%20background%3A%20%2325D366%3B%0A%20%20%20%20%20%20padding%3A%2012px%2018px%3B%0A%20%20%20%20%20%20border-radius%3A%2050px%3B%0A%20%20%20%20%20%20color%3A%20%23fff%3B%0A%20%20%20%20%20%20text-decoration%3A%20none%3B%0A%20%20%20%20%20%20font-weight%3A%20bold%3B%0A%20%20%20%20%20%20box-shadow%3A%200%204px%208px%20rgba%280%2C0%2C0%2C0.3%29%3B%0A%20%20%20%20%20%20transition%3A%20background%200.3s%3B%0A%20%20%20%20%20%20z-index%3A%209999%3B%0A%20%20%20%20%7D%0A%20%20%20%20.whatsapp%3Ahover%20%7B%0A%20%20%20%20%20%20background%3A%20%231ebe5d%3B%0A%20%20%20%20%7D%0A%20%20%3C/style%3E%0A%3C/head%3E%0A%3Cbody%3E%0A%20%20%3Cheader%3EWasi%20Song%20Tube%3C/header%3E%0A%20%20%3Cdiv%20class%3D%22welcome%22%3EWelcome%20to%20Wasi%20Song%20Tube%20%u2014%20Created%20by%20Awais%20Shani%20Adeel%20%uD83C%uDFB5%3C/div%3E%0A%0A%20%20%3Cdiv%20class%3D%22topbar%22%3E%0A%20%20%20%20%3Cinput%20id%3D%22query%22%20placeholder%3D%22Search%20songs...%22%20onkeydown%3D%22if%28event.key%3D%3D%3D%27Enter%27%29%20searchVideos%28%29%22%20/%3E%0A%20%20%20%20%3Cbutton%20onclick%3D%22searchVideos%28%29%22%3ESearch%3C/button%3E%0A%20%20%20%20%3Cbutton%20onclick%3D%22toggleTheme%28%29%22%3E%uD83C%uDF17%20Theme%3C/button%3E%0A%20%20%3C/div%3E%0A%20%20%0A%20%20%3Cdiv%20id%3D%22loader%22%20class%3D%22loader%22%3ELoading...%3C/div%3E%0A%20%20%3Cdiv%20id%3D%22cards%22%20class%3D%22cards%22%3E%3C/div%3E%0A%20%20%0A%20%20%3Cfooter%3EWhatsApp%3A%20+923175768178%20%u2022%20Built%20by%20Wasi%3C/footer%3E%0A%20%20%3Ca%20class%3D%22whatsapp%22%20href%3D%22https%3A//wa.me/923175768178%22%20target%3D%22_blank%22%3E%uD83D%uDCAC%20WhatsApp%3C/a%3E%0A%0A%20%20%3Cscript%3E%0A%20%20%20%20const%20apiKey%20%3D%20%27AIzaSyCJ5f3o71_PJcI3q4NrdrtC7s9F2iVQVBw%27%3B%0A%0A%20%20%20%20function%20toggleTheme%28%29%20%7B%0A%20%20%20%20%20%20document.body.classList.toggle%28%27light%27%29%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20async%20function%20searchVideos%28queryParam%29%20%7B%0A%20%20%20%20%20%20const%20query%20%3D%20queryParam%20%7C%7C%20document.getElementById%28%27query%27%29.value.trim%28%29%3B%0A%20%20%20%20%20%20if%20%28%21query%29%20return%20alert%28%27Please%20enter%20a%20search%20term.%27%29%3B%0A%0A%20%20%20%20%20%20document.getElementById%28%27loader%27%29.style.display%20%3D%20%27block%27%3B%0A%20%20%20%20%20%20document.getElementById%28%27cards%27%29.innerHTML%20%3D%20%27%27%3B%0A%0A%20%20%20%20%20%20try%20%7B%0A%20%20%20%20%20%20%20%20const%20res%20%3D%20await%20fetch%28%0A%20%20%20%20%20%20%20%20%20%20%60https%3A//www.googleapis.com/youtube/v3/search%3Fpart%3Dsnippet%26maxResults%3D8%26type%3Dvideo%26q%3D%24%7BencodeURIComponent%28query%29%7D%26key%3D%24%7BapiKey%7D%60%0A%20%20%20%20%20%20%20%20%29%3B%0A%20%20%20%20%20%20%20%20const%20data%20%3D%20await%20res.json%28%29%3B%0A%20%20%20%20%20%20%20%20document.getElementById%28%27loader%27%29.style.display%20%3D%20%27none%27%3B%0A%0A%20%20%20%20%20%20%20%20if%20%28%21data.items%20%7C%7C%20data.items.length%20%3D%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20return%20alert%28%27No%20results%20found.%27%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20data.items.forEach%28item%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20const%20vid%20%3D%20item.id.videoId%3B%0A%20%20%20%20%20%20%20%20%20%20const%20card%20%3D%20document.createElement%28%27div%27%29%3B%0A%20%20%20%20%20%20%20%20%20%20card.className%20%3D%20%27card%27%3B%0A%20%20%20%20%20%20%20%20%20%20card.innerHTML%20%3D%20%60%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ciframe%20src%3D%22https%3A//www.youtube.com/embed/%24%7Bvid%7D%22%20allowfullscreen%3E%3C/iframe%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ch4%3E%24%7Bitem.snippet.title%7D%3C/h4%3E%0A%20%20%20%20%20%20%20%20%20%20%60%3B%0A%20%20%20%20%20%20%20%20%20%20document.getElementById%28%27cards%27%29.appendChild%28card%29%3B%0A%20%20%20%20%20%20%20%20%7D%29%3B%0A%20%20%20%20%20%20%7D%20catch%20%28err%29%20%7B%0A%20%20%20%20%20%20%20%20console.error%28err%29%3B%0A%20%20%20%20%20%20%20%20document.getElementById%28%27loader%27%29.style.display%20%3D%20%27none%27%3B%0A%20%20%20%20%20%20%20%20alert%28%27An%20error%20occurred.%20Please%20try%20again.%27%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20window.onload%20%3D%20%28%29%20%3D%3E%20%7B%0A%20%20%20%20%20%20searchVideos%28%27Latest%20Pakistani%20Songs%27%29%3B%0A%20%20%20%20%7D%3B%0A%20%20%3C/script%3E%0A%0A%20%20%3C%21--%20Tidio%20Live%20Chat%20script%20on%20right%20side%20--%3E%0A%20%20%3Cscript%20src%3D%22//code.tidio.co/v6flfnabuyblfkrginqkly19wazdskhc.js%22%20async%3E%3C/script%3E%0A%3C/body%3E%0A%3C/html%3E%0A'))</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You — Shukriya</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#0b1220;
+      --accent:#10b981;
+      --muted:#94a3b8;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
+      background: radial-gradient(1000px 500px at 10% 10%, rgba(16,185,129,0.06), transparent),
+                  linear-gradient(180deg, #020617 0%, #071020 100%);
+      color:#e6eef8;
+      padding:20px;
+    }
+    .card{
+      width:100%;
+      max-width:820px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:16px;
+      padding:36px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      display:flex;
+      gap:28px;
+      align-items:center;
+    }
+    .left{
+      flex:1;
+    }
+    .right{
+      width:240px;
+      text-align:center;
+    }
+    .badge{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--glass);
+      color:var(--accent);
+      font-weight:600;
+      margin-bottom:12px;
+      letter-spacing:0.6px;
+    }
+    h1{
+      margin:0 0 8px 0;
+      font-size:28px;
+      line-height:1.05;
+    }
+    p.lead{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:15px;
+    }
+    .info{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:6px;
+    }
+    .phone{
+      background:rgba(255,255,255,0.03);
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      color:#dbeafe;
+      font-size:15px;
+    }
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:12px;
+      background:linear-gradient(90deg, #06b6d4, var(--accent));
+      color:#021018;
+      font-weight:700;
+      margin-top:14px;
+      box-shadow: 0 8px 20px rgba(16,185,129,0.14);
+    }
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:10px;
+    }
+    /* responsive */
+    @media (max-width:700px){
+      .card{flex-direction:column; padding:22px}
+      .right{width:100%;}
+      h1{font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-labelledby="thanksTitle">
+    <section class="left" aria-label="Thank you message">
+      <span class="badge">Order Complete</span>
+      <h1 id="thanksTitle">Shukriya! — Thank you for shopping.</h1>
+      <p class="lead">Aapka order hamain mil gaya hai. Agar aapko koi sawal ho ya help chahye, to WhatsApp par seedha contact karein.</p>
+
+      <div class="info" aria-hidden="false">
+        <div class="phone">📱 WhatsApp: <strong>03313225896</strong></div>
+      </div>
+
+      <a class="btn" href="https://wa.me/923313225896" target="_blank" rel="noopener noreferrer">
+        Message on WhatsApp
+      </a>
+
+      <p class="small">Agar WhatsApp khul na paye to aap ye number apne WhatsApp me save karke chat start kar sakte hain.</p>
+    </section>
+
+    <aside class="right" aria-label="Order card">
+      <!-- Decorative illustration (pure CSS) -->
+      <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="0" width="160" height="160" rx="20" fill="url(#g)"/>
+        <path d="M40 88c6-14 20-24 34-24s28 10 34 24" stroke="white" stroke-opacity="0.15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="80" cy="60" r="22" fill="white" fill-opacity="0.06"/>
+        <path d="M72 68l6 6 12-12" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs>
+          <linearGradient id="g" x1="0" x2="160" y1="0" y2="160" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#05204b" stop-opacity="0.6"/>
+            <stop offset="1" stop-color="#08122a" stop-opacity="0.7"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div style="margin-top:12px; color:var(--muted); font-size:13px;">Order processed • Receipt sent</div>
+    </aside>
+  </main>
+</body>
+</html>
