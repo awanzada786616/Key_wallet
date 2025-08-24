@@ -1,141 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Thank You — Shukriya</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadow Jazz Data</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
-    :root{
-      --bg:#0f172a;
-      --card:#0b1220;
-      --accent:#10b981;
-      --muted:#94a3b8;
-      --glass: rgba(255,255,255,0.04);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;
-      background: radial-gradient(1000px 500px at 10% 10%, rgba(16,185,129,0.06), transparent),
-                  linear-gradient(180deg, #020617 0%, #071020 100%);
-      color:#e6eef8;
-      padding:20px;
-    }
-    .card{
-      width:100%;
-      max-width:820px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.04);
-      border-radius:16px;
-      padding:36px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      display:flex;
-      gap:28px;
-      align-items:center;
-    }
-    .left{
-      flex:1;
-    }
-    .right{
-      width:240px;
-      text-align:center;
-    }
-    .badge{
-      display:inline-block;
-      padding:8px 12px;
-      border-radius:999px;
-      background:var(--glass);
-      color:var(--accent);
-      font-weight:600;
-      margin-bottom:12px;
-      letter-spacing:0.6px;
-    }
-    h1{
-      margin:0 0 8px 0;
-      font-size:28px;
-      line-height:1.05;
-    }
-    p.lead{
-      margin:0 0 18px 0;
-      color:var(--muted);
-      font-size:15px;
-    }
-    .info{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-top:6px;
-    }
-    .phone{
-      background:rgba(255,255,255,0.03);
-      padding:10px 14px;
-      border-radius:10px;
-      font-weight:600;
-      color:#dbeafe;
-      font-size:15px;
-    }
-    .btn{
-      display:inline-block;
-      text-decoration:none;
-      padding:12px 18px;
-      border-radius:12px;
-      background:linear-gradient(90deg, #06b6d4, var(--accent));
-      color:#021018;
-      font-weight:700;
-      margin-top:14px;
-      box-shadow: 0 8px 20px rgba(16,185,129,0.14);
-    }
-    .small{
-      font-size:13px;
-      color:var(--muted);
-      margin-top:10px;
-    }
-    /* responsive */
-    @media (max-width:700px){
-      .card{flex-direction:column; padding:22px}
-      .right{width:100%;}
-      h1{font-size:22px}
-    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+    body{background-color:#f5f5f5;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh}
+    .container{background-color:#fff;padding:20px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);width:100%;max-width:600px;margin-bottom:20px}
+    .search-container{text-align:center;padding:10px;border-bottom:1px solid #ddd}
+    .search-container input{padding:8px;width:70%;max-width:300px;border:1px solid #ddd;border-radius:4px;font-size:14px}
+    .search-container button{padding:8px 16px;background:#1976d2;color:#fff;border:none;border-radius:4px;margin-left:10px;cursor:pointer;font-size:14px}
+    .search-container button:hover{background:#1565c0}
+    .table-container{padding:10px}
+    table{width:100%;border-collapse:collapse;background:#fff;margin-bottom:15px}
+    th,td{padding:6px;text-align:left;border-bottom:1px solid #ddd;font-size:12px}
+    th{background:#d32f2f;color:#fff;font-weight:bold}
+    .error{color:red;padding:10px;font-size:12px;text-align:center;background:#ffebee;border-radius:4px}
+    .download-btn{padding:8px 16px;background:#d32f2f;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:12px;margin:10px auto;display:block}
+    .download-btn:hover{background:#b71c1c}
+    .social-buttons{text-align:center;margin:20px 0}
+    .social-buttons a{background:#d32f2f;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;font-size:14px;margin:0 10px}
+    .social-buttons a:hover{background:#b71c1c}
+    .footer{background:#d32f2f;color:#fff;padding:15px;text-align:center;border-radius:0 0 8px 8px;margin:20px -20px -20px -20px;font-size:14px}
   </style>
 </head>
 <body>
-  <main class="card" role="main" aria-labelledby="thanksTitle">
-    <section class="left" aria-label="Thank you message">
-      <span class="badge">Order Complete</span>
-      <h1 id="thanksTitle">Shukriya! — Thank you for shopping.</h1>
-      <p class="lead">Aapka order hamain mil gaya hai. Agar aapko koi sawal ho ya help chahye, to WhatsApp par seedha contact karein.</p>
+  <div class="container">
+    <div class="search-container">
+      <input type="text" id="phoneInput" placeholder="Enter Mobile Number (e.g., 03338570120)">
+      <button onclick="searchData()">Search</button>
+    </div>
 
-      <div class="info" aria-hidden="false">
-        <div class="phone">📱 WhatsApp: <strong>03313225896</strong></div>
-      </div>
+    <div class="table-container" id="results">
+      <p>Please enter a mobile number to search.</p>
+    </div>
 
-      <a class="btn" href="https://wa.me/923313225896" target="_blank" rel="noopener noreferrer">
-        Message on WhatsApp
-      </a>
+    <div class="social-buttons">
+      <a href="https://whatsapp.com/channel/0029ValH0yv6GcG8pM6AN432" target="_blank">Join WhatsApp</a>
+      <a href="https://t.me/shadowinnovations" target="_blank">Join Telegram</a>
+    </div>
 
-      <p class="small">Agar WhatsApp khul na paye to aap ye number apne WhatsApp me save karke chat start kar sakte hain.</p>
-    </section>
+    <div class="footer">
+      <p>Developed by Shadow Innovations</p>
+    </div>
+  </div>
 
-    <aside class="right" aria-label="Order card">
-      <!-- Decorative illustration (pure CSS) -->
-      <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <rect x="0" y="0" width="160" height="160" rx="20" fill="url(#g)"/>
-        <path d="M40 88c6-14 20-24 34-24s28 10 34 24" stroke="white" stroke-opacity="0.15" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="80" cy="60" r="22" fill="white" fill-opacity="0.06"/>
-        <path d="M72 68l6 6 12-12" stroke="#10b981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-        <defs>
-          <linearGradient id="g" x1="0" x2="160" y1="0" y2="160" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#05204b" stop-opacity="0.6"/>
-            <stop offset="1" stop-color="#08122a" stop-opacity="0.7"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div style="margin-top:12px; color:var(--muted); font-size:13px;">Order processed • Receipt sent</div>
-    </aside>
-  </main>
+  <script>
+    const API_URL = "https://shadowdatabase.site/api.php";
+    const API_TOKEN = "0ade6ddeadb11ee7548c281692c15e3fb6dbd509710ced5b5060a8e00a139037"; // replace with your token
+
+    async function searchData() {
+      const number = document.getElementById("phoneInput").value.trim();
+      const resultsDiv = document.getElementById("results");
+
+      if (!number) {
+        resultsDiv.innerHTML = `<p class="error">⚠️ Please enter a number.</p>`;
+        return;
+      }
+
+      resultsDiv.innerHTML = `<p>⏳ Searching...</p>`;
+
+      try {
+        const response = await fetch(`${API_URL}?token=${API_TOKEN}&num=${number}`);
+        const data = await response.json();
+
+        if (data.error) {
+          resultsDiv.innerHTML = `<p class="error">❌ ${data.error}</p>`;
+          return;
+        }
+
+        // Build table dynamically
+        let html = `<table id="table1">
+                      <thead><tr>`;
+        Object.keys(data).forEach(key => {
+          html += `<th>${key}</th>`;
+        });
+        html += `</tr></thead><tbody><tr>`;
+        Object.values(data).forEach(val => {
+          html += `<td>${val}</td>`;
+        });
+        html += `</tr></tbody></table>
+                 <button class="download-btn" onclick="downloadTableAsPNG(1)">Download as PNG</button>`;
+
+        resultsDiv.innerHTML = html;
+
+      } catch (err) {
+        console.error(err);
+        resultsDiv.innerHTML = `<p class="error">❌ Failed to fetch data. Please try again.</p>`;
+      }
+    }
+
+    function downloadTableAsPNG(index) {
+      const table = document.getElementById("table" + index);
+      if (!table) return alert("No table found");
+
+      html2canvas(table, { backgroundColor: "#fff", scale: 2 }).then(canvas => {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "jazz-data-" + index + ".png";
+        link.click();
+      });
+    }
+  </script>
 </body>
 </html>
