@@ -1,108 +1,203 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shadow Jazz Data</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-    body{background-color:#f5f5f5;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh}
-    .container{background-color:#fff;padding:20px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.1);width:100%;max-width:600px;margin-bottom:20px}
-    .search-container{text-align:center;padding:10px;border-bottom:1px solid #ddd}
-    .search-container input{padding:8px;width:70%;max-width:300px;border:1px solid #ddd;border-radius:4px;font-size:14px}
-    .search-container button{padding:8px 16px;background:#1976d2;color:#fff;border:none;border-radius:4px;margin-left:10px;cursor:pointer;font-size:14px}
-    .search-container button:hover{background:#1565c0}
-    .table-container{padding:10px}
-    table{width:100%;border-collapse:collapse;background:#fff;margin-bottom:15px}
-    th,td{padding:6px;text-align:left;border-bottom:1px solid #ddd;font-size:12px}
-    th{background:#d32f2f;color:#fff;font-weight:bold}
-    .error{color:red;padding:10px;font-size:12px;text-align:center;background:#ffebee;border-radius:4px}
-    .download-btn{padding:8px 16px;background:#d32f2f;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:12px;margin:10px auto;display:block}
-    .download-btn:hover{background:#b71c1c}
-    .social-buttons{text-align:center;margin:20px 0}
-    .social-buttons a{background:#d32f2f;color:#fff;padding:8px 16px;border-radius:4px;text-decoration:none;font-size:14px;margin:0 10px}
-    .social-buttons a:hover{background:#b71c1c}
-    .footer{background:#d32f2f;color:#fff;padding:15px;text-align:center;border-radius:0 0 8px 8px;margin:20px -20px -20px -20px;font-size:14px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zong Franchise Data By Shadow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header {
+            background: #00aaff;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .part {
+            font-size: 16px;
+            color: #000;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .subtext {
+            font-size: 14px;
+            color: #666;
+            margin: 10px 0;
+        }
+        .form-group {
+            margin: 25px 0;
+        }
+        input[type="text"] {
+            padding: 12px 20px;
+            width: 90%;
+            max-width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+        }
+        button {
+            padding: 12px 30px;
+            background-color: #00aaff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background-color: #0088cc;
+        }
+        .result {
+            text-align: left;
+            margin-top: 25px;
+            font-size: 16px;
+            border: 3px solid #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .result p {
+            margin: 10px 0;
+        }
+        .highlight {
+            color: #00a859;
+            font-weight: bold;
+            border: 2px solid #00a859;
+            padding: 3px 8px;
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #e8f8f1;
+        }
+        .name-highlight {
+            color: #ffffff;
+            font-weight: bold;
+            padding: 3px 8px;
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #00a859;
+        }
+        .error {
+            color: #ff4444;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #ffebee;
+        }
+        .download-btn {
+            padding: 12px 25px;
+            background-color: #00a859;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #008e4a;
+        }
+        .result-logo {
+            width: 260px;
+            height: 140px;
+            margin: 10px auto;
+            display: block;
+        }
+        .social-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .social-buttons a {
+            background-color: #00aaff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        .social-buttons a:hover {
+            background-color: #0088cc;
+        }
+        .footer {
+            background-color: #00aaff;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin: 20px -30px -30px -30px;
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="search-container">
-      <input type="text" id="phoneInput" placeholder="Enter Mobile Number (e.g., 03338570120)">
-      <button onclick="searchData()">Search</button>
+    <div class="container">
+        <div class="header">
+            <h1>Zong Franchise Data By Shadow</h1>
+        </div>
+        
+        <form method="POST" action="">
+            <input type="hidden" name="csrf_token" value="41810145d23c8a19c3b81fdc96aa815c4703505a12c205f4387cea41b29a6e86">
+            <div class="form-group">
+                <input type="text" name="search_input" placeholder="Enter Mobile Number (e.g., 03338570120)" value="">
+                <br>
+                <button type="submit">Check Details</button>
+            </div>
+        </form>
+
+                <div class="social-buttons">
+            <a href="https://whatsapp.com/channel/0029ValH0yv6GcG8pM6AN432" target="_blank">Join WhatsApp</a>
+            <a href="https://t.me/shadowinnovations" target="_blank">Join Telegram</a>
+        </div>
+        <div class="footer">
+            <p>Developed by Shadow Innovations</p>
+        </div>
     </div>
-
-    <div class="table-container" id="results">
-      <p>Please enter a mobile number to search.</p>
-    </div>
-
-    <div class="social-buttons">
-      <a href="https://whatsapp.com/channel/0029ValH0yv6GcG8pM6AN432" target="_blank">Join WhatsApp</a>
-      <a href="https://t.me/shadowinnovations" target="_blank">Join Telegram</a>
-    </div>
-
-    <div class="footer">
-      <p>Developed by Shadow Innovations</p>
-    </div>
-  </div>
-
-  <script>
-    const API_URL = "https://shadowdatabase.site/api.php";
-    const API_TOKEN = "0ade6ddeadb11ee7548c281692c15e3fb6dbd509710ced5b5060a8e00a139037"; // replace with your token
-
-    async function searchData() {
-      const number = document.getElementById("phoneInput").value.trim();
-      const resultsDiv = document.getElementById("results");
-
-      if (!number) {
-        resultsDiv.innerHTML = `<p class="error">⚠️ Please enter a number.</p>`;
-        return;
-      }
-
-      resultsDiv.innerHTML = `<p>⏳ Searching...</p>`;
-
-      try {
-        const response = await fetch(`${API_URL}?token=${API_TOKEN}&num=${number}`);
-        const data = await response.json();
-
-        if (data.error) {
-          resultsDiv.innerHTML = `<p class="error">❌ ${data.error}</p>`;
-          return;
-        }
-
-        // Build table dynamically
-        let html = `<table id="table1">
-                      <thead><tr>`;
-        Object.keys(data).forEach(key => {
-          html += `<th>${key}</th>`;
-        });
-        html += `</tr></thead><tbody><tr>`;
-        Object.values(data).forEach(val => {
-          html += `<td>${val}</td>`;
-        });
-        html += `</tr></tbody></table>
-                 <button class="download-btn" onclick="downloadTableAsPNG(1)">Download as PNG</button>`;
-
-        resultsDiv.innerHTML = html;
-
-      } catch (err) {
-        console.error(err);
-        resultsDiv.innerHTML = `<p class="error">❌ Failed to fetch data. Please try again.</p>`;
-      }
-    }
-
-    function downloadTableAsPNG(index) {
-      const table = document.getElementById("table" + index);
-      if (!table) return alert("No table found");
-
-      html2canvas(table, { backgroundColor: "#fff", scale: 2 }).then(canvas => {
-        const link = document.createElement("a");
-        link.href = canvas.toDataURL("image/png");
-        link.download = "jazz-data-" + index + ".png";
-        link.click();
-      });
-    }
-  </script>
 </body>
 </html>
