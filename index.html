@@ -48,7 +48,7 @@
         <button id="contactBtn" class="flex-1 bg-transparent border border-slate-700 rounded-lg py-2">Contact Dev</button>
         <button id="reportBtn" class="flex-1 bg-blue-600 rounded-lg py-2">Report Issue</button>
       </div>
-      <footer class="mt-6 text-xs text-slate-500">Note: This page contacts an external API to fetch public SIM records.</footer>
+      <footer class="mt-6 text-xs text-slate-500">Developed by Wasi Technovation</footer>
     </section>
     <aside class="card-appear bg-[var(--glass)] rounded-2xl border border-slate-800 p-6 shadow-2xl">
       <h3 class="text-lg font-medium text-cyan-300 mb-2">Latest Result</h3>
@@ -64,7 +64,7 @@
 </div>
 
 <script>
-// Matrix
+// Matrix effect
 const c=document.getElementById('matrix'),ctx=c.getContext('2d');function resize(){c.width=innerWidth;c.height=innerHeight}resize();addEventListener('resize',resize);
 const chars='01',fs=14,cols=Math.floor(innerWidth/fs);let drops=new Array(cols).fill(1);
 setInterval(()=>{ctx.fillStyle='rgba(0,0,0,.06)';ctx.fillRect(0,0,c.width,c.height);ctx.fillStyle='#39ff14';ctx.font=fs+'px monospace';for(let i=0;i<drops.length;i++){ctx.fillText(chars[Math.floor(Math.random()*2)],i*fs,drops[i]*fs);if(drops[i]*fs>c.height&&Math.random()>0.975)drops[i]=0;drops[i]++;}},50);
@@ -84,7 +84,23 @@ resultArea.addEventListener('click',e=>{if(e.target.classList.contains('copy'))n
 if(window.__SIM_API_RESPONSE)renderResults(window.__SIM_API_RESPONSE,window.__SIM_API_QUERY);
 if(window.__SIM_API_ERROR==='invalid')status.innerHTML='<div class=text-red-400>Invalid input</div>';
 
-document.getElementById('searchForm').addEventListener('submit',ev=>{if(window.__SIM_API_RESPONSE!==undefined)return;ev.preventDefault();let v=input.value.trim();if(!/^(03\d{9}|\d{13})$/.test(v)){status.innerHTML='<div class=text-red-400>Invalid format</div>';return}status.innerHTML='<div class=text-slate-400>Searching…</div>';let param=/^03/.test(v)?v.slice(1):v;fetch('https://ahmadmodstools.online/apis/db.php?num='+encodeURIComponent(param)).then(r=>r.json()).then(js=>{renderResults(js,v)}).catch(()=>{status.innerHTML='<div class=text-red-400>API error or blocked</div>'})});
+// ✅ ShadowDatabase API integration
+document.getElementById('searchForm').addEventListener('submit',ev=>{
+  if(window.__SIM_API_RESPONSE!==undefined)return;
+  ev.preventDefault();
+  let v=input.value.trim();
+  if(!/^(03\d{9}|\d{13})$/.test(v)){
+    status.innerHTML='<div class=text-red-400>Invalid format</div>';
+    return;
+  }
+  status.innerHTML='<div class=text-slate-400>Searching…</div>';
+  let param=/^03/.test(v)?v.slice(1):v;
+
+  fetch('https://shadowdatabase.site/api.php?num='+encodeURIComponent(param)+'&token=0ade6ddeadb11ee7548c281692c15e3fb6dbd509710ced5b5060a8e00a139037')
+    .then(r=>r.json())
+    .then(js=>{renderResults(js,v)})
+    .catch(()=>{status.innerHTML='<div class=text-red-400>API error or blocked</div>'})
+});
 
 document.getElementById('pasteBtn').onclick=async()=>{try{input.value=(await navigator.clipboard.readText()).trim()}catch{alert('Clipboard blocked')}};
 document.getElementById('historyBtn').onclick=()=>historyList.scrollIntoView({behavior:'smooth'});
