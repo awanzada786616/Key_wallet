@@ -29,7 +29,6 @@
 
       // Regex patterns
       const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
-      const passPattern = /Password[:\s]*([^\s,]+)/i;
       const cookiePattern = /(eyJ[^\s]+)/;
       const expiryPattern = /\d{1,2}[-/]\w+[-/]\d{2,4}/;
       const countryPattern = /\b[A-Z]{2}\b/;
@@ -39,7 +38,18 @@
 
       lines.forEach(line => {
         const email = (line.match(emailPattern) || [""])[0];
-        const password = (line.match(passPattern) || ["",""])[1];
+        
+        // Password detection (multiple formats)
+        let password = "";
+        if (line.includes(":") && email) {
+          // e.g. abc@gmail.com:pass123
+          password = line.split(":")[1]?.trim().split(" ")[0] || "";
+        } else {
+          // Try common labels
+          const passMatch = line.match(/(pass(word)?|pwd)\s*[:=]\s*([^\s,]+)/i);
+          password = passMatch ? passMatch[3] : "";
+        }
+
         const cookie = (line.match(cookiePattern) || [""])[0];
         const expiry = (line.match(expiryPattern) || [""])[0];
         const country = (line.match(countryPattern) || [""])[0];
