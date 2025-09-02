@@ -1,198 +1,156 @@
-<!doctype html>
-<html lang="ur" dir="rtl">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>script zone by wasi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow SMM Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
 
-  <!-- Font Awesome (icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #0e4b5e;
+            color: white;
+            padding: 10px 20px;
+        }
 
-  <style>
-    :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --accent:#06b6d4;
-      --muted:#94a3b8;
-      --glass: rgba(255,255,255,0.03);
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071124 0%,#0b1530 100%);color:#e6eef6}
-    .container{max-width:980px;margin:28px auto;padding:20px;}
-    header{
-      display:flex;align-items:center;justify-content:space-between;
-      gap:12px;margin-bottom:18px;
-    }
-    .brand{
-      display:flex;gap:12px;align-items:center;
-    }
-    .logo{
-      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#7c3aed);
-      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;box-shadow:0 6px 18px rgba(2,6,23,0.6)
-    }
-    .brand h1{margin:0;font-size:20px}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
-    /* three-dot menu */
-    .menu-wrap{position:relative;}
-    .menu-btn{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer;padding:8px;border-radius:8px}
-    .menu-card{
-      position:absolute;right:0;top:44px;background:var(--card);backdrop-filter:blur(6px);
-      border-radius:10px;padding:12px;width:260px;box-shadow:0 8px 30px rgba(2,6,23,0.6);display:none;
-    }
-    .menu-card.visible{display:block;}
-    .menu-card h3{margin:0 0 8px 0;font-size:14px}
-    .menu-card p{margin:6px 0;color:var(--muted);font-size:13px;line-height:1.45}
-    .menu-card .close{display:flex;justify-content:flex-end;margin-top:8px}
-    .btn{
-      background:linear-gradient(90deg,var(--accent),#7c3aed);border:0;color:#04111a;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600
-    }
+        .header h1 {
+            margin: 0;
+        }
 
-    /* Main card for script */
-    .card{background:var(--glass);padding:18px;border-radius:14px;box-shadow:0 6px 20px rgba(3,7,18,0.6);display:flex;gap:16px;align-items:center}
-    .thumb{width:220px;height:140px;border-radius:10px;background:#071428;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
-    .thumb img{width:100%;height:100%;object-fit:cover}
-    .meta{flex:1;}
-    .meta h2{margin:0 0 6px 0;font-size:20px;display:flex;gap:8px;align-items:center}
-    .meta p.desc{color:var(--muted);margin:6px 0 12px 0}
-    .price-row{display:flex;align-items:center;gap:12px}
-    .price{font-size:18px;font-weight:700}
-    .icon-label{display:inline-flex;gap:6px;align-items:center;color:var(--muted);font-size:13px}
+        .header .welcome {
+            font-size: 18px;
+        }
 
-    /* order button */
-    .order-btn{display:inline-flex;gap:10px;align-items:center;padding:10px 14px;border-radius:10px;border:2px solid rgba(255,255,255,0.06);cursor:pointer;background:transparent;color:var(--accent);font-weight:700;text-decoration:none}
-    .order-btn .fa-arrow-up-right-from-square{transform:translateY(-1px)}
+        .header .notifications {
+            display: flex;
+            align-items: center;
+        }
 
-    /* info row */
-    .info-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-    .chip{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:999px;font-size:13px;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+        .header .notifications span {
+            margin-left: 20px;
+        }
 
-    /* footer */
-    footer{text-align:center;margin-top:26px;color:var(--muted);font-size:13px;padding:16px 0}
-    footer strong{color:var(--accent)}
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 20px;
+        }
 
-    /* responsive */
-    @media (max-width:700px){
-      .card{flex-direction:column;align-items:stretch}
-      .thumb{width:100%;height:220px}
-      header{flex-direction:column;align-items:flex-start;gap:12px}
-      .menu-card{left:0;right:auto}
-    }
-  </style>
+        .panel-box {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel-box h2 {
+            margin-top: 0;
+        }
+
+        .panel-box .stats {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .panel-box .stats div {
+            margin: 5px 0;
+        }
+
+        .service-section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-section h3 {
+            margin-top: 0;
+        }
+
+        .service-section .description {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .service-section .category {
+            font-size: 14px;
+            color: green;
+            font-weight: bold;
+        }
+
+        .footer {
+            background-color: #0e4b5e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer .whatsapp-button {
+            background-color: #25d366;
+            color: white;
+            padding: 10px;
+            border-radius: 50px;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer .whatsapp-button span {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo"><i class="fa-solid fa-code"></i></div>
-        <div>
-          <h1>script zone by wasi</h1>
-          <p>Script Hub • Frontend Showcase</p>
+    <div class="header">
+        <div class="welcome">Welcome Dear Awaisxwasi766</div>
+        <div class="notifications">
+            <div>Total Orders: 370425</div>
+            <div>Your Balance: Rs 19.92</div>
         </div>
-      </div>
+    </div>
 
-      <div class="menu-wrap" aria-label="menu">
-        <!-- three dot menu button -->
-        <button class="menu-btn" id="menuBtn" title="menu">
-          <i class="fa-solid fa-ellipsis-vertical"></i>
-        </button>
-
-        <!-- dropdown content -->
-        <div class="menu-card" id="menuCard" role="dialog" aria-hidden="true">
-          <h3><i class="fa-solid fa-circle-info"></i> why you choose us</h3>
-          <p>
-            ہم قابلِ اعتماد سروس دیتے ہیں — تیز سپورٹ، آزمودہ سکرپٹس، اور گارنٹیڈ اپ ٹائم۔<br>
-            <span class="icon-label"><i class="fa-solid fa-shield-halved"></i> محفوظ اور ریلیائبل</span>
-          </p>
-          <p>
-            ہماری ویب سائٹ آپ کی ضرورت کو سمجھتی ہے: آسان آرڈر، شفاف قیمتیں، اور مستقل اپڈیٹس۔
-            <br><span class="icon-label"><i class="fa-solid fa-thumbs-up"></i> یوزر فرینڈلی تجربہ</span>
-          </p>
-          <div class="close">
-            <button class="btn" id="closeMenu"><i class="fa-solid fa-xmark"></i> بند کریں</button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Main script card / section -->
-    <section id="scripts">
-      <div class="card" role="region" aria-labelledby="scriptTitle">
-        <div class="thumb" aria-hidden="false">
-          <!-- Replace the image src with your direct image link -->
-          <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="climitive image (replace with your direct link)">
+    <div class="main-content">
+        <div class="panel-box">
+            <h2>Total Spent</h2>
+            <div class="stats">
+                <div>Total Spent: Rs 18,917.62</div>
+                <div>≈ Rs 19.92</div>
+            </div>
         </div>
 
-        <div class="meta">
-          <h2 id="scriptTitle"><i class="fa-solid fa-file-code"></i> climitive</h2>
-          <p class="desc"><i class="fa-solid fa-info-circle"></i> SMM panel script — frontend showcase. Replace description as needed.</p>
-
-          <div class="price-row">
-            <div class="price"><i class="fa-solid fa-dollar-sign"></i> <span>₨ 2,500</span></div>
-            <div class="icon-label"><i class="fa-solid fa-tag"></i> <span>Script name: climitive</span></div>
-          </div>
-
-          <div class="info-row">
-            <div class="chip"><i class="fa-brands fa-instagram"></i> <!-- Instagram link placeholder --> <a href="#" style="color:inherit;text-decoration:none;margin-right:6px">Our (Instagram)</a></div>
-            <div class="chip"><i class="fa-solid fa-wrench"></i> Frontend only</div>
-            <div class="chip"><i class="fa-solid fa-shield"></i> Reliable</div>
-          </div>
-
-          <div style="margin-top:14px;">
-            <!-- Order button opens tiktok.com as requested -->
-            <a class="order-btn" href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
-              <i class="fa-solid fa-cart-shopping"></i> Order
-              <i class="fa-solid fa-arrow-up-right-from-square" style="margin-inline-start:8px"></i>
-            </a>
-          </div>
+        <div class="service-section">
+            <h3>50% Off Discounted Services</h3>
+            <div class="category">PUBG MOBILE ROYAL PASS 50% OFF</div>
+            <p class="description">
+                Get your Royal Pass at half the price! Just enter your PUBG ID in the link section and set the quantity to 1000.<br>
+                ⚡ Lifetime UC | Full Fast Service<br>
+                ✅ Instant Processing<br>
+                ✅ 100% Safe & Trusted<br>
+                ✅ No Login Required<br>
+                ✅ Fast Delivery Guaranteed
+            </p>
+            <div class="category">Level up your game with premium items and rewards!</div>
         </div>
-      </div>
-    </section>
+    </div>
 
-    <!-- Additional scripts or list can be added here -->
-    <p style="margin-top:16px;color:var(--muted);font-size:13px">
-      <!-- Every icon used as requested (Font Awesome) -->
-      <i class="fa-solid fa-circle-check"></i> Har cheez ka sath <i class="fa-solid fa-star"></i> faf icon lagaya gaya hai.
-    </p>
-
-    <footer>
-      <div>all right reserved <strong>script hub by wasi</strong></div>
-    </footer>
-  </div>
-
-  <script>
-    // Menu toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const menuCard = document.getElementById('menuCard');
-    const closeMenu = document.getElementById('closeMenu');
-
-    function toggleMenu(){
-      menuCard.classList.toggle('visible');
-      const visible = menuCard.classList.contains('visible');
-      menuCard.setAttribute('aria-hidden', (!visible).toString());
-    }
-
-    menuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMenu();
-    });
-    closeMenu.addEventListener('click', () => toggleMenu());
-
-    // close when clicking outside
-    document.addEventListener('click', (e) => {
-      if(menuCard.classList.contains('visible')){
-        if(!menuCard.contains(e.target) && e.target !== menuBtn){
-          toggleMenu();
-        }
-      }
-    });
-
-    // Accessibility: close on Escape
-    document.addEventListener('keydown', (ev) => {
-      if(ev.key === 'Escape' && menuCard.classList.contains('visible')){
-        toggleMenu();
-        menuBtn.focus();
-      }
-    });
-  </script>
+    <div class="footer">
+        <div class="whatsapp-button">
+            <i class="fa fa-whatsapp" style="color:white;"></i>
+            <span>WhatsApp Us</span>
+        </div>
+    </div>
 </body>
 </html>
