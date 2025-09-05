@@ -101,13 +101,16 @@
       text-align: center;
     }
 
-    .footer-illustration img {
+    .footer-illustration lottie-player {
       width: 320px;
+      height: 220px;
     }
   </style>
 
   <!-- Font Awesome for icons -->
   <script src="https://kit.fontawesome.com/3b2e6a8e5f.js" crossorigin="anonymous"></script>
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body>
 
@@ -136,9 +139,15 @@
       </div>
     </div>
 
-    <!-- Footer Illustration -->
+    <!-- Footer Animated Illustration -->
     <div class="footer-illustration">
-      <img src="https://i.ibb.co/6sP7p1h/illustration.png" alt="footer illustration">
+      <lottie-player 
+        src="https://assets10.lottiefiles.com/packages/lf20_57TxAX.json"  
+        background="transparent"  
+        speed="1"  
+        loop  
+        autoplay>
+      </lottie-player>
     </div>
   </div>
 
