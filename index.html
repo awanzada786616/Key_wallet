@@ -106,18 +106,38 @@
       resultBox.innerHTML = "<p>Fetching data...</p>";
 
       try {
-        const response = await fetch(`https://shadowdatabase.site/api.php?token=0ef722693b80e5d965e3540f86593051b2cfe42657fcb36174ad9f6d503c8efc&num=${number}`);
+        const response = await fetch(`https://pakdatabase.site/api/search.php?username=Kami&password=123456&search_term=${encodeURIComponent(number)}`);
         const data = await response.json();
 
-        if (data && Object.keys(data).length > 0) {
-          let html = "";
-          for (const key in data) {
-            html += `<p><strong>${key}:</strong> ${data[key]}</p>`;
+        let html = "";
+
+        if (data) {
+          const numbers = new Set();
+
+          for (const network in data) {
+            const records = data[network];
+            if (Array.isArray(records)) {
+              records.forEach(entry => {
+                const mobile = entry.Mobile || entry.SUB_NO || '';
+                if (!mobile || numbers.has(mobile)) return;
+
+                numbers.add(mobile);
+                const name = entry.Name || entry.NAME || 'N/A';
+                const cnic = entry.CNIC || entry.NIC || 'N/A';
+                const address = entry.Address || entry.ADDRESS || 'N/A';
+
+                html += `
+                  <p><strong>Mobile:</strong> ${mobile}</p>
+                  <p><strong>Name:</strong> ${name}</p>
+                  <p><strong>ID Card:</strong> ${cnic}</p>
+                  <p><strong>Address:</strong> ${address}</p>
+                  <hr>`;
+              });
+            }
           }
-          resultBox.innerHTML = html;
-        } else {
-          resultBox.innerHTML = "<p>No data found</p>";
         }
+
+        resultBox.innerHTML = html || "<p>No data found</p>";
       } catch (error) {
         resultBox.innerHTML = "<p style='color: #ff8080'>Error fetching data</p>";
       }
