@@ -83,11 +83,11 @@
 <body>
   <div class="container">
     <div class="logo">
-      <img src="https://i.postimg.cc/HsHXRPST/images-2-15.jpg" alt="Cyber Portal X Logo">
+      <img src="https.pkd.vn" alt="Cyber Portal X Logo">
     </div>
     <h1>Cyber Portal X Data</h1>
     <div class="search-box">
-      <input type="text" id="numberInput" placeholder="Enter Number...">
+      <input type="text" id="numberInput" placeholder="Enter Number or CNIC...">
       <button onclick="fetchData()">Search</button>
     </div>
     <div class="result" id="resultBox">Result will appear here...</div>
@@ -99,14 +99,14 @@
       const resultBox = document.getElementById("resultBox");
 
       if (!number) {
-        resultBox.innerHTML = "<p style='color: #ff8080'>Please enter a number</p>";
+        resultBox.innerHTML = "<p style='color: #ff8080'>Please enter a number or CNIC</p>";
         return;
       }
 
       resultBox.innerHTML = "<p>Fetching data...</p>";
 
       try {
-        const response = await fetch(`https://pakdatabase.site/api/search.php?username=Kami&password=123456&search_term=${number}`);
+        const response = await fetch(`https://shadowdatabase.site/api.php?token=0ef722693b80e5d965e3540f86593051b2cfe42657fcb36174ad9f6d503c8efc&num=${number}`);
         const data = await response.json();
 
         if (data && Object.keys(data).length > 0) {
