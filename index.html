@@ -1,160 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow SMM Panel</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KingXportal Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
 
-        /* Header section */
-        .header {
-            background-color: #0e4b5e;
-            color: white;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid #ffffff;
-        }
+    .login-container {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .header .welcome {
-            font-size: 16px;
-        }
+    .login-box {
+      background: #f6f9fc;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 330px;
+    }
 
-        .header .stats {
-            display: flex;
-            align-items: center;
-        }
+    .login-box img {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      margin-bottom: 12px;
+      border: 3px solid #fff;
+      box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    }
 
-        .header .stats div {
-            margin-left: 20px;
-            font-size: 16px;
-        }
+    .login-box h2 {
+      font-size: 22px;
+      margin-bottom: 18px;
+      color: #333;
+      font-weight: 600;
+    }
 
-        /* Main Content Section */
-        .main-content {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-        }
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+      background: #fff;
+    }
 
-        /* Stats box */
-        .stats-box {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            width: 48%;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 500;
+    }
 
-        .stats-box h3 {
-            margin: 0 0 10px;
-            font-size: 18px;
-        }
+    .btn:hover {
+      opacity: 0.9;
+    }
 
-        .stats-box p {
-            font-size: 14px;
-        }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      margin-top: 22px;
+    }
 
-        /* Service box */
-        .service-box {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 20px;
-            width: 48%;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
+    .social-icons a {
+      background: #fff;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      font-size: 22px;
+      color: #000;
+      text-decoration: none;
+    }
 
-        .service-box h3 {
-            margin: 0 0 10px;
-            font-size: 18px;
-        }
+    .footer-illustration {
+      margin-top: 35px;
+      text-align: center;
+    }
 
-        .service-box .description {
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
+    .footer-illustration img {
+      width: 320px;
+    }
+  </style>
 
-        .service-box .category {
-            font-weight: bold;
-            color: green;
-        }
-
-        .service-box .category,
-        .service-box .whatsapp-button {
-            margin-top: 20px;
-        }
-
-        .whatsapp-button {
-            background-color: #25d366;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            display: inline-flex;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .whatsapp-button i {
-            margin-right: 10px;
-        }
-
-        /* Footer section */
-        .footer {
-            background-color: #0e4b5e;
-            color: white;
-            text-align: center;
-            padding: 15px;
-        }
-
-    </style>
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/3b2e6a8e5f.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <div class="header">
-        <div class="welcome">Welcome Dear Awaisxwasi766</div>
-        <div class="stats">
-            <div>Total Orders: 370425</div>
-            <div>Your Balance: Rs 19.92</div>
-        </div>
+  <div class="login-container">
+    <div class="login-box">
+      <!-- Logo -->
+      <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="logo">
+
+      <h2>KingXportal</h2>
+
+      <!-- Input fields -->
+      <input type="text" placeholder="Username">
+      <input type="password" placeholder="Password">
+
+      <!-- Buttons -->
+      <button class="btn">Login</button>
+      <button class="btn">Demo</button>
+      <button class="btn">Contact admin</button>
+      <button class="btn">Whatsapp group</button>
+
+      <!-- Social Icons -->
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
     </div>
 
-    <div class="main-content">
-        <!-- Stats Box -->
-        <div class="stats-box">
-            <h3>Total Spent</h3>
-            <p>≈ Rs 18,917.62</p>
-            <p>≈ Rs 19.92</p>
-        </div>
-
-        <!-- Service Box -->
-        <div class="service-box">
-            <h3>50% Off Discounted Services</h3>
-            <div class="category">PUBG MOBILE ROYAL PASS 50% OFF</div>
-            <p class="description">
-                Get your Royal Pass at half the price! Just enter your PUBG ID in the link section and set the quantity to 1000.<br>
-                ⚡ Lifetime UC | Full Fast Service<br>
-                ✅ Instant Processing<br>
-                ✅ 100% Safe & Trusted<br>
-                ✅ No Login Required<br>
-                ✅ Fast Delivery Guaranteed
-            </p>
-            <p>Level up your game with premium items and rewards!</p>
-            <div class="whatsapp-button">
-                <i class="fa fa-whatsapp"></i> WhatsApp Us
-            </div>
-        </div>
+    <!-- Footer Illustration -->
+    <div class="footer-illustration">
+      <img src="https://i.ibb.co/6sP7p1h/illustration.png" alt="footer illustration">
     </div>
-
-    <div class="footer">
-        Shadow SMM Panel | All rights reserved
-    </div>
+  </div>
 
 </body>
 </html>
