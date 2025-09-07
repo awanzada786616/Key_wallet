@@ -111,7 +111,7 @@
         const data = await response.json();
 
         if (data.status !== "success") {
-          resultBox.innerHTML = `<p style="color:#ff8080">❌ ${data.message || "No data found"}</p>`;
+          resultBox.innerHTML = `<p style="color:#ff8080">❌ ${data.message || "یہ ڈیٹا نیا ہے "}</p>`;
           return;
         }
 
