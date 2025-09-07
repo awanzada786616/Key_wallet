@@ -87,7 +87,7 @@
     </div>
     <h1>Cyber Portal X Data</h1>
     <div class="search-box">
-      <input type="text" id="numberInput" placeholder="Enter Number or CNIC...">
+      <input type="text" id="numberInput" placeholder="Enter Phone Number...">
       <button onclick="fetchData()">Search</button>
     </div>
     <div class="result" id="resultBox">Result will appear here...</div>
@@ -99,47 +99,35 @@
       const resultBox = document.getElementById("resultBox");
 
       if (!number) {
-        resultBox.innerHTML = "<p style='color: #ff8080'>Please enter a number or CNIC</p>";
+        resultBox.innerHTML = "<p style='color: #ff8080'>Please enter a phone number</p>";
         return;
       }
 
-      resultBox.innerHTML = "<p>Fetching data...</p>";
+      resultBox.innerHTML = "<p>⏳ Fetching data...</p>";
 
       try {
-        const response = await fetch(`https://pakdatabase.site/api/search.php?username=Kami&password=123456&search_term=${encodeURIComponent(number)}`);
+        // ✅ New API integrated
+        const response = await fetch(`https://www.3patticenter.com/famofc/api/database.php?num=${encodeURIComponent(number)}`);
         const data = await response.json();
 
-        let html = "";
-
-        if (data) {
-          const numbers = new Set();
-
-          for (const network in data) {
-            const records = data[network];
-            if (Array.isArray(records)) {
-              records.forEach(entry => {
-                const mobile = entry.Mobile || entry.SUB_NO || '';
-                if (!mobile || numbers.has(mobile)) return;
-
-                numbers.add(mobile);
-                const name = entry.Name || entry.NAME || 'N/A';
-                const cnic = entry.CNIC || entry.NIC || 'N/A';
-                const address = entry.Address || entry.ADDRESS || 'N/A';
-
-                html += `
-                  <p><strong>Mobile:</strong> ${mobile}</p>
-                  <p><strong>Name:</strong> ${name}</p>
-                  <p><strong>ID Card:</strong> ${cnic}</p>
-                  <p><strong>Address:</strong> ${address}</p>
-                  <hr>`;
-              });
-            }
-          }
+        if (data.status !== "success") {
+          resultBox.innerHTML = `<p style="color:#ff8080">❌ ${data.message || "No data found"}</p>`;
+          return;
         }
 
+        let html = "";
+        data.data.forEach(record => {
+          html += `<div style="margin-bottom:12px; border-bottom:1px solid #666; padding-bottom:8px">`;
+          for (let key in record) {
+            html += `<p><strong>${key}:</strong> ${record[key]}</p>`;
+          }
+          html += `</div>`;
+        });
+
         resultBox.innerHTML = html || "<p>No data found</p>";
+
       } catch (error) {
-        resultBox.innerHTML = "<p style='color: #ff8080'>Error fetching data</p>";
+        resultBox.innerHTML = `<p style="color:#ff8080">⚠️ Error: ${error.message}</p>`;
       }
     }
   </script>
