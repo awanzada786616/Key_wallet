@@ -1,135 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cyberportaldata</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wasi TV</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
     body {
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e3c72, #2a5298);
+      color: white;
+    }
+
+    /* Splash */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: #0a082b;
       display: flex;
-      justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      justify-content: center;
       flex-direction: column;
+      z-index: 9999;
+    }
+    #splash img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      filter: brightness(0.6);
+    }
+    .dots-loading {
+      display: flex;
+      gap: 8px;
+      z-index: 1;
+    }
+    .dots-loading div {
+      width: 12px;
+      height: 12px;
+      background: #ff5500;
+      border-radius: 50%;
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+    .dots-loading div:nth-child(2) { animation-delay: 0.2s; }
+    .dots-loading div:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+    #main-content { display: none; }
+
+    /* Header */
+    .header {
+      text-align: center;
       padding: 20px;
     }
-    .container {
+    .header img { height: 65px; }
+    .header h1 { margin: 8px 0 0; font-size: 26px; letter-spacing: 1px; }
+
+    /* Player full width top */
+    .player-container {
+      position: relative;
       width: 100%;
-      max-width: 600px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-      text-align: center;
+      height: 45vh;
+      overflow: hidden;
+      border-radius: 0;
+      margin: 0 auto 15px;
     }
-    .logo img {
-      width: 120px;
-      margin-bottom: 15px;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    .search-box {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .search-box input {
-      flex: 1;
-      padding: 12px;
+    .player-container iframe {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      transform: translate(-50%, -50%);
       border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      outline: none;
+      object-fit: cover;
     }
-    .search-box button {
-      padding: 12px 18px;
-      border: none;
-      background: #00c6ff;
-      color: #fff;
-      border-radius: 10px;
-      cursor: pointer;
+
+    /* Watermark Wasi TV logo */
+    .watermark {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+      width: 80px;
+      opacity: 0.85;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Custom Wasi Spinner */
+    .spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80px;
+      height: 80px;
+      margin: -40px 0 0 -40px;
+      display: none;
+      z-index: 5;
+      animation: pulse 1.5s infinite;
+    }
+    .spinner img {
+      width: 100%;
+      height: auto;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
+    }
+
+    /* Marquee */
+    .marquee-container {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #ffffff;
+      color: #111;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px solid #ccc;
       font-weight: 600;
-      transition: 0.3s;
-    }
-    .search-box button:hover {
-      background: #0072ff;
-    }
-    .result {
-      margin-top: 15px;
-      text-align: left;
-      background: rgba(0,0,0,0.3);
-      padding: 15px;
-      border-radius: 10px;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    .result p {
-      margin: 5px 0;
       font-size: 14px;
+      padding: 6px 0;
+    }
+    .marquee {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px;
+    }
+    .nav button {
+      padding: 8px 16px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.3s;
+    }
+    .nav button:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    /* Channels Grid */
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 15px;
+      padding: 15px;
+      justify-items: center;
+    }
+
+    /* Circle channel logos */
+    .channel {
+      background: none;
+      text-align: center;
+      cursor: pointer;
+    }
+    .channel img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #2563eb;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .channel img:hover {
+      transform: scale(1.1);
+      border-color: #ff5500;
+    }
+    .channel div {
+      margin-top: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      color: #bbb;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">
-      <img src="https://i.postimg.cc/2y4q5XqH/images-2-15.jpg" alt="Cyber Portal X Logo">
+  <!-- Splash -->
+  <div id="splash">
+    <img src="https://i.postimg.cc/5NmSmbpx/20250729-161340.jpg" alt="Splash Image" />
+    <div class="dots-loading">
+      <div></div><div></div><div></div>
     </div>
-    <h1>Cyber Portal X Data</h1>
-    <div class="search-box">
-      <input type="text" id="numberInput" placeholder="Enter Phone Number...">
-      <button onclick="fetchData()">Search</button>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <div class="header">
+      <img src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Wasi TV Logo" />
+      <h1>Wasi TV</h1>
     </div>
-    <div class="result" id="resultBox">Result will appear here...</div>
+
+    <div class="nav">
+      <button onclick="filterChannels('all')">All</button>
+      <button onclick="filterChannels('islamic')">Islamic</button>
+      <button onclick="filterChannels('sports')">Sports</button>
+      <button onclick="filterChannels('entertainment')">Entertainment</button>
+      <button onclick="filterChannels('news')">News</button>
+      <button onclick="filterChannels('cartoon')">Cartoon</button>
+    </div>
+
+    <!-- Player + Marquee -->
+    <div class="player-container">
+      <!-- Spinner Wasi TV -->
+      <div class="spinner" id="spinner">
+        <img src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Loading Wasi TV" />
+      </div>
+      <iframe id="player" src="" allowfullscreen></iframe>
+
+      <!-- Watermark Wasi TV -->
+      <img class="watermark" src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Wasi Watermark" />
+
+      <div class="marquee-container">
+        <div class="marquee">
+          اگر آپکو ویسی ٹی وی میں کوئی چیز اور ایڈ کروانی ہو تو رابطہ کریں 03376143010 آپکے تعاون کا شکریہ
+        </div>
+      </div>
+    </div>
+
+    <!-- Channels -->
+    <div class="channels">
+      <!-- Sports -->
+      <div class="channel sports" onclick="playChannel('https://cdn07isb.tamashaweb.com:8087/YlUHeDQb7a/157-3H/playlist.m3u8')">
+        <img src="https://i.postimg.cc/y8188fvb/Ten-Sports-Logo.png" alt="Ten Sports" />
+        <div>Ten Sports</div>
+      </div>
+      <div class="channel sports" onclick="playChannel('https://cdn07khi.tamashaweb.com:8087/jazzauth/ASIACUP2025-abr/live/ASIACUP2025_720p/chunks.m3u8')">
+        <img src="https://i.postimg.cc/W1RMwSRx/1756208066219.webp" alt="Asia Cup" />
+        <div>Asia Cup</div>
+      </div>
+
+      <!-- Islamic -->
+      <div class="channel islamic" onclick="playChannel('https://cdn07isb.tamashaweb.com:8087/YlUHeDQb7a/141M/playlist.m3u8')">
+        <img src="https://i.postimg.cc/mrrk8d9H/unnamed.png" alt="Makkah TV" />
+        <div>Makkah TV</div>
+      </div>
+      <div class="channel islamic" onclick="playChannel('https://cdn05khi.tamashaweb.com:8087/jazzauth/Madni-abr/live/vsat-94M/chunks.m3u8')">
+        <img src="https://i.postimg.cc/NGVnQ6gk/images-1-26.jpg" alt="Madni TV" />
+        <div>Madni TV</div>
+      </div>
+
+      <!-- Entertainment -->
+      <div class="channel entertainment" onclick="playChannel('https://cdn07isb.tamashaweb.com:8087/YlUHeDQb7a/humTV-abr/playlist.m3u8')">
+        <img src="https://i.postimg.cc/02qNL5mx/Hum-TV-2013.png" alt="Hum TV" />
+        <div>Hum TV</div>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://cdn12isb.tamashaweb.com:8087/jazzauth/Green_Entertainment-abr/live/vsat-green-M/chunks.m3u8')">
+        <img src="https://i.postimg.cc/fb4Wqq4V/images-28-1.png" alt="Green TV" />
+        <div>Green TV</div>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://cdn22lhr.tamashaweb.com:8087/jazzauth/8xm-abr/live/vsat-128H/chunks.m3u8')">
+        <img src="https://i.postimg.cc/q7BY15zj/pakistan-8xm-television-channel-streaming-media-non-stop-6ac08f34db0e17fea8bae92e1f230a47.png" alt="8xm" />
+        <div>8xm</div>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://cdn21lhr.tamashaweb.com:8087/jazzauth/ARYdigital-abr/live/vsat-ary-L/chunks.m3u8')">
+        <img src="https://i.postimg.cc/dVSwF7xM/Ary-Digital-Logo.png" alt="Ary Digital" />
+        <div>Ary Digital</div>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://cdn22lhr.tamashaweb.com:8087/jazzauth/GeoEntertainment-abr/live/vsat-geotv-H/chunks.m3u8')">
+        <img src="https://i.postimg.cc/q7st8jsz/Geo-TV.png" alt="Geo" />
+        <div>Geo</div>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://cdn23lhr.tamashaweb.com:8087/jazzauth/hummasala-abr/live/vsat-118M/chunks.m3u8')">
+        <img src="https://i.postimg.cc/jdTgVQ4K/images-1-25.jpg" alt="Hum Masala" />
+        <div>Hum Masala</div>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://cdn21lhr.tamashaweb.com:8087/jazzauth/ExpressEntertainment-abr/live/vsat-83M/chunks.m3u8')">
+        <img src="https://i.postimg.cc/ncktNL7R/images-1-27.jpg" alt="Express" />
+        <div>Express</div>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://cdn12isb.tamashaweb.com:8087/jazzauth/LahoreRung-abr/live/vsat-86M/chunks.m3u8')">
+        <img src="https://i.postimg.cc/W4659dxS/channels4-profile.jpg" alt="Lahore Rang" />
+        <div>Lahore Rang</div>
+      </div>
+
+      <!-- Cartoon -->
+      <div class="channel cartoon" onclick="playChannel('https://cdn5.mjunoon.tv:8087/web/cartoon-network-87/live/87M/chunks.m3u8')">
+        <img src="https://i.postimg.cc/tgYQHqG4/images-30.png" alt="Cartoon Network urdu" />
+        <div>Cartoon Network Urdu</div>
+      </div>
+    </div>
+
+    <footer>
+      © 2025 Wasi TV - All rights reserved.
+    </footer>
   </div>
 
   <script>
-    async function fetchData() {
-      const number = document.getElementById("numberInput").value.trim();
-      const resultBox = document.getElementById("resultBox");
-
-      if (!number) {
-        resultBox.innerHTML = "<p style='color: #ff8080'>Please enter a phone number</p>";
-        return;
-      }
-
-      resultBox.innerHTML = "<p>⏳ ڈیٹا آرہا ہے...</p>";
-
-      try {
-        // ✅ New API integrated
-        const response = await fetch(`https://www.3patticenter.com/famofc/api/database.php?num=${encodeURIComponent(number)}`);
-        const data = await response.json();
-
-        if (data.status !== "success") {
-          resultBox.innerHTML = `<p style="color:#ff8080">❌ ${data.message || "یہ ڈیٹا نیا ہے "}</p>`;
-          return;
-        }
-
-        let html = "";
-        data.data.forEach(record => {
-          html += `<div style="margin-bottom:12px; border-bottom:1px solid #666; padding-bottom:8px">`;
-          for (let key in record) {
-            html += `<p><strong>${key}:</strong> ${record[key]}</p>`;
-          }
-          html += `</div>`;
-        });
-
-        resultBox.innerHTML = html || "<p>No data found</p>";
-
-      } catch (error) {
-        resultBox.innerHTML = `<p style="color:#ff8080">⚠️ Error: ${error.message}</p>`;
-      }
+    function playChannel(url) {
+      const player = document.getElementById('player');
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = "block";
+      player.src = url;
+      player.onload = () => {
+        spinner.style.display = "none";
+      };
     }
+    function filterChannels(category) {
+      document.querySelectorAll('.channel').forEach(c => {
+        c.style.display = (category === 'all' || c.classList.contains(category)) ? 'block' : 'none';
+      });
+    }
+    setTimeout(() => {
+      document.getElementById('splash').style.display = "none";
+      document.getElementById('main-content').style.display = "block";
+    }, 2500);
   </script>
 </body>
 </html>
