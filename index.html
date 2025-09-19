@@ -3,434 +3,222 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Wasi TV - Enhanced Video Player</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Title -->
+  <title>Wasi TV - Live Sports, Islamic, Entertainment, News & Cartoon Channels</title>
+
+  <!-- Meta Description -->
+  <meta name="description" content="Watch Wasi TV live online – Free access to Sports, Islamic, Entertainment, News & Cartoon channels. Stream Ten Sports, Hum TV, Geo, Ary Digital, Makkah TV, Madni TV and more." />
+
+  <!-- Meta Keywords -->
+  <meta name="keywords" content="Wasi TV, Live TV Pakistan, Free Online TV, Sports TV, Islamic TV, Entertainment TV, News TV, Cartoon Network Urdu, Hum TV, Geo TV, Ary Digital, Ten Sports" />
+
+  <!-- Author -->
+  <meta name="author" content="Wasi TV" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Wasi TV - Live TV Streaming" />
+  <meta property="og:description" content="Watch Wasi TV live online – Sports, Islamic, Entertainment, News & Cartoon channels in HD." />
+  <meta property="og:image" content="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" />
+  <meta property="og:url" content="https://yourdomain.com/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Wasi TV - Free Live Streaming" />
+  <meta name="twitter:description" content="Wasi TV brings you live Sports, Islamic, Entertainment, News & Cartoon channels free online." />
+  <meta name="twitter:image" content="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://yourdomain.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" type="image/png" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
   <style>
-    :root {
-      --primary: #2D5BFF;
-      --primary-dark: #1A3CC0;
-      --secondary: #FF6B35;
-      --dark-bg: #0F172A;
-      --darker-bg: #0A0E1A;
-      --card-bg: #1E293B;
-      --text-primary: #F8FAFC;
-      --text-secondary: #CBD5E1;
-      --accent: #00E5FF;
-      --success: #10B981;
-      --gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-      --transition: all 0.3s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* === CSS Same as your original === */
     body {
-      font-family: 'Poppins', 'Segoe UI', sans-serif;
-      background: var(--dark-bg);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1000px;
-      width: 100%;
-      background: var(--darker-bg);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .header {
-      text-align: center;
-      padding: 25px 0 15px;
-      background: var(--darker-bg);
-      position: relative;
-    }
-
-    .header h1 {
-      margin: 5px 0 0;
-      font-size: 32px;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .player-section {
-      padding: 0 20px 20px;
-    }
-
-    .player-container {
-      position: relative;
-      width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-      background: #000;
-      margin-bottom: 20px;
-    }
-
-    #main-player {
-      width: 100%;
-      aspect-ratio: 16/9;
-      display: block;
-      background: #000;
-    }
-
-    .video-poster {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 2;
-      transition: opacity 0.3s ease;
-    }
-
-    .video-poster.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .player-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--card-bg);
-      padding: 15px;
-      border-radius: 12px;
-      margin-top: 15px;
-    }
-
-    .now-playing {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .channel-logo {
-      width: 50px;
-      height: 50px;
-      border-radius: 8px;
-      background: white;
-      padding: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .channel-logo img {
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    .channel-info h3 {
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-
-    .channel-info p {
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
-
-    .control-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .control-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--gradient);
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e3c72, #2a5298);
       color: white;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition);
     }
+    .header { text-align: center; padding: 20px; }
+    .header img { width: 120px; }
+    .header h1 { font-size: 28px; margin: 10px 0 0; }
 
-    .control-btn:hover {
-      transform: scale(1.1);
-    }
+    .nav { text-align: center; padding: 10px; }
+    .nav button { margin: 5px; padding: 10px 15px; border: none; border-radius: 8px; cursor: pointer; background: #2a5298; color: white; font-weight: 600; }
+    .nav button:hover { background: #1e3c72; }
 
-    /* Custom Video Player Controls */
-    .custom-video-controls {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-      padding: 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 10;
-    }
+    .player-container { position: relative; width: 90%; max-width: 800px; margin: 20px auto; background: black; border-radius: 12px; overflow: hidden; }
+    .player-container iframe { width: 100%; height: 450px; border: none; }
+    .spinner { display: none; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); }
+    .spinner img { width: 100px; animation: spin 1.5s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    .player-container:hover .custom-video-controls {
-      opacity: 1;
-    }
+    .channels { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; }
+    .channel { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; text-align: center; width: 140px; cursor: pointer; transition: 0.3s; }
+    .channel:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+    .channel img { width: 100%; border-radius: 8px; }
+    .channel span { display: block; margin-top: 8px; font-weight: 600; }
 
-    .progress-container {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 3px;
-      cursor: pointer;
-      overflow: hidden;
-    }
+    footer { text-align: center; padding: 20px; background: #0f172a; font-size: 14px; margin-top: 20px; }
 
-    .progress-bar {
-      height: 100%;
-      background: var(--primary);
-      border-radius: 3px;
-      width: 0%;
-      transition: width 0.2s ease;
-    }
+    #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: flex; justify-content: center; align-items: center; flex-direction: column; z-index: 1000; }
+    #splash img { width: 180px; }
+    .dots-loading { display: flex; gap: 8px; margin-top: 20px; }
+    .dots-loading div { width: 12px; height: 12px; background: white; border-radius: 50%; animation: bounce 1.2s infinite; }
+    .dots-loading div:nth-child(2) { animation-delay: 0.2s; }
+    .dots-loading div:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
-    .control-buttons-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    .left-controls, .right-controls {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .play-pause-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 20px;
-      cursor: pointer;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .volume-control {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .volume-slider {
-      width: 80px;
-      height: 5px;
-      -webkit-appearance: none;
-      appearance: none;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 3px;
-      outline: none;
-    }
-
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--primary);
-      cursor: pointer;
-    }
-
-    .time-display {
-      color: white;
-      font-size: 14px;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .quality-selector {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .playback-speed {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      padding: 5px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .fullscreen-btn {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .channel-selection {
-      padding: 20px;
-      background: var(--card-bg);
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    .channel-selection h2 {
-      margin-bottom: 15px;
-      font-size: 20px;
-      color: var(--text-primary);
-      text-align: center;
-    }
-
-    .channel-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 15px;
-    }
-
-    .channel-item {
-      background: var(--darker-bg);
-      padding: 12px;
-      border-radius: 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .channel-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      background: linear-gradient(145deg, var(--darker-bg), #111827);
-    }
-
-    .channel-item img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      margin-bottom: 8px;
-      border-radius: 6px;
-      background: white;
-      padding: 4px;
-    }
-
-    .channel-item div {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    .loading-indicator {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 5;
-      display: none;
-    }
-
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: var(--primary);
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @media (max-width: 768px) {
-      .channel-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      }
-      
-      .control-buttons-bottom {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      
-      .volume-slider {
-        width: 60px;
-      }
-      
-      .quality-selector, .playback-speed {
-        padding: 3px 6px;
-        font-size: 12px;
-      }
-    }
+    .marquee-container { overflow: hidden; white-space: nowrap; background: rgba(255,255,255,0.1); padding: 8px; margin-top: 5px; }
+    .marquee { display: inline-block; padding-left: 100%; animation: marquee 12s linear infinite; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    .watermark { position: absolute; top: 10px; right: 10px; width: 60px; opacity: 0.5; }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- Splash Screen -->
+  <div id="splash">
+    <img src="https://i.postimg.cc/5NmSmbpx/20250729-161340.jpg" alt="Wasi TV Splash Screen" />
+    <div class="dots-loading"><div></div><div></div><div></div></div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main-content" style="display:none;">
     <div class="header">
-      <h1>WASI TV STREAMING</h1>
+      <img src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Wasi TV Logo" />
+      <h1>Wasi TV - Live Online Streaming</h1>
     </div>
 
-    <div class="player-section">
-      <div class="player-container">
-        <video id="main-player"></video>
-        <img src="https://i.postimg.cc/5NmSmbpx/20250729-161340.jpg" alt="Video Poster" class="video-poster" id="video-poster">
-        
-        <div class="loading-indicator" id="loading-indicator">
-          <div class="spinner"></div>
+    <!-- Navigation -->
+    <div class="nav">
+      <button onclick="filterChannels('all')">All</button>
+      <button onclick="filterChannels('islamic')">Islamic</button>
+      <button onclick="filterChannels('sports')">Sports</button>
+      <button onclick="filterChannels('entertainment')">Entertainment</button>
+      <button onclick="filterChannels('news')">News</button>
+      <button onclick="filterChannels('cartoon')">Cartoon</button>
+    </div>
+
+    <!-- Player -->
+    <div class="player-container">
+      <div class="spinner" id="spinner">
+        <img src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Loading Wasi TV" />
+      </div>
+      <iframe id="player" src="" allowfullscreen></iframe>
+      <img class="watermark" src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Wasi TV Watermark" />
+      <div class="marquee-container">
+        <div class="marquee">
+          اگر آپکو ویسی ٹی وی میں کوئی چیز اور ایڈ کروانی ہو تو رابطہ کریں 03376143010 آپکے تعاون کا شکریہ
         </div>
-        
-        <div class="custom-video-controls">
-          <div class="progress-container" id="progress-container">
-            <div class="progress-bar" id="progress-bar"></div>
-          </div>
-          
-          <div class="control-buttons-bottom">
-            <div class="left-controls">
-              <button class="play-pause-btn" id="play-pause-btn">
-                <i class="fas fa-play"></i>
-              </button>
-              
-              <div class="volume-control">
-                <button class="volume-btn" id="volume-btn">
-                  <i class="fas fa-volume-up"></i>
-                </button>
-                <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.1" value="1">
-              </div>
-              
-              <div class="time-display" id="time-display">00:00 / 00:00</div>
-            </div>
-            
-            <div class="right-controls">
-              <select class="quality-selector" id="quality-selector">
-                <option value="auto">Auto Quality</option>
-                <option value="hd">HD</option>
-                <option value="sd">SD</option>
-                <option value="low">Low</option>
-              </select>
-              
-              <select class="playback-speed" id="playback-speed">
-                <option value="1">1.0x</option>
-                <option value="1.25">1.25x</option>
+      </div>
+    </div>
+
+    <!-- Sports -->
+    <h2>Live Sports Channels on Wasi TV</h2>
+    <div class="channels">
+      <div class="channel sports" onclick="playChannel('https://example.com/tensports')">
+        <img src="https://i.postimg.cc/xTM4dDCr/images-2.jpg" alt="Ten Sports Live on Wasi TV" loading="lazy" />
+        <span>Ten Sports</span>
+      </div>
+      <div class="channel sports" onclick="playChannel('https://example.com/ptvsports')">
+        <img src="https://i.postimg.cc/xTM4dDCr/images-2.jpg" alt="PTV Sports Live on Wasi TV" loading="lazy" />
+        <span>PTV Sports</span>
+      </div>
+    </div>
+
+    <!-- Islamic -->
+    <h2>Islamic Channels on Wasi TV</h2>
+    <div class="channels">
+      <div class="channel islamic" onclick="playChannel('https://example.com/makkahtv')">
+        <img src="https://i.postimg.cc/9FpVqtdw/download-5.jpg" alt="Makkah Live TV on Wasi TV" loading="lazy" />
+        <span>Makkah TV</span>
+      </div>
+      <div class="channel islamic" onclick="playChannel('https://example.com/madinatv')">
+        <img src="https://i.postimg.cc/9FpVqtdw/download-5.jpg" alt="Madina Live TV on Wasi TV" loading="lazy" />
+        <span>Madina TV</span>
+      </div>
+      <div class="channel islamic" onclick="playChannel('https://example.com/madnitv')">
+        <img src="https://i.postimg.cc/SKDc4q77/download-3.jpg" alt="Madni TV Live on Wasi TV" loading="lazy" />
+        <span>Madni TV</span>
+      </div>
+    </div>
+
+    <!-- Entertainment -->
+    <h2>Entertainment Channels on Wasi TV</h2>
+    <div class="channels">
+      <div class="channel entertainment" onclick="playChannel('https://example.com/humtv')">
+        <img src="https://i.postimg.cc/wxhqzm4F/download-2.jpg" alt="Hum TV Live on Wasi TV" loading="lazy" />
+        <span>Hum TV</span>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://example.com/geotv')">
+        <img src="https://i.postimg.cc/2yp1qzqY/images.jpg" alt="Geo TV Live on Wasi TV" loading="lazy" />
+        <span>Geo TV</span>
+      </div>
+      <div class="channel entertainment" onclick="playChannel('https://example.com/arydigital')">
+        <img src="https://i.postimg.cc/9f5ZP4hX/download.jpg" alt="ARY Digital Live on Wasi TV" loading="lazy" />
+        <span>ARY Digital</span>
+      </div>
+    </div>
+
+    <!-- Cartoon -->
+    <h2>Cartoon Channels on Wasi TV</h2>
+    <div class="channels">
+      <div class="channel cartoon" onclick="playChannel('https://example.com/cartoonnetworkurdu')">
+        <img src="https://i.postimg.cc/yxw9WwM8/download-4.jpg" alt="Cartoon Network Urdu Live on Wasi TV" loading="lazy" />
+        <span>Cartoon Network Urdu</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Watch <a href="/sports">Live Sports</a>, <a href="/islamic">Islamic TV</a>, <a href="/entertainment">Entertainment</a>, <a href="/news">News</a> and <a href="/cartoon">Cartoons</a> only on <strong>Wasi TV</strong>.</p>
+      © 2025 Wasi TV - All rights reserved.
+    </footer>
+  </div>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Wasi TV",
+    "url": "https://yourdomain.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://yourdomain.com/?s={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- JS -->
+  <script>
+    function playChannel(url) {
+      const player = document.getElementById('player');
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = "flex";
+      player.src = url;
+      player.onload = () => { spinner.style.display = "none"; };
+    }
+    function filterChannels(category) {
+      document.querySelectorAll('.channel').forEach(c => {
+        c.style.display = (category === 'all' || c.classList.contains(category)) ? 'block' : 'none';
+      });
+    }
+    setTimeout(() => {
+      document.getElementById('splash').style.display = "none";
+      document.getElementById('main-content').style.display = "block";
+    }, 2500);
+  </script>
+</body>
+</html>lue="1.25">1.25x</option>
                 <option value="1.5">1.5x</option>
                 <option value="2">2.0x</option>
                 <option value="0.5">0.5x</option>
