@@ -4,25 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Wasi TV - Live Pakistani TV Channels Online</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Wasi TV - Watch live Pakistani TV channels online including sports, news, Islamic, entertainment, and cartoons. HD quality streaming available free.">
-  <meta name="keywords" content="Wasi TV, Live TV Pakistan, Sports TV, Islamic TV, Entertainment TV, News TV, Cartoon Channels, Free Live Streaming">
-  <meta name="author" content="Wasi TV">
-  <link rel="canonical" href="https://wasitv.vercel.app/">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Wasi TV - Live Pakistani Channels">
-  <meta property="og:description" content="Watch live TV channels including Sports, Islamic, Entertainment, News and Cartoons on Wasi TV.">
-  <meta property="og:image" content="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://wasitv.vercel.app/">
-
-  <!-- Favicon -->
-  <link rel="icon" href="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" type="image/png">
-
-  <!-- Google Urdu Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -30,46 +11,72 @@
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #0f172a, #1e3c72, #2a5298);
       color: white;
+      overflow-x: hidden;
     }
 
-    /* Splash */
+    /* Splash Screen */
     #splash {
       position: fixed;
       inset: 0;
-      background: #0a082b;
+      background: black;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       flex-direction: column;
       z-index: 9999;
+      color: white;
+      font-weight: bold;
+      text-align: center;
     }
-    #splash img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      filter: brightness(0.6);
+    .splash-text {
+      font-size: 2.5rem;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
     }
-    .dots-loading {
-      display: flex;
-      gap: 8px;
-      z-index: 1;
+    .splash-line {
+      width: 0;
+      height: 4px;
+      background: white;
+      margin: 20px auto;
+      animation: growLine 1s forwards;
+      animation-delay: 1s;
     }
-    .dots-loading div {
-      width: 12px;
-      height: 12px;
-      background: #ff5500;
-      border-radius: 50%;
-      animation: bounce 1.2s infinite ease-in-out;
+    .splash-are {
+      font-size: 2rem;
+      letter-spacing: 5px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 2s;
     }
-    .dots-loading div:nth-child(2) { animation-delay: 0.2s; }
-    .dots-loading div:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
+    .splash-unstoppable {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #ff5500;
+      text-shadow: 0 0 10px #ff5500;
+      opacity: 0;
+      animation: fadeInScale 1s forwards;
+      animation-delay: 3s;
     }
+    .splash-logo {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #4f9fff;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+      animation-delay: 4s;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes fadeInScale {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes growLine {
+      to { width: 60%; }
+    }
+
+    /* Hide Splash after 5s */
     #main-content { display: none; }
 
     /* Header */
@@ -80,13 +87,12 @@
     .header img { height: 65px; }
     .header h1 { margin: 8px 0 0; font-size: 26px; letter-spacing: 1px; }
 
-    /* Player full width top */
+    /* Player */
     .player-container {
       position: relative;
       width: 100%;
       height: 45vh;
       overflow: hidden;
-      border-radius: 0;
       margin: 0 auto 15px;
     }
     .player-container iframe {
@@ -97,25 +103,14 @@
       height: 100vh;
       transform: translate(-50%, -50%);
       border: none;
-      object-fit: cover;
     }
-
-    /* Watermark Wasi TV logo */
     .watermark {
       position: absolute;
       top: 10px;
       right: 10px;
-      z-index: 10;
       width: 80px;
       opacity: 0.85;
-      animation: float 3s ease-in-out infinite;
     }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    /* Custom Wasi Spinner */
     .spinner {
       position: absolute;
       top: 50%;
@@ -127,10 +122,7 @@
       z-index: 5;
       animation: pulse 1.5s infinite;
     }
-    .spinner img {
-      width: 100%;
-      height: auto;
-    }
+    .spinner img { width: 100%; }
     @keyframes pulse {
       0% { transform: scale(0.9); opacity: 0.7; }
       50% { transform: scale(1.1); opacity: 1; }
@@ -142,7 +134,7 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-      background: #ffffff;
+      background: #fff;
       color: #111;
       overflow: hidden;
       white-space: nowrap;
@@ -150,7 +142,6 @@
       font-weight: 600;
       font-size: 16px;
       padding: 6px 0;
-      font-family: 'Noto Nastaliq Urdu', serif;
     }
     .marquee {
       display: inline-block;
@@ -178,11 +169,6 @@
       border-radius: 20px;
       cursor: pointer;
       font-size: 13px;
-      transition: all 0.3s;
-    }
-    .nav button:hover {
-      background: #1d4ed8;
-      transform: translateY(-2px);
     }
 
     /* Channels Grid */
@@ -193,16 +179,13 @@
       padding: 15px;
       justify-items: center;
     }
-
     .channel {
-      background: none;
       text-align: center;
       cursor: pointer;
     }
     .channel img {
       width: 70px;
       height: 70px;
-      object-fit: cover;
       border-radius: 50%;
       border: 3px solid #2563eb;
       transition: transform 0.3s, border-color 0.3s;
@@ -224,22 +207,17 @@
       font-size: 13px;
       color: #bbb;
       border-top: 1px solid rgba(255,255,255,0.2);
-      margin-top: 15px;
-    }
-    footer p {
-      font-size: 12px;
-      margin: 5px 0 0;
-      color: #aaa;
     }
   </style>
 </head>
 <body>
   <!-- Splash -->
   <div id="splash">
-    <img src="https://i.postimg.cc/5NmSmbpx/20250729-161340.jpg" alt="Splash Screen Wasi TV" />
-    <div class="dots-loading">
-      <div></div><div></div><div></div>
-    </div>
+    <div class="splash-text">WELCOME TO</div>
+    <div class="splash-line"></div>
+    <div class="splash-are">WE ARE</div>
+    <div class="splash-unstoppable">UNSTOPPABLE</div>
+    <div class="splash-logo">📺 WASI TV</div>
   </div>
 
   <!-- Main Content -->
@@ -254,21 +232,18 @@
       <button onclick="filterChannels('islamic')">Islamic</button>
       <button onclick="filterChannels('sports')">Sports</button>
       <button onclick="filterChannels('entertainment')">Entertainment</button>
-      <button onclick="filterChannels('news')">News</button>
       <button onclick="filterChannels('cartoon')">Cartoon</button>
     </div>
 
-    <!-- Player + Marquee -->
+    <!-- Player -->
     <div class="player-container">
       <div class="spinner" id="spinner">
-        <img src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Loading Wasi TV" />
+        <img src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" />
       </div>
       <iframe id="player" src="" allowfullscreen></iframe>
-      <img class="watermark" src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" alt="Wasi TV Watermark" />
+      <img class="watermark" src="https://i.postimg.cc/cJwz4trt/pngfind-com-website-clipart-png-6209136.png" />
       <div class="marquee-container">
-        <div class="marquee">
-          اگر آپکو ویسی ٹی وی میں کوئی چیز اور ایڈ کروانی ہو تو رابطہ کریں 03376143010 آپکے تعاون کا شکریہ
-        </div>
+        <div class="marquee">اگر آپکو ویسی ٹی وی میں کوئی چیز اور ایڈ کروانی ہو تو رابطہ کریں 03376143010 آپکے تعاون کا شکریہ</div>
       </div>
     </div>
 
@@ -337,7 +312,6 @@
 
     <footer>
       © 2025 Wasi TV - All rights reserved.
-      <p>Wasi TV provides free access to live Pakistani TV channels including sports, news, Islamic, entertainment and cartoon networks online.</p>
     </footer>
   </div>
 
@@ -359,68 +333,7 @@
     setTimeout(() => {
       document.getElementById('splash').style.display = "none";
       document.getElementById('main-content').style.display = "block";
-    }, 2500);
-  </script>
-</body>
-</html>V</div>
-      </div>
-      <div class="channel entertainment" onclick="playChannel('https://cdn22lhr.tamashaweb.com:8087/jazzauth/8xm-abr/live/vsat-128H/chunks.m3u8')">
-        <img src="https://i.postimg.cc/q7BY15zj/pakistan-8xm-television-channel-streaming-media-non-stop-6ac08f34db0e17fea8bae92e1f230a47.png" alt="8xm Music TV" />
-        <div>8xm</div>
-      </div>
-      <div class="channel entertainment" onclick="playChannel('https://cdn21lhr.tamashaweb.com:8087/jazzauth/ARYdigital-abr/live/vsat-ary-L/chunks.m3u8')">
-        <img src="https://i.postimg.cc/dVSwF7xM/Ary-Digital-Logo.png" alt="ARY Digital Live" />
-        <div>Ary Digital</div>
-      </div>
-      <div class="channel entertainment" onclick="playChannel('https://cdn22lhr.tamashaweb.com:8087/jazzauth/GeoEntertainment-abr/live/vsat-geotv-H/chunks.m3u8')">
-        <img src="https://i.postimg.cc/q7st8jsz/Geo-TV.png" alt="Geo Entertainment Live" />
-        <div>Geo</div>
-      </div>
-      <div class="channel entertainment" onclick="playChannel('https://cdn23lhr.tamashaweb.com:8087/jazzauth/hummasala-abr/live/vsat-118M/chunks.m3u8')">
-        <img src="https://i.postimg.cc/jdTgVQ4K/images-1-25.jpg" alt="Hum Masala Live" />
-        <div>Hum Masala</div>
-      </div>
-      <div class="channel entertainment" onclick="playChannel('https://cdn21lhr.tamashaweb.com:8087/jazzauth/ExpressEntertainment-abr/live/vsat-83M/chunks.m3u8')">
-        <img src="https://i.postimg.cc/ncktNL7R/images-1-27.jpg" alt="Express Entertainment Live" />
-        <div>Express</div>
-      </div>
-      <div class="channel entertainment" onclick="playChannel('https://cdn12isb.tamashaweb.com:8087/jazzauth/LahoreRung-abr/live/vsat-86M/chunks.m3u8')">
-        <img src="https://i.postimg.cc/W4659dxS/channels4-profile.jpg" alt="Lahore Rang TV" />
-        <div>Lahore Rang</div>
-      </div>
-
-      <!-- Cartoon -->
-      <div class="channel cartoon" onclick="playChannel('https://cdn5.mjunoon.tv:8087/web/cartoon-network-87/live/87M/chunks.m3u8')">
-        <img src="https://i.postimg.cc/tgYQHqG4/images-30.png" alt="Cartoon Network Urdu Live" />
-        <div>Cartoon Network Urdu</div>
-      </div>
-    </div>
-
-    <footer>
-      © 2025 Wasi TV - All rights reserved.
-      <p>Wasi TV provides free access to live Pakistani TV channels including sports, news, Islamic, entertainment and cartoon networks online.</p>
-    </footer>
-  </div>
-
-  <script>
-    function playChannel(url) {
-      const player = document.getElementById('player');
-      const spinner = document.getElementById('spinner');
-      spinner.style.display = "block";
-      player.src = url;
-      player.onload = () => {
-        spinner.style.display = "none";
-      };
-    }
-    function filterChannels(category) {
-      document.querySelectorAll('.channel').forEach(c => {
-        c.style.display = (category === 'all' || c.classList.contains(category)) ? 'block' : 'none';
-      });
-    }
-    setTimeout(() => {
-      document.getElementById('splash').style.display = "none";
-      document.getElementById('main-content').style.display = "block";
-    }, 2500);
+    }, 5000);
   </script>
 </body>
 </html>
