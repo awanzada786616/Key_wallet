@@ -1,184 +1,257 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ur">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Working Video Player | Shaheen TV</title>
-  
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Iframe Player — Play / Pause</title>
+
+  <!-- Font Awesome (icons) -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-p1CmK4X2X/4z2k1q5Z0k3Kwl0QZlKq2qg1k6B8YxH1m9ZV+e5x1P1vU6q3h2b9Y7K3E6Q9q1Yq2xKq2YQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
-    body {
-      margin: 0;
+    /* Simple, clean UI */
+    :root{
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #06b6d4;
+      --muted: #94a3b8;
+      --radius: 12px;
+    }
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    body{
+      background: linear-gradient(180deg,#071021 0%, #07192a 100%);
+      color:#e6eef6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      box-sizing:border-box;
+    }
+
+    .player-card{
+      width:100%;
+      max-width:980px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:var(--radius);
+      padding:14px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+
+    .frame-wrap{
+      position:relative;
+      border-radius:10px;
+      overflow:hidden;
+      background:#000;
+      min-height:420px;
+    }
+
+    iframe{
+      width:100%;
+      height:520px;
+      border:0;
+      display:block;
       background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
+      min-height:420px;
     }
 
-    .player-container {
-      max-width: 800px;
-      margin: 50px auto;
-      background: #111;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top:12px;
     }
 
-    video {
-      width: 100%;
-      height: auto;
-      background: black;
+    .btn{
+      appearance:none;border:0;padding:10px 14px;border-radius:10px;
+      cursor:pointer;font-size:18px;
+      display:inline-flex;align-items:center;gap:8px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      color:var(--accent);
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    }
+    .btn.secondary{ color:var(--muted); font-size:15px; padding:9px 12px; }
+    .status{
+      margin-left:auto;color:var(--muted); font-size:14px;
     }
 
-    .controls {
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      background: rgba(0, 0, 0, 0.7);
+    .overlay {
+      position:absolute; inset:0; display:flex;align-items:center;justify-content:center;
+      background: linear-gradient(to bottom, rgba(2,6,23,0.5), rgba(2,6,23,0.65));
+      color:#fff; font-size:16px; text-align:center; padding:18px;
+      backdrop-filter: blur(2px);
     }
 
-    .controls button {
-      background: #222;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 8px 12px;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 14px;
-    }
-
-    .controls button:hover {
-      background: #444;
-    }
-
-    .episode-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 10px;
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .episode-btn {
-      background: #222;
-      color: white;
-      border: 1px solid #444;
-      padding: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .episode-btn:hover {
-      background: #333;
-    }
-
-    .episode-btn.active {
-      background: #4ba1d6;
-      font-weight: bold;
-    }
-
-    h2 {
-      color: #fff;
-      margin-top: 30px;
+    .hidden{ display:none; }
+    .hint{ color:var(--muted); font-size:13px; margin-top:8px; }
+    /* small screens */
+    @media (max-width:600px){
+      iframe{height:360px;}
     }
   </style>
 </head>
-
 <body>
-  <div class="player-container">
-    <video id="videoPlayer" controls poster="https://bit.ly/Shaheen-TV-Img"></video>
+  <div class="player-card" role="region" aria-label="Iframe player with play/pause">
+    <h3 style="margin:0 0 8px 0;font-weight:600;">Embedded Link Player</h3>
+    <div class="frame-wrap" id="frameWrap">
+      <!-- IFRAME: start without src (paused state) -->
+      <iframe id="playerFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" src="about:blank" title="Embedded content"></iframe>
 
-    <div class="controls">
-      <button onclick="rewind(10)"><i class="fas fa-backward"></i> 10s</button>
-      <button onclick="playPause()"><i class="fas fa-play" id="playIcon"></i> / <i class="fas fa-pause"></i></button>
-      <button onclick="forward(10)">10s <i class="fas fa-forward"></i></button>
-      <button onclick="muteToggle()"><i class="fas fa-volume-up"></i> / <i class="fas fa-volume-mute"></i></button>
-      <button onclick="goFullscreen()"><i class="fas fa-expand"></i></button>
+      <!-- overlay shown while loading / if blocked -->
+      <div id="overlay" class="overlay">
+        <div>
+          <div id="overlayText">Press play to load the link.</div>
+          <div class="hint" style="margin-top:8px;">Note: agar site iframe allow nahi karti to yahan blank ya error aa sakta hai — neeche fallback message dekhain.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls" style="margin-top:12px;">
+      <button id="playBtn" class="btn" aria-pressed="false" title="Play">
+        <i class="fa-solid fa-play"></i> Play
+      </button>
+
+      <button id="pauseBtn" class="btn secondary" aria-pressed="true" title="Pause">
+        <i class="fa-solid fa-pause"></i> Pause
+      </button>
+
+      <button id="reloadBtn" class="btn secondary" title="Reload">
+        <i class="fa-solid fa-arrows-rotate"></i> Reload
+      </button>
+
+      <div class="status" id="statusText">Status: Paused</div>
+    </div>
+
+    <div id="fallback" class="hint" style="display:none; margin-top:10px; color:#ffcccb;">
+      Fallback: Yeh site iframe mein embed hone se rok sakti hai. Agar aapko content dikhna zaroori hai to direct link kholen: <a id="directLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #9be7ff;">Open in new tab</a>
     </div>
   </div>
 
-  <h2>Episodes</h2>
-  <div class="episode-list" id="episodeList"></div>
-
   <script>
-    const video = document.getElementById('videoPlayer');
-    const playIcon = document.getElementById('playIcon');
-    const episodeList = document.getElementById('episodeList');
+    // -------------------------
+    // Configuration (change only this line)
+    // -------------------------
+    const TARGET_URL = "https://1024terabox.com/s/1rnKipGT63Eb5Jz7Bq6NOYw";
+    // -------------------------
 
-    // ✅ Add your episodes here
-    const episodes = [
-      { title: "Sample MP4", url: "https://www.w3schools.com/html/mov_bbb.mp4" },
-      // You can also use m3u8:
-      // { title: "Sample M3U8", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" }
-    ];
+    const iframe = document.getElementById('playerFrame');
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const reloadBtn = document.getElementById('reloadBtn');
+    const overlay = document.getElementById('overlay');
+    const overlayText = document.getElementById('overlayText');
+    const statusText = document.getElementById('statusText');
+    const fallback = document.getElementById('fallback');
+    const directLink = document.getElementById('directLink');
 
-    // ✅ Load episodes dynamically
-    function loadEpisodes() {
-      episodeList.innerHTML = '';
-      episodes.forEach((ep, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'episode-btn';
-        btn.textContent = ep.title;
+    directLink.href = TARGET_URL;
+    directLink.textContent = TARGET_URL;
 
-        btn.onclick = function() {
-          document.querySelectorAll('.episode-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          playVideo(ep.url);
-        };
+    let isPlaying = false;
+    let loadTimer = null;
 
-        episodeList.appendChild(btn);
-      });
+    function setStatus(txt){
+      statusText.textContent = "Status: " + txt;
     }
 
-    // ✅ Video Player Controls
-    function playVideo(url) {
-      if (Hls.isSupported() && url.endsWith('.m3u8')) {
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-          video.play();
-        });
-      } else {
-        video.src = url;
-        video.play();
+    function showOverlay(msg){
+      overlay.classList.remove('hidden');
+      overlayText.textContent = msg;
+    }
+    function hideOverlay(){
+      overlay.classList.add('hidden');
+    }
+
+    // Play: set iframe src (load)
+    function play(){
+      if(isPlaying) return;
+      isPlaying = true;
+      playBtn.setAttribute('aria-pressed','true');
+      pauseBtn.setAttribute('aria-pressed','false');
+      setStatus('Loading...');
+      showOverlay('Loading content — please wait...');
+      // set src to start loading
+      iframe.src = TARGET_URL;
+
+      // We can't read iframe's cross-origin content to detect X-Frame-Options.
+      // But we can use onload + a timeout: if onload fires we assume success; if timeout reached, show fallback.
+      clearTimeout(loadTimer);
+      loadTimer = setTimeout(() => {
+        // if still loading after 6s, show fallback suggestion (could be slow or blocked)
+        showOverlay('Loading is taking longer than expected. The site might prevent embedding. Try "Open in new tab".');
+        fallback.style.display = 'block';
+        setStatus('Loaded? (possible embed block)');
+      }, 6000);
+    }
+
+    // Pause: unload iframe by blanking src (this "pauses" network/activity)
+    function pause(){
+      if(!isPlaying) return;
+      isPlaying = false;
+      playBtn.setAttribute('aria-pressed','false');
+      pauseBtn.setAttribute('aria-pressed','true');
+      setStatus('Paused');
+      // remove src to stop embedded content
+      iframe.src = "about:blank";
+      hideOverlay();
+      fallback.style.display = 'none';
+      clearTimeout(loadTimer);
+    }
+
+    // Reload (re-apply src)
+    function reloadFrame(){
+      if(!isPlaying){
+        // if paused, set src but keep state paused => we'll show overlay and set playing = true
+        play();
+        return;
       }
+      // reload by reassigning src
+      showOverlay('Reloading...');
+      iframe.src = TARGET_URL;
+      clearTimeout(loadTimer);
+      loadTimer = setTimeout(() => {
+        showOverlay('Reload took long — site might block embedding. Try open in new tab.');
+        fallback.style.display = 'block';
+      }, 6000);
     }
 
-    function playPause() {
-      if (video.paused) video.play(); else video.pause();
-    }
+    // Event listeners
+    playBtn.addEventListener('click', play);
+    pauseBtn.addEventListener('click', pause);
+    reloadBtn.addEventListener('click', reloadFrame);
 
-    function forward(seconds) {
-      video.currentTime += seconds;
-    }
+    // If iframe loads successfully (onload fires), hide overlay and mark playing
+    iframe.addEventListener('load', () => {
+      // small delay so user sees the content
+      clearTimeout(loadTimer);
+      // A cross-origin iframe may still trigger load even if the site displays a refuse message inside the frame.
+      // We just assume if load event occurred it's loaded enough.
+      if(isPlaying){
+        hideOverlay();
+        setStatus('Playing (embedded)');
+        fallback.style.display = 'none';
+      } else {
+        // If load occurs while we are paused (rare), keep paused state but hide overlay
+        hideOverlay();
+        setStatus('Paused (iframe loaded)');
+      }
+    });
 
-    function rewind(seconds) {
-      video.currentTime -= seconds;
-    }
+    // initial state
+    pause(); // load nothing
 
-    function muteToggle() {
-      video.muted = !video.muted;
-    }
-
-    function goFullscreen() {
-      if (video.requestFullscreen) video.requestFullscreen();
-    }
-
-    // ✅ Init
-    loadEpisodes();
-    // Autoplay first episode
-    if (episodes.length > 0) {
-      document.querySelector('.episode-btn').classList.add('active');
-      playVideo(episodes[0].url);
-    }
+    // Accessibility: space/enter on play/pause
+    [playBtn,pauseBtn,reloadBtn].forEach(btn=>{
+      btn.addEventListener('keydown', (e)=>{
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          btn.click();
+        }
+      });
+    });
   </script>
 </body>
 </html>
