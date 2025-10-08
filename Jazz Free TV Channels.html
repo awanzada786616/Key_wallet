@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Shaheen TV Developers</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Working Video Player | Shaheen TV</title>
   
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/afterglowplayer@1/dist/afterglow.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
   <style>
-    html, body {
-      padding: 0;
+    body {
       margin: 0;
-      position: relative;
-      background: black;
+      background: #000;
+      color: #fff;
       font-family: Arial, sans-serif;
+      text-align: center;
     }
 
     .player-container {
@@ -23,57 +23,37 @@
       background: #111;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
     }
 
-    .video-wrapper {
-      position: relative;
-      padding-top: 56.25%; /* 16:9 */
-    }
-
-    .afterglow {
-      position: absolute;
-      top: 0;
-      left: 0;
+    video {
       width: 100%;
-      height: 100%;
+      height: auto;
+      background: black;
     }
 
     .controls {
-      background: rgba(0,0,0,0.7);
-      padding: 10px;
+      padding: 15px;
       display: flex;
       justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
       gap: 10px;
+      background: rgba(0, 0, 0, 0.7);
     }
 
-    .button-controls {
-      background: rgba(255,255,255,0.2);
+    .controls button {
+      background: #222;
       color: white;
       border: none;
       border-radius: 4px;
       padding: 8px 12px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: background 0.3s;
       font-size: 14px;
     }
 
-    .button-controls:hover {
-      background: rgba(255,255,255,0.4);
-    }
-
-    .button-controls i {
-      margin-right: 5px;
-    }
-
-    .title {
-      text-align: center;
-      color: white;
-      margin: 20px 0;
-      font-size: 24px;
-      letter-spacing: 1px;
+    .controls button:hover {
+      background: #444;
     }
 
     .episode-list {
@@ -82,7 +62,7 @@
       gap: 10px;
       padding: 20px;
       max-width: 800px;
-      margin: 0 auto 50px;
+      margin: 0 auto;
     }
 
     .episode-btn {
@@ -93,195 +73,112 @@
       border-radius: 4px;
       cursor: pointer;
       transition: all 0.3s;
-      text-align: center;
     }
 
     .episode-btn:hover {
       background: #333;
-      border-color: #666;
     }
 
     .episode-btn.active {
       background: #4ba1d6;
-      border-color: white;
       font-weight: bold;
     }
 
-    /* Countdown styles */
-    .countdown-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      font-size: 5em;
-      color: white;
-      font-weight: bold;
-      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    h2 {
+      color: #fff;
+      margin-top: 30px;
     }
   </style>
 </head>
 
 <body>
-  <iframe id="hiddenFrame" style="display: none;"></iframe>
-
   <div class="player-container">
-    <div class="video-wrapper">
-      <video 
-        class="afterglow" 
-        id="videoplayer" 
-        poster="https://bit.ly/Shaheen-TV-Img" 
-        title="Shaheen TV Developers Player" 
-        width="16" 
-        height="9" 
-        data-autoresize="fit" 
-        src="">
-      </video>
-      <div id="countdownOverlay" class="countdown-overlay" style="display: none;"></div>
-    </div>
+    <video id="videoPlayer" controls poster="https://bit.ly/Shaheen-TV-Img"></video>
 
     <div class="controls">
-      <button class="button-controls" onclick="rwd15svideoplayer()">
-        <i class="fas fa-fast-backward"></i>15s
-      </button>
-      <button class="button-controls" onclick="rwd5svideoplayer()">
-        <i class="fas fa-step-backward"></i>5s
-      </button>
-      <button class="button-controls" onclick="playPausevideoplayer()">
-        <i class="fas fa-play" id="playPauseIcon"></i>
-      </button>
-      <button class="button-controls" onclick="afterglow.getPlayer('videoplayer').requestFullscreen()">
-        <i class="fas fa-expand"></i>
-      </button>
-      <button class="button-controls" onclick="fwd5svideoplayer()">
-        5s<i class="fas fa-step-forward"></i>
-      </button>
-      <button class="button-controls" onclick="fwd15svideoplayer()">
-        15s<i class="fas fa-fast-forward"></i>
-      </button>
-      <button class="button-controls" onclick="setVolume(0.5)">
-        <i class="fas fa-volume-up"></i>
-      </button>
-      <button class="button-controls" onclick="muteUnmute()">
-        <i class="fas fa-volume-mute" id="muteIcon" style="display:none;"></i>
-        <i class="fas fa-volume-off" id="unmuteIcon"></i>
-      </button>
+      <button onclick="rewind(10)"><i class="fas fa-backward"></i> 10s</button>
+      <button onclick="playPause()"><i class="fas fa-play" id="playIcon"></i> / <i class="fas fa-pause"></i></button>
+      <button onclick="forward(10)">10s <i class="fas fa-forward"></i></button>
+      <button onclick="muteToggle()"><i class="fas fa-volume-up"></i> / <i class="fas fa-volume-mute"></i></button>
+      <button onclick="goFullscreen()"><i class="fas fa-expand"></i></button>
     </div>
   </div>
 
-  <h2 class="title">Episodes</h2>
-
+  <h2>Episodes</h2>
   <div class="episode-list" id="episodeList"></div>
 
   <script>
-    // Player controls
-    var videoplayer = document.getElementById("videoplayer");
-    var playPauseIcon = document.getElementById("playPauseIcon");
-    var muteIcon = document.getElementById("muteIcon");
-    var unmuteIcon = document.getElementById("unmuteIcon");
-    var countdownOverlay = document.getElementById("countdownOverlay");
-
-    // Update play/pause icons
-    videoplayer.addEventListener('play', function() {
-      playPauseIcon.classList.remove('fa-play');
-      playPauseIcon.classList.add('fa-pause');
-    });
-
-    videoplayer.addEventListener('pause', function() {
-      playPauseIcon.classList.remove('fa-pause');
-      playPauseIcon.classList.add('fa-play');
-    });
-
-    function playPausevideoplayer() {
-      if (videoplayer.paused) videoplayer.play();
-      else videoplayer.pause();
-    }
-
-    function rwd5svideoplayer() { videoplayer.currentTime = Math.max(0, videoplayer.currentTime - 5); }
-    function fwd5svideoplayer() { videoplayer.currentTime = Math.min(videoplayer.duration, videoplayer.currentTime + 5); }
-    function rwd15svideoplayer() { videoplayer.currentTime = Math.max(0, videoplayer.currentTime - 15); }
-    function fwd15svideoplayer() { videoplayer.currentTime = Math.min(videoplayer.duration, videoplayer.currentTime + 15); }
-
-    function muteUnmute() {
-      if (videoplayer.muted) {
-        videoplayer.muted = false;
-        muteIcon.style.display = 'none';
-        unmuteIcon.style.display = 'inline';
-      } else {
-        videoplayer.muted = true;
-        muteIcon.style.display = 'inline';
-        unmuteIcon.style.display = 'none';
-      }
-    }
-
-    function setVolume(volume) {
-      videoplayer.volume = volume;
-    }
-
-    // Countdown function
-    function startCountdown(seconds, callback) {
-      countdownOverlay.style.display = 'flex';
-      let counter = seconds;
-      countdownOverlay.textContent = counter;
-      const interval = setInterval(() => {
-        counter--;
-        countdownOverlay.textContent = counter;
-        if (counter <= 0) {
-          clearInterval(interval);
-          countdownOverlay.style.display = 'none';
-          if (typeof callback === 'function') callback();
-        }
-      }, 1000);
-    }
-
-    // Episode loading
+    const video = document.getElementById('videoPlayer');
+    const playIcon = document.getElementById('playIcon');
     const episodeList = document.getElementById('episodeList');
+
+    // ✅ Add your episodes here
     const episodes = [
-      { id: 1, title: 'Episode 1', url: 'https://teraboxshare.com/s/1_-NxV5b96swc7QsS5PWpxA' }
+      { title: "Sample MP4", url: "https://www.w3schools.com/html/mov_bbb.mp4" },
+      // You can also use m3u8:
+      // { title: "Sample M3U8", url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" }
     ];
 
+    // ✅ Load episodes dynamically
     function loadEpisodes() {
       episodeList.innerHTML = '';
-      episodes.forEach(episode => {
-        const episodeBtn = document.createElement('button');
-        episodeBtn.className = 'episode-btn';
-        episodeBtn.textContent = episode.title;
+      episodes.forEach((ep, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'episode-btn';
+        btn.textContent = ep.title;
 
-        episodeBtn.onclick = function() {
-          const parts = episode.url.split('/');
-          let currentId = parts[parts.length - 1];
-          currentId = currentId.replace(/^\d+/, '');
-
-          const iframe = document.getElementById("hiddenFrame");
-          iframe.src = "https://mdiskplay.com/terabox/" + currentId;
-
-          startCountdown(5, function() {
-            const player = afterglow.getPlayer('videoplayer');
-            const videoSrc = "https://video.mdiskplay.com/" + currentId + ".m3u8";
-            player.src({ type: 'application/x-mpegURL', src: videoSrc });
-            player.currentTime(0);
-            player.play();
-          });
-
-          document.querySelectorAll('.episode-btn').forEach(btn => btn.classList.remove('active'));
-          this.classList.add('active');
+        btn.onclick = function() {
+          document.querySelectorAll('.episode-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          playVideo(ep.url);
         };
 
-        episodeList.appendChild(episodeBtn);
+        episodeList.appendChild(btn);
       });
     }
 
-    window.onload = function() {
-      loadEpisodes();
-      if (episodes.length > 0) {
-        document.querySelector('.episode-btn').classList.add('active');
+    // ✅ Video Player Controls
+    function playVideo(url) {
+      if (Hls.isSupported() && url.endsWith('.m3u8')) {
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+          video.play();
+        });
+      } else {
+        video.src = url;
+        video.play();
       }
-    };
+    }
+
+    function playPause() {
+      if (video.paused) video.play(); else video.pause();
+    }
+
+    function forward(seconds) {
+      video.currentTime += seconds;
+    }
+
+    function rewind(seconds) {
+      video.currentTime -= seconds;
+    }
+
+    function muteToggle() {
+      video.muted = !video.muted;
+    }
+
+    function goFullscreen() {
+      if (video.requestFullscreen) video.requestFullscreen();
+    }
+
+    // ✅ Init
+    loadEpisodes();
+    // Autoplay first episode
+    if (episodes.length > 0) {
+      document.querySelector('.episode-btn').classList.add('active');
+      playVideo(episodes[0].url);
+    }
   </script>
 </body>
 </html>
