@@ -1,257 +1,430 @@
 <!doctype html>
-<html lang="ur">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Iframe Player — Play / Pause</title>
-
-  <!-- Font Awesome (icons) -->
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-p1CmK4X2X/4z2k1q5Z0k3Kwl0QZlKq2qg1k6B8YxH1m9ZV+e5x1P1vU6q3h2b9Y7K3E6Q9q1Yq2xKq2YQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <title>Auto-fetch Live TV Grid</title>
   <style>
-    /* Simple, clean UI */
-    :root{
-      --bg: #0f1724;
-      --card: #0b1220;
-      --accent: #06b6d4;
-      --muted: #94a3b8;
-      --radius: 12px;
-    }
-    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-    body{
-      background: linear-gradient(180deg,#071021 0%, #07192a 100%);
-      color:#e6eef6;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-      box-sizing:border-box;
-    }
-
-    .player-card{
-      width:100%;
-      max-width:980px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.04);
-      border-radius:var(--radius);
-      padding:14px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-    }
-
-    .frame-wrap{
-      position:relative;
-      border-radius:10px;
-      overflow:hidden;
-      background:#000;
-      min-height:420px;
-    }
-
-    iframe{
-      width:100%;
-      height:520px;
-      border:0;
-      display:block;
-      background: #000;
-      min-height:420px;
-    }
-
-    .controls{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      margin-top:12px;
-    }
-
-    .btn{
-      appearance:none;border:0;padding:10px 14px;border-radius:10px;
-      cursor:pointer;font-size:18px;
-      display:inline-flex;align-items:center;gap:8px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      color:var(--accent);
-      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
-    }
-    .btn.secondary{ color:var(--muted); font-size:15px; padding:9px 12px; }
-    .status{
-      margin-left:auto;color:var(--muted); font-size:14px;
-    }
-
-    .overlay {
-      position:absolute; inset:0; display:flex;align-items:center;justify-content:center;
-      background: linear-gradient(to bottom, rgba(2,6,23,0.5), rgba(2,6,23,0.65));
-      color:#fff; font-size:16px; text-align:center; padding:18px;
-      backdrop-filter: blur(2px);
-    }
-
-    .hidden{ display:none; }
-    .hint{ color:var(--muted); font-size:13px; margin-top:8px; }
-    /* small screens */
-    @media (max-width:600px){
-      iframe{height:360px;}
-    }
+    :root { --bg:#f6f7fb; --card:#fff; --muted:#6b7280; --accent:#0b76ff; }
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;background:var(--bg);color:#111}
+    header{display:flex;align-items:center;gap:12px;padding:16px}
+    h1{margin:0;font-size:18px}
+    .controls{margin-left:auto;display:flex;gap:8px;align-items:center}
+    .btn{background:var(--card);border:1px solid #e5e7eb;padding:8px 10px;border-radius:8px;cursor:pointer}
+    .status{font-size:13px;color:var(--muted);margin-left:8px}
+    main{padding:16px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+    .card{background:var(--card);padding:10px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+    .thumb{width:100%;height:120px;object-fit:cover;border-radius:6px;background:#eee}
+    .title{font-weight:600;margin-top:8px}
+    .meta{font-size:12px;color:var(--muted);margin-top:6px}
+    .small{font-size:12px;color:var(--muted)}
+    #playerModal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:60}
+    .playerCard{width:92%;max-width:900px;background:#000;border-radius:12px;padding:10px}
+    .closeBtn{position:absolute;right:20px;top:18px;background:#fff;border-radius:999px;padding:6px 10px;cursor:pointer}
+    video{width:100%;height:520px;background:#000;border-radius:8px}
+    .log{margin-top:12px;font-size:13px;color:var(--muted)}
+    .adapter{font-size:12px;color:#374151;padding:6px 8px;border-radius:6px;background:#f3f4f6;margin-bottom:8px}
+    pre{white-space:pre-wrap;font-size:12px;color:#111;background:#fff;padding:8px;border-radius:6px;border:1px solid #eee}
   </style>
+
+  <!-- hls.js CDN for .m3u8 playback -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.1/dist/hls.min.js"></script>
 </head>
 <body>
-  <div class="player-card" role="region" aria-label="Iframe player with play/pause">
-    <h3 style="margin:0 0 8px 0;font-weight:600;">Embedded Link Player</h3>
-    <div class="frame-wrap" id="frameWrap">
-      <!-- IFRAME: start without src (paused state) -->
-      <iframe id="playerFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" src="about:blank" title="Embedded content"></iframe>
+  <header>
+    <h1>Multi-source Live TV — Auto Fetch</h1>
+    <div class="controls">
+      <button id="refreshBtn" class="btn">Refresh Now</button>
+      <select id="intervalSel" class="btn" title="Auto refresh interval">
+        <option value="0">Auto off</option>
+        <option value="300000">Every 5m</option>
+        <option value="600000">Every 10m</option>
+        <option value="1800000">Every 30m</option>
+      </select>
+      <span id="lastRun" class="status">Last: Never</span>
+    </div>
+  </header>
 
-      <!-- overlay shown while loading / if blocked -->
-      <div id="overlay" class="overlay">
-        <div>
-          <div id="overlayText">Press play to load the link.</div>
-          <div class="hint" style="margin-top:8px;">Note: agar site iframe allow nahi karti to yahan blank ya error aa sakta hai — neeche fallback message dekhain.</div>
-        </div>
+  <main>
+    <section>
+      <div id="adaptersInfo" class="adapter">
+        Trying these sources (best-effort):<br>
+        • https://jazztv.pk/alpha/api_gateway/index.php/media/live-tv (POST→GET) <br>
+        • https://jazztv.pk/alpha/api_gateway/index.php/media/genre-programs-carousal (POST→GET) <br>
+        • https://canvas.tamashaweb.com (try GET; may be blocked) <br>
+        • https://hamaro-tv-lite-default-rtdb.firebaseio.com/.json (Firebase .json)
       </div>
-    </div>
 
-    <div class="controls" style="margin-top:12px;">
-      <button id="playBtn" class="btn" aria-pressed="false" title="Play">
-        <i class="fa-solid fa-play"></i> Play
-      </button>
+      <div id="logs" class="log"></div>
+    </section>
 
-      <button id="pauseBtn" class="btn secondary" aria-pressed="true" title="Pause">
-        <i class="fa-solid fa-pause"></i> Pause
-      </button>
+    <section style="margin-top:12px">
+      <div id="grid" class="grid"></div>
+    </section>
 
-      <button id="reloadBtn" class="btn secondary" title="Reload">
-        <i class="fa-solid fa-arrows-rotate"></i> Reload
-      </button>
+    <section style="margin-top:16px">
+      <div class="small">If some sources return 403/405/CORS errors: use a simple server-side proxy (example node snippet provided at bottom of this page).</div>
+    </section>
 
-      <div class="status" id="statusText">Status: Paused</div>
-    </div>
+    <section style="margin-top:16px">
+      <details>
+        <summary style="cursor:pointer;padding:8px;background:#fff;border-radius:8px">Developer / debug output</summary>
+        <div style="padding:8px">
+          <div id="debug" style="font-size:12px;color:#111"></div>
+        </div>
+      </details>
+    </section>
 
-    <div id="fallback" class="hint" style="display:none; margin-top:10px; color:#ffcccb;">
-      Fallback: Yeh site iframe mein embed hone se rok sakti hai. Agar aapko content dikhna zaroori hai to direct link kholen: <a id="directLink" href="#" target="_blank" rel="noopener noreferrer" style="color: #9be7ff;">Open in new tab</a>
+    <section style="margin-top:16px">
+      <details>
+        <summary style="cursor:pointer;padding:8px;background:#fff;border-radius:8px">Node proxy example (use if CORS or keys are required)</summary>
+        <pre>
+# Save as proxy.js and run: node proxy.js
+const express = require('express');
+const fetch = (...args) => import('node-fetch').then(m => m.default(...args));
+const app = express();
+app.use(express.json());
+app.all('/proxy', async (req,res) => {
+  const target = req.query.url;
+  if(!target) return res.status(400).send('url required');
+  const method = req.method;
+  const headers = Object.assign({}, req.headers);
+  // remove host-related headers
+  delete headers.host;
+  try {
+    const r = await fetch(target, { method, headers, body: JSON.stringify(req.body) });
+    const text = await r.text();
+    res.status(r.status).send(text);
+  } catch(e){
+    res.status(500).send(String(e));
+  }
+});
+app.listen(4000,()=>console.log('proxy 4000'));
+        </pre>
+      </details>
+    </section>
+  </main>
+
+  <!-- Player modal -->
+  <div id="playerModal">
+    <div class="playerCard">
+      <button id="closePlayer" class="closeBtn">Close</button>
+      <video id="player" controls playsinline></video>
     </div>
   </div>
 
-  <script>
-    // -------------------------
-    // Configuration (change only this line)
-    // -------------------------
-    const TARGET_URL = "https://1024terabox.com/s/1rnKipGT63Eb5Jz7Bq6NOYw";
-    // -------------------------
+<script>
+/*
+  Best-effort fetcher for the 4 given endpoints.
+  - Tries POST then GET for JazzTV endpoints (405 often means POST expected).
+  - Appends /.json for Firebase base URL.
+  - Attempts canvas.tamashaweb.com with GET (likely blocked).
+  - Dedupes channels by id or title.
+  - Supports embedded HLS playback via hls.js for m3u8 links.
+*/
 
-    const iframe = document.getElementById('playerFrame');
-    const playBtn = document.getElementById('playBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
-    const reloadBtn = document.getElementById('reloadBtn');
-    const overlay = document.getElementById('overlay');
-    const overlayText = document.getElementById('overlayText');
-    const statusText = document.getElementById('statusText');
-    const fallback = document.getElementById('fallback');
-    const directLink = document.getElementById('directLink');
-
-    directLink.href = TARGET_URL;
-    directLink.textContent = TARGET_URL;
-
-    let isPlaying = false;
-    let loadTimer = null;
-
-    function setStatus(txt){
-      statusText.textContent = "Status: " + txt;
+const adapters = [
+  {
+    name: "JazzTV - live-tv",
+    url: "https://jazztv.pk/alpha/api_gateway/index.php/media/live-tv",
+    tryPost: true,
+    mapping: {
+      // fallback mapping - we'll inspect response and adapt dynamically
+      listPath: null, // unknown; we'll try to detect arrays in payload
+      idPath: "id",
+      titlePath: "title",
+      streamPath: "stream_url",
+      thumbPath: "thumbnail",
+      livePath: "is_live"
     }
-
-    function showOverlay(msg){
-      overlay.classList.remove('hidden');
-      overlayText.textContent = msg;
+  },
+  {
+    name: "JazzTV - genre-programs-carousal",
+    url: "https://jazztv.pk/alpha/api_gateway/index.php/media/genre-programs-carousal",
+    tryPost: true,
+    mapping: {}
+  },
+  {
+    name: "Tamasha - canvas",
+    url: "https://canvas.tamashaweb.com",
+    tryPost: false,
+    mapping: {}
+  },
+  {
+    name: "Hamaro Firebase",
+    url: "https://hamaro-tv-lite-default-rtdb.firebaseio.com/.json", // explicit .json
+    tryPost: false,
+    mapping: {
+      listPath: null // will try to find 'channels' or root object list
     }
-    function hideOverlay(){
-      overlay.classList.add('hidden');
-    }
+  }
+];
 
-    // Play: set iframe src (load)
-    function play(){
-      if(isPlaying) return;
-      isPlaying = true;
-      playBtn.setAttribute('aria-pressed','true');
-      pauseBtn.setAttribute('aria-pressed','false');
-      setStatus('Loading...');
-      showOverlay('Loading content — please wait...');
-      // set src to start loading
-      iframe.src = TARGET_URL;
+const grid = document.getElementById('grid');
+const logs = document.getElementById('logs');
+const debug = document.getElementById('debug');
+const refreshBtn = document.getElementById('refreshBtn');
+const lastRunEl = document.getElementById('lastRun');
+const intervalSel = document.getElementById('intervalSel');
 
-      // We can't read iframe's cross-origin content to detect X-Frame-Options.
-      // But we can use onload + a timeout: if onload fires we assume success; if timeout reached, show fallback.
-      clearTimeout(loadTimer);
-      loadTimer = setTimeout(() => {
-        // if still loading after 6s, show fallback suggestion (could be slow or blocked)
-        showOverlay('Loading is taking longer than expected. The site might prevent embedding. Try "Open in new tab".');
-        fallback.style.display = 'block';
-        setStatus('Loaded? (possible embed block)');
-      }, 6000);
-    }
+let timer = null;
 
-    // Pause: unload iframe by blanking src (this "pauses" network/activity)
-    function pause(){
-      if(!isPlaying) return;
-      isPlaying = false;
-      playBtn.setAttribute('aria-pressed','false');
-      pauseBtn.setAttribute('aria-pressed','true');
-      setStatus('Paused');
-      // remove src to stop embedded content
-      iframe.src = "about:blank";
-      hideOverlay();
-      fallback.style.display = 'none';
-      clearTimeout(loadTimer);
-    }
+function log(...args){
+  const s = args.map(a => (typeof a === 'object' ? JSON.stringify(a) : String(a))).join(' ');
+  logs.innerHTML = new Date().toLocaleTimeString() + " — " + s + "<br>" + logs.innerHTML;
+  console.log(...args);
+}
+function dbg(...args){ debug.innerText = args.map(a => (typeof a==='object'?JSON.stringify(a,null,2):String(a))).join("\n\n"); }
 
-    // Reload (re-apply src)
-    function reloadFrame(){
-      if(!isPlaying){
-        // if paused, set src but keep state paused => we'll show overlay and set playing = true
-        play();
-        return;
+async function tryFetch(adapter){
+  // Try POST with empty body (some endpoints expect POST), then GET fallback.
+  const attempts = [];
+  if(adapter.tryPost) attempts.push({method:'POST', body: {}});
+  attempts.push({method:'GET'});
+  for(const at of attempts){
+    try{
+      const opts = { method: at.method, headers: {} };
+      if(at.method === 'POST') {
+        opts.headers['Content-Type'] = 'application/json';
+        opts.body = JSON.stringify(at.body||{});
       }
-      // reload by reassigning src
-      showOverlay('Reloading...');
-      iframe.src = TARGET_URL;
-      clearTimeout(loadTimer);
-      loadTimer = setTimeout(() => {
-        showOverlay('Reload took long — site might block embedding. Try open in new tab.');
-        fallback.style.display = 'block';
-      }, 6000);
-    }
-
-    // Event listeners
-    playBtn.addEventListener('click', play);
-    pauseBtn.addEventListener('click', pause);
-    reloadBtn.addEventListener('click', reloadFrame);
-
-    // If iframe loads successfully (onload fires), hide overlay and mark playing
-    iframe.addEventListener('load', () => {
-      // small delay so user sees the content
-      clearTimeout(loadTimer);
-      // A cross-origin iframe may still trigger load even if the site displays a refuse message inside the frame.
-      // We just assume if load event occurred it's loaded enough.
-      if(isPlaying){
-        hideOverlay();
-        setStatus('Playing (embedded)');
-        fallback.style.display = 'none';
+      // NOTE: browser may block due to CORS. If blocked, fetch will throw a TypeError.
+      const res = await fetch(adapter.url, opts);
+      const contentType = res.headers.get('content-type') || '';
+      const text = await res.text();
+      // try parse JSON if possible
+      let payload = null;
+      if(contentType.includes('application/json') || text.trim().startsWith('{') || text.trim().startsWith('[')) {
+        try { payload = JSON.parse(text); } catch(e){}
+      }
+      if(!res.ok){
+        log(`${adapter.name} ${at.method} -> HTTP ${res.status}`);
+        dbg({adapter: adapter.name, method: at.method, status: res.status, text: text.slice(0,800)});
+        // continue to next attempt
       } else {
-        // If load occurs while we are paused (rare), keep paused state but hide overlay
-        hideOverlay();
-        setStatus('Paused (iframe loaded)');
+        log(`${adapter.name} ${at.method} -> OK`);
+        dbg({adapter: adapter.name, method: at.method, payloadSample: (payload && Array.isArray(payload)? payload.slice(0,3) : payload)});
+        return { ok: true, status: res.status, payload, text };
       }
-    });
+    } catch(err){
+      // network or CORS error
+      log(`${adapter.name} ${at.method} -> network/CORS error: ${err && err.message ? err.message : String(err)}`);
+      dbg({adapter: adapter.name, method: at.method, error: String(err)});
+      // continue to next attempt
+    }
+  }
+  return { ok:false };
+}
 
-    // initial state
-    pause(); // load nothing
+// utility to find array of items inside unknown payload
+function findCandidateList(obj){
+  if(!obj) return null;
+  if(Array.isArray(obj)) return obj;
+  // if object has keys that hold arrays, prefer 'data', 'channels', 'items'
+  const prefer = ['data','channels','items','results','rows'];
+  for(const p of prefer){
+    if(obj[p] && Array.isArray(obj[p])) return obj[p];
+  }
+  // fallback: find first array value
+  for(const k of Object.keys(obj)){
+    if(Array.isArray(obj[k])) return obj[k];
+  }
+  // sometimes root is object-of-objects, convert to array
+  const values = Object.values(obj);
+  if(values.length && values.every(v=>typeof v==='object' && v !== null && !Array.isArray(v))){
+    return values;
+  }
+  return null;
+}
 
-    // Accessibility: space/enter on play/pause
-    [playBtn,pauseBtn,reloadBtn].forEach(btn=>{
-      btn.addEventListener('keydown', (e)=>{
-        if(e.key === "Enter" || e.key === " "){
-          e.preventDefault();
-          btn.click();
-        }
-      });
+function getByPath(item, path){
+  if(!path) return undefined;
+  const parts = path.split('.');
+  let cur = item;
+  for(const p of parts){
+    if(cur == null) return undefined;
+    cur = cur[p];
+  }
+  return cur;
+}
+
+function normalizeItem(raw, adapterName){
+  // Attempt to pick sensible fields from raw
+  // common property names to try:
+  const tryFields = {
+    id: ['id','channel_id','cid','uid','unique_id','slug'],
+    title: ['title','name','channel_name','display_name'],
+    stream: ['stream','stream_url','url','play_url','stream_url_hd','playUrl','hls'],
+    thumb: ['thumbnail','thumb','poster','image','logo','icon'],
+    live: ['is_live','live','online','status']
+  };
+  const out = { raw, source: adapterName };
+  // find id
+  for(const k of tryFields.id){
+    if(raw[k] != null){ out.id = String(raw[k]); break; }
+  }
+  // title
+  for(const k of tryFields.title){
+    if(raw[k] != null){ out.title = raw[k]; break; }
+  }
+  // stream
+  for(const k of tryFields.stream){
+    if(raw[k] != null){ out.stream = raw[k]; break; }
+  }
+  // thumb
+  for(const k of tryFields.thumb){
+    if(raw[k] != null){ out.thumb = raw[k]; break; }
+  }
+  // live flag
+  for(const k of tryFields.live){
+    if(raw[k] != null){ out.live = raw[k]; break; }
+  }
+  // fallback defaults
+  out.title = out.title || out.id || "Untitled channel";
+  out.id = out.id || out.title;
+  out.stream = out.stream || "";
+  out.thumb = out.thumb || "";
+  out.live = !!out.live;
+  return out;
+}
+
+function renderChannels(list){
+  grid.innerHTML = '';
+  if(!list.length){
+    grid.innerHTML = '<div style="grid-column:1/-1;color:#666;padding:20px;background:#fff;border-radius:8px">No channels found (or blocked by CORS). Check debug below.</div>';
+    return;
+  }
+  list.forEach(ch=>{
+    const card = document.createElement('div'); card.className='card';
+    const img = document.createElement('img'); img.className='thumb';
+    img.alt = ch.title;
+    img.src = ch.thumb || fallbackDataUri(ch.title);
+    const title = document.createElement('div'); title.className='title'; title.textContent = ch.title;
+    const meta = document.createElement('div'); meta.className='meta'; meta.textContent = `${ch.source} ${ch.live? '• LIVE' : ''}`;
+    const btn = document.createElement('button'); btn.className='btn'; btn.textContent = 'Open';
+    btn.style.marginTop = '8px';
+    btn.onclick = ()=> openPlayerFor(ch);
+    const more = document.createElement('div'); more.className='small'; more.textContent = ch.stream || 'No stream URL';
+    card.appendChild(img); card.appendChild(title); card.appendChild(meta); card.appendChild(more); card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+
+function fallbackDataUri(text){
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#999" font-size="20">${escapeHtml(text)}</text></svg>`
+  );
+}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* Player logic */
+const modal = document.getElementById('playerModal');
+const player = document.getElementById('player');
+const closePlayer = document.getElementById('closePlayer');
+let hlsInstance = null;
+
+function openPlayerFor(ch){
+  if(!ch.stream){
+    alert('No stream URL available for this channel.');
+    return;
+  }
+  showPlayerModal();
+  playUrl(ch.stream);
+}
+
+function showPlayerModal(){ modal.style.display='flex'; document.body.style.overflow='hidden'; }
+function hidePlayerModal(){ modal.style.display='none'; document.body.style.overflow='auto'; stopPlayer(); }
+
+closePlayer.addEventListener('click', hidePlayerModal);
+modal.addEventListener('click', (e)=>{ if(e.target===modal) hidePlayerModal(); });
+
+function stopPlayer(){
+  try{
+    if(hlsInstance){ hlsInstance.destroy(); hlsInstance = null; }
+    player.pause(); player.removeAttribute('src'); player.load();
+  }catch(e){}
+}
+
+function playUrl(url){
+  stopPlayer();
+  const lower = String(url).toLowerCase();
+  if(lower.includes('.m3u8') && Hls.isSupported()){
+    hlsInstance = new Hls();
+    hlsInstance.loadSource(url);
+    hlsInstance.attachMedia(player);
+    hlsInstance.on(Hls.Events.MANIFEST_PARSED, function() {
+      player.play().catch(()=>{ /* handle autoplay blocked */ });
     });
-  </script>
+  } else if(player.canPlayType('application/vnd.apple.mpegurl') && lower.includes('.m3u8')){
+    player.src = url; player.play().catch(()=>{});
+  } else {
+    // other urls: open direct in new tab as fallback
+    window.open(url, '_blank');
+    hidePlayerModal();
+  }
+}
+
+/* Main orchestration */
+async function runFetchOnce(){
+  lastRunEl.textContent = 'Last: Fetching...';
+  log('Starting fetch of adapters...');
+  const collected = [];
+  for(const adapter of adapters){
+    log('Trying', adapter.name, adapter.url);
+    const r = await tryFetch(adapter);
+    if(!r.ok){
+      log(`${adapter.name} failed (see debug). If CORS or 405, consider using the proxy option.`);
+      continue;
+    }
+    const payload = r.payload;
+    // Find candidate list
+    let list = findCandidateList(payload);
+    if(!list){
+      // maybe payload itself is an object representing one channel or object-of-objects
+      if(payload && typeof payload === 'object'){
+        // convert to array of values if small
+        const vals = Object.values(payload);
+        if(vals.length && (typeof vals[0] === 'object')) list = vals;
+      }
+    }
+    if(!list){
+      // try to extract channels inside nested shapes (best-effort)
+      if(Array.isArray(payload)) list = payload;
+    }
+    if(!list){
+      log(adapter.name + ': no array-like content detected in JSON response (first 800 chars shown in debug).');
+      continue;
+    }
+    // convert each raw item to normalized item
+    for(const raw of list){
+      const item = normalizeItem(raw, adapter.name);
+      collected.push(item);
+    }
+  }
+
+  // dedupe by id then title
+  const byId = {};
+  for(const c of collected){
+    const key = (c.id || c.title || Math.random().toString(36).slice(2,8)).toString();
+    if(!byId[key]) byId[key] = c;
+  }
+  const finalList = Object.values(byId);
+  log('Total channels collected:', finalList.length);
+  renderChannels(finalList);
+  lastRunEl.textContent = 'Last: ' + new Date().toLocaleString();
+}
+
+/* auto-refresh */
+function scheduleInterval(ms){
+  if(timer) clearInterval(timer);
+  if(ms && ms>0) timer = setInterval(runFetchOnce, ms);
+}
+refreshBtn.addEventListener('click', runFetchOnce);
+intervalSel.addEventListener('change', e => scheduleInterval(parseInt(e.target.value,10)));
+/* initial run */
+runFetchOnce();
+
+</script>
 </body>
 </html>
